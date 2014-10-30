@@ -1,7 +1,9 @@
 package domain;
 
-public class MenuController {
+import gui.GUI;
 
+public class MenuController {
+	GUI gui = new GUI(); 
 	
 	
 	
