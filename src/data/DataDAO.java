@@ -26,9 +26,9 @@ public class DataDAO implements IDataDAO {
 				"Der kunne ikke oprettes forbindelse til databasen");
 	}
 	Connector.doUpdate("INSERT INTO Company VALUES (" 
-			+ Company.getCompanyName() + "," + Company.getMainCode() + "," 
-			+ Company.getCompanyAdress() + "," + Company.getCompanyTlf() + "," 
-			+ Company.getCEO() + "," + Company.getCFO() +
+			+ CompanyDTO.getCompanyName() + "," + CompanyDTO.getBranchCode() + "," 
+			+ CompanyDTO.getCompanyAddress() + "," + CompanyDTO.getCompanyPhone() + "," 
+			+ CompanyDTO.getCEO() + "," + CompanyDTO.getCFO() +
 			"');" );
 	Connector.closeConnection();
 		}
@@ -36,6 +36,7 @@ public class DataDAO implements IDataDAO {
 
 	@Override
 	public void updateCompany(CompanyDTO company) {
+		throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -43,14 +44,14 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("UPDATE Company " + "SET" + " companyName = '"
-				+ Company.getCompanyName() + "', MainCode = '"
-				+ Company.getMainCode() + "', CompanyAdress = '"
-				+ Company.getCompanyAdress() + "', CompanyTlf = '"
-				+ Company.getCompanyTlf() + "', CEO = '" + Company.getCEO()
-				+ "', CFO = '" + Company.getCFO() + "' WHERE companyName = "
-				+ Company.getCompanyName() + ";");
+				+ CompanyDTO.getCompanyName() + "', BanchCode = '"
+				+ CompanyDTO.getBranchCode() + "', CompanyAdress = '"
+				+ CompanyDTO.getCompanyAddress() + "', CompanyTlf = '"
+				+ CompanyDTO.getCompanyPhone() + "', CEO = '" + CompanyDTO.getCEO()
+				+ "', CFO = '" + CompanyDTO.getCFO() + "' WHERE companyName = "
+				+ CompanyDTO.getCompanyName() + ";");
 		Connector.closeConnection();
-
+		}
 	}
 
 	@Override
