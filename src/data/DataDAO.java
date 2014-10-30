@@ -4,10 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import admin.data.CommodityDTO;
-import admin.data.Connector;
-import admin.data.DALException;
+import data.Connector;
+import data.DALException;
 import domain.BranchDTO;
 import domain.CandidateDTO;
 import domain.CaseDTO;
