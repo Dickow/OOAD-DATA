@@ -20,7 +20,7 @@ public class CompanyDTO {
 		
 	}
 
-	public static String getCompanyName() {
+	public String getCompanyName() {
 		return companyName;
 	}
 	
@@ -28,7 +28,7 @@ public class CompanyDTO {
 		CompanyDTO.companyName = companyName;
 	}
 
-	public static String getBranchCode() {
+	public String getBranchCode() {
 		return branchCode;
 	}
 
@@ -36,7 +36,7 @@ public class CompanyDTO {
 		CompanyDTO.branchCode = branchCode;
 	}
 
-	public static String getCompanyAddress() {
+	public String getCompanyAddress() {
 		return companyAddress;
 	}
 
@@ -44,7 +44,7 @@ public class CompanyDTO {
 		CompanyDTO.companyAddress = companyAddress;
 	}
 
-	public static String getCompanyPhone() {
+	public String getCompanyPhone() {
 		return companyPhone;
 	}
 
@@ -52,7 +52,7 @@ public class CompanyDTO {
 		CompanyDTO.companyPhone = companyPhone;
 	}
 
-	public static String getCEO() {
+	public String getCEO() {
 		return CEO;
 	}
 
@@ -60,7 +60,7 @@ public class CompanyDTO {
 		CEO = cEO;
 	}
 
-	public static String getCFO() {
+	public String getCFO() {
 		return CFO;
 	}
 

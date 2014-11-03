@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import data.Connector;
 import data.DALException;
 import domain.BranchDTO;
@@ -26,11 +25,11 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO Company VALUES ("
-				+ CompanyDTO.getCompanyName() + ","
-				+ CompanyDTO.getBranchCode() + ","
-				+ CompanyDTO.getCompanyAddress() + ","
-				+ CompanyDTO.getCompanyPhone() + "," + CompanyDTO.getCEO()
-				+ "," + CompanyDTO.getCFO() + "');");
+				+ company.getCompanyName() + ","
+				+ company.getBranchCode() + ","
+				+ company.getCompanyAddress() + ","
+				+ company.getCompanyPhone() + "," + company.getCEO()
+				+ "," + company.getCFO() + "');");
 		Connector.closeConnection();
 	}
 
@@ -43,29 +42,32 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("UPDATE Company " + "SET" + " companyName = '"
-				+ CompanyDTO.getCompanyName() + "', BanchCode = '"
-				+ CompanyDTO.getBranchCode() + "', CompanyAdress = '"
-				+ CompanyDTO.getCompanyAddress() + "', CompanyTlf = '"
-				+ CompanyDTO.getCompanyPhone() + "', CEO = '"
-				+ CompanyDTO.getCEO() + "', CFO = '" + CompanyDTO.getCFO()
-				+ "' WHERE companyName = " + CompanyDTO.getCompanyName() + ";");
+				+ company.getCompanyName() + "', BanchCode = '" + company.getBranchCode()
+				+ "', CompanyAdress = '" + company.getCompanyAddress() + "', CompanyTlf = '"
+				+ company.getCompanyPhone() + "', CEO = '" + company.getCEO() + "', CFO = '" + company.getCFO()
+				+ "' WHERE companyName = " + company.getCompanyName() + ";");
 		Connector.closeConnection();
 	}
 
 	@Override
-	public CompanyDTO findCompany(String companyName) {
+	public CompanyDTO findCompany(String companyName) throws DALException {
 
 		return null;
 	}
 
 	@Override
 	public List<CompanyDTO> findCompanies(BranchDTO branch) throws DALException {
-		
-			try {
-				Connector.connect();
-			
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
 		List<CompanyDTO> list = new ArrayList<CompanyDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Company;");
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Company WHERE BrancheCode = " + branch);
 		Connector.closeConnection();
 		try {
 			while (rs.next()) {
@@ -79,13 +81,9 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der skete en fejl i Commodity i metoden getComList()"
 							+ e.getMessage());
-		
-		
 		}
 		return list;
-		}
-		
-	
+	}
 
 	@Override
 	public PersonDTO findPerson(int id) {
