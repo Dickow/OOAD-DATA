@@ -1,8 +1,5 @@
 package data;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import data.Connector;
 import data.DALException;
@@ -17,26 +14,24 @@ import domain.PersonDTO;
 public class DataDAO implements IDataDAO {
 
 	@Override
-	public void createCompany(CompanyDTO company) {
-		throws DALException {
-	try {
-		Connector.connect();
-	} catch (Exception e1) {
-		throw new DALException(
-				"Der kunne ikke oprettes forbindelse til databasen");
-	}
-	Connector.doUpdate("INSERT INTO Company VALUES (" 
-			+ CompanyDTO.getCompanyName() + "," + CompanyDTO.getBranchCode() + "," 
-			+ CompanyDTO.getCompanyAddress() + "," + CompanyDTO.getCompanyPhone() + "," 
-			+ CompanyDTO.getCEO() + "," + CompanyDTO.getCFO() +
-			"');" );
-	Connector.closeConnection();
+	public void createCompany(CompanyDTO company) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
+		Connector.doUpdate("INSERT INTO Company VALUES ("
+				+ CompanyDTO.getCompanyName() + ","
+				+ CompanyDTO.getBranchCode() + ","
+				+ CompanyDTO.getCompanyAddress() + ","
+				+ CompanyDTO.getCompanyPhone() + "," + CompanyDTO.getCEO()
+				+ "," + CompanyDTO.getCFO() + "');");
+		Connector.closeConnection();
 	}
 
 	@Override
-	public void updateCompany(CompanyDTO company) {
-		throws DALException {
+	public void updateCompany(CompanyDTO company) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -47,11 +42,10 @@ public class DataDAO implements IDataDAO {
 				+ CompanyDTO.getCompanyName() + "', BanchCode = '"
 				+ CompanyDTO.getBranchCode() + "', CompanyAdress = '"
 				+ CompanyDTO.getCompanyAddress() + "', CompanyTlf = '"
-				+ CompanyDTO.getCompanyPhone() + "', CEO = '" + CompanyDTO.getCEO()
-				+ "', CFO = '" + CompanyDTO.getCFO() + "' WHERE companyName = "
-				+ CompanyDTO.getCompanyName() + ";");
+				+ CompanyDTO.getCompanyPhone() + "', CEO = '"
+				+ CompanyDTO.getCEO() + "', CFO = '" + CompanyDTO.getCFO()
+				+ "' WHERE companyName = " + CompanyDTO.getCompanyName() + ";");
 		Connector.closeConnection();
-		}
 	}
 
 	@Override
@@ -62,7 +56,8 @@ public class DataDAO implements IDataDAO {
 
 	@Override
 	public List<CompanyDTO> findCompanies(BranchDTO branch) {
-		
+
+		return null;
 	}
 
 	@Override
