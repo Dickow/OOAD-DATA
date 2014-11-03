@@ -25,11 +25,10 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO Company VALUES ("
-				+ company.getCompanyName() + ","
-				+ company.getBranchCode() + ","
-				+ company.getCompanyAddress() + ","
-				+ company.getCompanyPhone() + "," + company.getCEO()
-				+ "," + company.getCFO() + "');");
+				+ company.getCompanyName() + "," + company.getBranchCode()
+				+ "," + company.getCompanyAddress() + ","
+				+ company.getCompanyPhone() + "," + company.getCEO() + ","
+				+ company.getCFO() + "');");
 		Connector.closeConnection();
 	}
 
@@ -42,17 +41,42 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("UPDATE Company " + "SET" + " companyName = '"
-				+ company.getCompanyName() + "', BanchCode = '" + company.getBranchCode()
-				+ "', CompanyAdress = '" + company.getCompanyAddress() + "', CompanyTlf = '"
-				+ company.getCompanyPhone() + "', CEO = '" + company.getCEO() + "', CFO = '" + company.getCFO()
-				+ "' WHERE companyName = " + company.getCompanyName() + ";");
+				+ company.getCompanyName() + "', BanchCode = '"
+				+ company.getBranchCode() + "', CompanyAdress = '"
+				+ company.getCompanyAddress() + "', CompanyTlf = '"
+				+ company.getCompanyPhone() + "', CEO = '" + company.getCEO()
+				+ "', CFO = '" + company.getCFO() + "' WHERE companyName = "
+				+ company.getCompanyName() + ";");
 		Connector.closeConnection();
 	}
 
 	@Override
 	public CompanyDTO findCompany(String companyName) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM company WHERE companyName = "
+						+ companyName + ";");
+		Connector.closeConnection();
 
-		return null;
+		try {
+			if (!rs.first()) {
+				throw new DALException("the commodity with the id = "
+						+ companyName + " does not exist");
+			}
+			return new CompanyDTO(rs.getString("companyNAme"),
+					rs.getString("branchCode"), rs.getString("companyAddress"),
+					rs.getString("companyPhone"), rs.getString("CEO"),
+					rs.getString("CFO"));
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i Commodity i metoden getCommodity()"
+							+ e.getMessage());
+		}
 	}
 
 	@Override
