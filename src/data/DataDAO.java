@@ -164,8 +164,27 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void updatePerson(PersonDTO person) {
-		// TODO Auto-generated method stub
+	public void updatePerson(PersonDTO person) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE Person " + "SET" + " " + "name = '"
+				+ person.getName() + "', address = '" + person.getAddress()
+				+ "', education = '" + person.getAddress()
+				+ "', currentJob = '" + person.getCurrentJob()
+				+ "', personPhone = '" + person.getPersonPhone()
+				+ "', companyMail = '" + person.getCompanyMail()
+				+ "', privateMail = '" + person.getPrivateMail()
+				+ "', personCell = '" + person.getPersonCell() + "', note = '"
+				+ person.getNote() + "', id = '" + person.getId()
+				+ "', age = '" + person.getAge() + ", salary = "
+				+ person.getSalary() +
+
+				"' WHERE name = " + person.getName() + ";");
+		Connector.closeConnection();
 
 	}
 
