@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import domain.BranchDTO;
@@ -20,9 +21,9 @@ public interface IDataDAO {
 
 	public List<CompanyDTO> findCompanies(BranchDTO branch) throws DALException;
 
-	public PersonDTO findPerson(int id) throws DALException;
+	public PersonDTO findPerson(int id) throws DALException, SQLException;
 
-	public List<PersonDTO> findPersons(String name) throws DALException;
+	public List<PersonDTO> findPersons(String name) throws DALException, SQLException;
 
 	public List<PersonDTO> findPersons(PersonDTO person) throws DALException;
 
