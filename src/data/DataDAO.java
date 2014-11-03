@@ -1,6 +1,10 @@
 package data;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
 import data.Connector;
 import data.DALException;
 import domain.BranchDTO;
@@ -50,15 +54,38 @@ public class DataDAO implements IDataDAO {
 
 	@Override
 	public CompanyDTO findCompany(String companyName) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
-	public List<CompanyDTO> findCompanies(BranchDTO branch) {
-
-		return null;
-	}
+	public List<CompanyDTO> findCompanies(BranchDTO branch) throws DALException {
+		
+			try {
+				Connector.connect();
+			
+		List<CompanyDTO> list = new ArrayList<CompanyDTO>();
+		ResultSet rs = Connector.doQuery("SELECT * FROM Company;");
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new CompanyDTO(rs.getString("CompanyName"), rs
+						.getString("BranchCode"), rs
+						.getString("companyAddress"), rs
+						.getString("companyPhone"), rs.getString("CEO"), rs
+						.getString("CFO")));
+			}
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i Commodity i metoden getComList()"
+							+ e.getMessage());
+		
+		
+		}
+		return list;
+		}
+		
+	
 
 	@Override
 	public PersonDTO findPerson(int id) {

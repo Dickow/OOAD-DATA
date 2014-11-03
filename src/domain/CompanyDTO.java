@@ -8,8 +8,18 @@ public class CompanyDTO {
 	private static String companyPhone;
 	private static String CEO;
 	private static String CFO;
-	
-	
+
+	public CompanyDTO(String CampanyName, String BranchCode, String CompanyAddress,
+			String CompanyPhone, String CEO, String CFO) {
+		setCompanyName(CampanyName);
+		setCompanyAddress(CompanyAddress);
+		setCompanyPhone(CompanyPhone);
+		setBranchCode(BranchCode);
+		setCEO(CEO);
+		setCFO(CFO);
+		
+	}
+
 	public static String getCompanyName() {
 		return companyName;
 	}
