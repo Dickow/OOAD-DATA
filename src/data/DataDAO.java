@@ -480,7 +480,9 @@ public class DataDAO implements IDataDAO {
 				.doQuery("SELECT * FROM Contactperson WHERE Casename = "
 						+ caseName);
 		Connector.closeConnection();
-
+		if(!rs.next()){
+			throw new DALException("Der er ikke nogen kontaktperson på sagen:" + caseName);
+		}
 		while (rs.next()) {
 			list.add(new ContactPersonDTO(rs.getString("caseName"), rs
 					.getString("name"), rs.getString("email"), rs
@@ -494,12 +496,6 @@ public class DataDAO implements IDataDAO {
 	public boolean loginExists(String[] loginInfo) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
