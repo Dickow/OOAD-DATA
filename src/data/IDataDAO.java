@@ -16,13 +16,10 @@ public interface IDataDAO {
 	
 	// PersonPjLa
 	
-	public List<PersonPjLaDTO> findPersonPreviousJobs(int id) throws DALException; 
+	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
+	SQLException;
 	
-	public List<PersonPjLaDTO> findPersonLanguage(int id) throws DALException;
-	
-	public void updatePersonPj(PersonPjLaDTO personPj) throws DALException;
-	
-	public void updatePersonLa(PersonPjLaDTO personLa) throws DALException;
+	public void createPersonPjLa(PersonPjLaDTO personpjlaDTO) throws DALException;
 	
 	// Company
 
@@ -89,10 +86,5 @@ public interface IDataDAO {
 	// login
 
 	public boolean loginExists(String[] loginInfo) throws DALException;
-
-	// PersonPjLa
-	
-	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
-			SQLException;
 
 }

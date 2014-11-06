@@ -501,37 +501,6 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void updatePersonPj(PersonPjLaDTO personPj) throws DALException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updatePersonLa(PersonPjLaDTO personLa) throws DALException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<PersonPjLaDTO> findPersonPreviousJobs(int id)
-			throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PersonPjLaDTO> findPersonLanguage(int id) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
 			SQLException {
 		try {
@@ -551,6 +520,27 @@ public class DataDAO implements IDataDAO {
 					.getString("language"), rs.getInt("id")));
 		}
 		return list;
+	}
+	@Override
+	public void createPersonPjLa(PersonPjLaDTO personpjlaDTO)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("INSERT INTO PersonPjLa VALUES ("
+				+ personpjlaDTO.getId() + "," + personpjlaDTO.getLanguage() + ","
+				+ personpjlaDTO.getPreviousJobs() + "');");
+		Connector.closeConnection();
+		
+	}
+
+	@Override
+	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
