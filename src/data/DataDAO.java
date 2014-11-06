@@ -280,21 +280,44 @@ public class DataDAO implements IDataDAO {
 
 		while (rs.next()) {
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
-					rs.getString("password"), rs.get("job")););
+					rs.getString("password"), rs.get("job")));
 		}
 		return list;
 	}
 
 	@Override
-	public void createCandidate(CandidateDTO candidate) {
-		// TODO Auto-generated method stub
-
+	public void createCandidate(CandidateDTO candidate) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("INSERT INTO Candidate VALUES ("
+				+ candidate.getId() + "," + candidate.getCaseName() + "," + candidate.getStatus() + "');");
 	}
 
 	@Override
-	public List<CandidateDTO> findCandidates(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public CandidateDTO findCaseCandidate(int id) throws DALException, SQLException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Candidate WHERE id = "
+						+ id + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the candidate with the id = " + id
+					+ " does not exist");
+		}
+
+		return new CandidateDTO(rs.getInt("id"), rs.getString("caseName"),
+				rs.getString("status"));
 	}
 
 	@Override
