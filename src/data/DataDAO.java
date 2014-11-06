@@ -277,30 +277,79 @@ public class DataDAO implements IDataDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM Employee WHERE name = "
 				+ name);
 		Connector.closeConnection();
-
+		
+		if (!rs.next()) {
+			throw new DALException("Der findes ikke nogle ansatte med navnet" + name);
+		}
+		
 		while (rs.next()) {
-			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
-					rs.getString("password"), rs.get("job")););
+			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
+					.getString("name"), rs.getString("password"), rs.get("job")));
 		}
 		return list;
 	}
 
 	@Override
-	public void createCandidate(CandidateDTO candidate) {
-		// TODO Auto-generated method stub
-
+	public void createCandidate(CandidateDTO candidate) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("INSERT INTO Candidate VALUES (" + candidate.getId()
+				+ "," + candidate.getCaseName() + "," + candidate.getStatus()
+				+ "');");
 	}
 
 	@Override
-	public List<CandidateDTO> findCandidates(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public CandidateDTO findCaseCandidate(int id) throws DALException,
+			SQLException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector.doQuery("SELECT * FROM Candidate WHERE id = "
+				+ id + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the candidate with the id = " + id
+					+ " does not exist");
+		}
+
+		return new CandidateDTO(rs.getInt("id"), rs.getString("caseName"),
+				rs.getString("status"));
 	}
 
 	@Override
-	public List<CandidateDTO> findCaseCandidates(String caseName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CandidateDTO> findCaseCandidates(String caseName)
+			throws DALException, SQLException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		List<CandidateDTO> list = new ArrayList<CandidateDTO>();
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Candidate WHERE caseName = " + caseName);
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the case" + caseName
+					+ " does not have any candidate");
+		}
+		while (rs.next()) {
+			list.add(new CandidateDTO(rs.getInt("id"),
+					rs.getString("caseName"), rs.getString("status")));
+		}
+		return list;
 	}
 
 	@Override
@@ -311,8 +360,8 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Case WHERE CaseName = " + caseName + ";");
+		ResultSet rs = Connector.doQuery("SELECT * FROM Case WHERE CaseName = "
+				+ caseName + ";");
 		Connector.closeConnection();
 
 		if (!rs.first()) {
@@ -320,8 +369,9 @@ public class DataDAO implements IDataDAO {
 					+ " does not exist");
 		}
 
-		return new CaseDTO(rs.getString("caseName"), rs.getString("CompanyName"),
-				rs.getInt("id"), rs.getInt("PartnerId"));
+		return new CaseDTO(rs.getString("caseName"),
+				rs.getString("CompanyName"), rs.getInt("id"),
+				rs.getInt("PartnerId"));
 	}
 
 	@Override
@@ -334,9 +384,8 @@ public class DataDAO implements IDataDAO {
 		}
 		Connector.doUpdate("UPDATE Case " + "SET" + " CaseName = '"
 				+ Case.getCaseName() + "', CompanyName = '"
-				+ Case.getCompanyName() + "', Id = '"
-				+ Case.getId() + "', PartnerId = '"
-				+ Case.getPartnerId()  + ";");
+				+ Case.getCompanyName() + "', Id = '" + Case.getId()
+				+ "', PartnerId = '" + Case.getPartnerId() + ";");
 		Connector.closeConnection();
 
 	}
@@ -351,9 +400,8 @@ public class DataDAO implements IDataDAO {
 		}
 		Connector.doUpdate("UPDATE Case " + "SET" + " caseName = '"
 				+ Case.getCaseName() + "', CompanyName = '"
-				+ Case.getCompanyName()+ "', id = '"
-				+ Case.getId() + "', partnerId = '"
-				+ Case.getPartnerId() + ";");
+				+ Case.getCompanyName() + "', id = '" + Case.getId()
+				+ "', partnerId = '" + Case.getPartnerId() + ";");
 		Connector.closeConnection();
 
 	}
@@ -367,10 +415,9 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO Company VALUES ("
-				+ contact.getCaseName() + "," + contact.getName()
-				+ "," + contact.getEmail() + ","
-				+ contact.getContactPhone() + "," + contact.getContactCell() + ","
-				 + "');");
+				+ contact.getCaseName() + "," + contact.getName() + ","
+				+ contact.getEmail() + "," + contact.getContactPhone() + ","
+				+ contact.getContactCell() + "," + "');");
 		Connector.closeConnection();
 
 	}
@@ -387,14 +434,15 @@ public class DataDAO implements IDataDAO {
 				+ contact.getCaseName() + "', BanchCode = '"
 				+ contact.getName() + "', CompanyAdress = '"
 				+ contact.getEmail() + "', CompanyTlf = '"
-				+ contact.getContactPhone() + "', CEO = '" + contact.getContactCell()
-				 + ";");
+				+ contact.getContactPhone() + "', CEO = '"
+				+ contact.getContactCell() + ";");
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public ContactPersonDTO findContact(int contactId, String caseName) throws DALException, SQLException {
+	public ContactPersonDTO findContact(int contactId, String caseName)
+			throws DALException, SQLException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -402,21 +450,24 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Contact WHERE contactId = " + contactId + ";");
+				.doQuery("SELECT * FROM Contact WHERE contactId = " + contactId
+						+ ";");
 		Connector.closeConnection();
 
 		if (!rs.first()) {
-			throw new DALException("the contactperson with the id = " + contactId
-					+ " does not exist");
+			throw new DALException("the contactperson with the id = "
+					+ contactId + " does not exist");
 		}
 
-		return new ContactPersonDTO(rs.getString("caseName"), rs.getString("name"),
-				rs.getString("email"), rs.getString("contactPhone"),
-				rs.getString("contactcell"), rs.getInt("contactId"));
+		return new ContactPersonDTO(rs.getString("caseName"),
+				rs.getString("name"), rs.getString("email"),
+				rs.getString("contactPhone"), rs.getString("contactcell"),
+				rs.getInt("contactId"));
 	}
 
 	@Override
-	public List<ContactPersonDTO> findContacts(String caseName) throws DALException, SQLException {
+	public List<ContactPersonDTO> findContacts(String caseName)
+			throws DALException, SQLException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -425,14 +476,18 @@ public class DataDAO implements IDataDAO {
 		}
 
 		List<ContactPersonDTO> list = new ArrayList<ContactPersonDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Contactperson WHERE Casename = "
-				+ caseName);
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Contactperson WHERE Casename = "
+						+ caseName);
 		Connector.closeConnection();
-
+		if(!rs.next()){
+			throw new DALException("Der er ikke nogen kontaktperson på sagen:" + caseName);
+		}
 		while (rs.next()) {
 			list.add(new ContactPersonDTO(rs.getString("caseName"), rs
 					.getString("name"), rs.getString("email"), rs
-					.getString("contactPhone"), rs.getString("contactcell"), rs.getInt("contactId")));
+					.getString("contactPhone"), rs.getString("contactcell"), rs
+					.getInt("contactId")));
 		}
 		return list;
 	}
@@ -441,12 +496,6 @@ public class DataDAO implements IDataDAO {
 	public boolean loginExists(String[] loginInfo) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

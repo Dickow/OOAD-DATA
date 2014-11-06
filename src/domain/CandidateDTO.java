@@ -7,6 +7,8 @@ public class CandidateDTO {
 	
 	
 	
+	public CandidateDTO(int id, String caseName, String status) {
+	}
 	public int getId() {
 		return id;
 	}

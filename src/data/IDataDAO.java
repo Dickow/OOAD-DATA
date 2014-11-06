@@ -55,16 +55,16 @@ public interface IDataDAO {
 
 	public EmployeeDTO findEmployee(int EmployeeId) throws DALException;
 
-	public List<EmployeeDTO> findEmployees(String name) throws DALException;
+	public List<EmployeeDTO> findEmployees(String name) throws DALException, SQLException;
 	
 	// Candidate
 
 	public void createCandidate(CandidateDTO candidate) throws DALException;
 
-	public List<CandidateDTO> findCandidates(int id) throws DALException;
+	public CandidateDTO findCaseCandidate(int id) throws DALException, SQLException;
 
 	public List<CandidateDTO> findCaseCandidates(String caseName)
-			throws DALException;
+			throws DALException, SQLException;
 	
 	// Case
 
