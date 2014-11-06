@@ -90,4 +90,9 @@ public interface IDataDAO {
 
 	public boolean loginExists(String[] loginInfo) throws DALException;
 
+	// PersonPjLa
+	
+	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
+			SQLException;
+
 }

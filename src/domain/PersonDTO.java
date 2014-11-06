@@ -7,6 +7,10 @@ public class PersonDTO {
 	private int id, age, salary;
 	
 
+	public PersonDTO(){
+		
+	}
+	
 	public PersonDTO(String name, String address, String education,
 			String currentJob, String personPhone, String companyMail,
 			String privateMail, String personCell, String note, int id, int age, int salary) {

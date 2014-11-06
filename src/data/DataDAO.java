@@ -277,11 +277,12 @@ public class DataDAO implements IDataDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM Employee WHERE name = "
 				+ name);
 		Connector.closeConnection();
-		
+
 		if (!rs.next()) {
-			throw new DALException("Der findes ikke nogle ansatte med navnet" + name);
+			throw new DALException("Der findes ikke nogle ansatte med navnet"
+					+ name);
 		}
-		
+
 		while (rs.next()) {
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
 					.getString("name"), rs.getString("password"), rs.get("job")));
@@ -480,8 +481,9 @@ public class DataDAO implements IDataDAO {
 				.doQuery("SELECT * FROM Contactperson WHERE Casename = "
 						+ caseName);
 		Connector.closeConnection();
-		if(!rs.next()){
-			throw new DALException("Der er ikke nogen kontaktperson på sagen:" + caseName);
+		if (!rs.next()) {
+			throw new DALException("Der er ikke nogen kontaktperson på sagen:"
+					+ caseName);
 		}
 		while (rs.next()) {
 			list.add(new ContactPersonDTO(rs.getString("caseName"), rs
@@ -499,6 +501,18 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
+	public void updatePersonPj(PersonPjLaDTO personPj) throws DALException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void updatePersonLa(PersonPjLaDTO personLa) throws DALException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
 	public List<PersonPjLaDTO> findPersonPreviousJobs(int id)
 			throws DALException {
 		// TODO Auto-generated method stub
@@ -512,15 +526,31 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void updatePersonPj(PersonPjLaDTO personPj) throws DALException {
+	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
 		// TODO Auto-generated method stub
-
+		return null;
 	}
 
 	@Override
-	public void updatePersonLa(PersonPjLaDTO personLa) throws DALException {
-		// TODO Auto-generated method stub
+	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
+			SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
 
+		List<PersonPjLaDTO> list = new ArrayList<PersonPjLaDTO>();
+		ResultSet rs = Connector.doQuery("SELECT * FROM PersonPjLa WHERE Id = "
+				+ id);
+		Connector.closeConnection();
+
+		while (rs.next()) {
+			list.add(new PersonPjLaDTO(rs.getString("previousJobs"), rs
+					.getString("language"), rs.getInt("id")));
+		}
+		return list;
 	}
 
 }
