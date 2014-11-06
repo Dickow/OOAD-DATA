@@ -209,27 +209,80 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void updateEmployee(EmployeeDTO employee) {
-		// TODO Auto-generated method stub
+	public void updateEmployee(EmployeeDTO employee) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("Update Employee SET name = '" + employee.getName()
+				+ "', SET employeeId = '" + employee.getEmployeeId()
+				+ "', SET password = '" + employee.getPassword()
+				+ "', SET job = '" + employee.getJob() + "');");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void createEmployee(EmployeeDTO employee) {
-		// TODO Auto-generated method stub
+	public void createEmployee(EmployeeDTO employee) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("INSERT INTO employee VALUES ("
+				+ employee.getEmployeeId() + "," + employee.getName() + ","
+				+ employee.getPassword() + "," + employee.getJob() + "');");
 
 	}
 
 	@Override
-	public EmployeeDTO findEmployee(int EmployeeId) {
-		// TODO Auto-generated method stub
-		return null;
+	public EmployeeDTO findEmployee(int employeeId) {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Employee WHERE employeeId = "
+						+ employeeId + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the employee with the id = " + employeeId
+					+ " does not exist");
+		}
+
+		return new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
+				rs.getString("password"), rs.get("job"));
+
 	}
 
 	@Override
-	public List<EmployeeDTO> findEmployees(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<EmployeeDTO> findEmployees(String name) throws DALException,
+			SQLException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		List<EmployeeDTO> list = new ArrayList<EmployeeDTO>();
+		ResultSet rs = Connector.doQuery("SELECT * FROM Employee WHERE name = "
+				+ name);
+		Connector.closeConnection();
+
+		while (rs.next()) {
+			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
+					rs.getString("password"), rs.get("job")););
+		}
+		return list;
 	}
 
 	@Override
@@ -320,13 +373,13 @@ public class DataDAO implements IDataDAO {
 	@Override
 	public void updatePersonPj(PersonPjLaDTO personPj) throws DALException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void updatePersonLa(PersonPjLaDTO personLa) throws DALException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

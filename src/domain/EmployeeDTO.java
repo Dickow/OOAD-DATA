@@ -1,4 +1,5 @@
 package domain;
+
 public class EmployeeDTO {
 	
 	public enum JOB{PARTNER, RESEARCHER}
