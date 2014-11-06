@@ -1,13 +1,11 @@
 package domain;
 
-import java.util.List;
-
 public class PersonDTO {
 
 	private String name, address, education, currentJob, personPhone,
 			companyMail, privateMail, personCell, note;
 	private int id, age, salary;
-	// private List<String> previousJobs, language;
+	
 
 	public PersonDTO(String name, String address, String education,
 			String currentJob, String personPhone, String companyMail,
@@ -110,21 +108,4 @@ public class PersonDTO {
 		this.salary = salary;
 	}
 
- /*
-	public List<String> getPreviousJobs() {
-		return previousJobs;
-	}
-
-	public void setPreviousJobs(List<String> previousJobs) {
-		this.previousJobs = previousJobs;
-	}
-
-	public List<String> getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(List<String> language) {
-		this.language = language;
-	}
- */
 }
