@@ -64,7 +64,7 @@ public interface IDataDAO {
 	public CandidateDTO findCaseCandidate(int id) throws DALException, SQLException;
 
 	public List<CandidateDTO> findCaseCandidates(String caseName)
-			throws DALException;
+			throws DALException, SQLException;
 	
 	// Case
 
