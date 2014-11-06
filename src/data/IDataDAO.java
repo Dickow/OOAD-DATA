@@ -68,7 +68,7 @@ public interface IDataDAO {
 	
 	// Case
 
-	public CaseDTO findCase(String caseName) throws DALException;
+	public CaseDTO findCase(String caseName) throws DALException, SQLException;
 
 	public void updateCase(CaseDTO Case) throws DALException;
 
