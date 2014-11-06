@@ -14,6 +14,7 @@ import domain.CompanyDTO;
 import domain.ContactPersonDTO;
 import domain.EmployeeDTO;
 import domain.PersonDTO;
+import domain.PersonPjLaDTO;
 
 public class DataDAO implements IDataDAO {
 
@@ -301,6 +302,31 @@ public class DataDAO implements IDataDAO {
 	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<PersonPjLaDTO> findPersonPreviousJobs(int id)
+			throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<PersonPjLaDTO> findPersonLanguage(int id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updatePersonPj(PersonPjLaDTO personPj) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updatePersonLa(PersonPjLaDTO personLa) throws DALException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
