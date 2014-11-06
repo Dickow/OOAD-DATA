@@ -1,12 +1,12 @@
 package domain;
-
 public class EmployeeDTO {
 	
 	public enum JOB{PARTNER, RESEARCHER}
 	
 	private int employeeId; 
 	private String name, password;
-	private enum job{}
+	private JOB job;
+	
 	
 	
 	public int getEmployeeId() {
@@ -26,9 +26,13 @@ public class EmployeeDTO {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	};
-	
-	
+	}
+	public void setJob(JOB job){
+		this.job = job;
+	}
+	public JOB getJob(){
+		return job;
+	}
  
 	
 	
