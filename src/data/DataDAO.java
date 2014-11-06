@@ -15,6 +15,7 @@ import domain.ContactPersonDTO;
 import domain.EmployeeDTO;
 import domain.PersonDTO;
 import domain.PersonPjLaDTO;
+import domain.ResearcherDTO;
 
 public class DataDAO implements IDataDAO {
 
@@ -408,6 +409,36 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
+	public CaseDTO findResearchersOnCase(CaseDTO Case) throws DALException,
+			SQLException {
+
+		ResearcherDTO researcherDTO = new ResearcherDTO();
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT Researcherid,caseName FROM Case NATURAL JOIN Researcher WHERE CaseName = "
+						+ Case.getCaseName()
+						+ "ResearcherId = "
+						+ researcherDTO.getEmployeeId() + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the Researcher with the id = "
+					+ researcherDTO.getEmployeeId()
+					+ " is not on the case with this name: "
+					+ Case.getCaseName());
+		}
+
+		return new CaseDTO(rs.getString("caseName"),
+				rs.getString("ResearcherId"), 0, 0);
+	}
+
+	@Override
 	public void createContact(ContactPersonDTO contact) throws DALException {
 		try {
 			Connector.connect();
@@ -415,7 +446,7 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("INSERT INTO Company VALUES ("
+		Connector.doUpdate("INSERT INTO Contact VALUES ("
 				+ contact.getCaseName() + "," + contact.getName() + ","
 				+ contact.getEmail() + "," + contact.getContactPhone() + ","
 				+ contact.getContactCell() + "," + "');");
@@ -521,6 +552,7 @@ public class DataDAO implements IDataDAO {
 		}
 		return list;
 	}
+
 	@Override
 	public void createPersonPjLa(PersonPjLaDTO personpjlaDTO)
 			throws DALException {
@@ -531,10 +563,10 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO PersonPjLa VALUES ("
-				+ personpjlaDTO.getId() + "," + personpjlaDTO.getLanguage() + ","
-				+ personpjlaDTO.getPreviousJobs() + "');");
+				+ personpjlaDTO.getId() + "," + personpjlaDTO.getLanguage()
+				+ "," + personpjlaDTO.getPreviousJobs() + "');");
 		Connector.closeConnection();
-		
+
 	}
 
 	@Override

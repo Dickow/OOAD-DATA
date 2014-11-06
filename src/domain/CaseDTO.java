@@ -13,6 +13,10 @@ public class CaseDTO {
 	private int id,partnerId; 
 	private List researcherIds;
 	
+	public CaseDTO(){
+		
+	}
+	
 	public CaseDTO(String caseName, String companyName, int id, int partnerId){
 		
 	}

@@ -71,6 +71,8 @@ public interface IDataDAO {
 
 	public void createCase(CaseDTO Case) throws DALException;
 	
+	public CaseDTO findResearchersOnCase(CaseDTO Case) throws DALException, SQLException;
+	
 	// Contact
 
 	public void createContact(ContactPersonDTO contact) throws DALException;
