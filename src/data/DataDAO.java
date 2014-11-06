@@ -304,45 +304,137 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public CaseDTO findCase(String caseName) {
-		// TODO Auto-generated method stub
-		return null;
+	public CaseDTO findCase(String caseName) throws DALException, SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Case WHERE CaseName = " + caseName + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the case with the name = " + caseName
+					+ " does not exist");
+		}
+
+		return new CaseDTO(rs.getString("caseName"), rs.getString("CompanyName"),
+				rs.getInt("id"), rs.getInt("PartnerId"));
 	}
 
 	@Override
-	public void updateCase(CaseDTO Case) {
-		// TODO Auto-generated method stub
+	public void updateCase(CaseDTO Case) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE Case " + "SET" + " CaseName = '"
+				+ Case.getCaseName() + "', CompanyName = '"
+				+ Case.getCompanyName() + "', Id = '"
+				+ Case.getId() + "', PartnerId = '"
+				+ Case.getPartnerId()  + ";");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void createCase(CaseDTO Case) {
-		// TODO Auto-generated method stub
+	public void createCase(CaseDTO Case) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE Case " + "SET" + " caseName = '"
+				+ Case.getCaseName() + "', CompanyName = '"
+				+ Case.getCompanyName()+ "', id = '"
+				+ Case.getId() + "', partnerId = '"
+				+ Case.getPartnerId() + ";");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void createContact(ContactPersonDTO contact) {
-		// TODO Auto-generated method stub
+	public void createContact(ContactPersonDTO contact) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("INSERT INTO Company VALUES ("
+				+ contact.getCaseName() + "," + contact.getName()
+				+ "," + contact.getEmail() + ","
+				+ contact.getContactPhone() + "," + contact.getContactCell() + ","
+				 + "');");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public void updateContact(ContactPersonDTO contact) {
-		// TODO Auto-generated method stub
+	public void updateContact(ContactPersonDTO contact) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE Contact " + "SET" + " caseName = '"
+				+ contact.getCaseName() + "', BanchCode = '"
+				+ contact.getName() + "', CompanyAdress = '"
+				+ contact.getEmail() + "', CompanyTlf = '"
+				+ contact.getContactPhone() + "', CEO = '" + contact.getContactCell()
+				 + ";");
+		Connector.closeConnection();
 
 	}
 
 	@Override
-	public ContactPersonDTO findContact(int contactId, String caseName) {
-		// TODO Auto-generated method stub
-		return null;
+	public ContactPersonDTO findContact(int contactId, String caseName) throws DALException, SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Contact WHERE contactId = " + contactId + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the contactperson with the id = " + contactId
+					+ " does not exist");
+		}
+
+		return new ContactPersonDTO(rs.getString("caseName"), rs.getString("name"),
+				rs.getString("email"), rs.getString("contactPhone"),
+				rs.getString("contactcell"), rs.getInt("contactId"));
 	}
 
 	@Override
-	public List<ContactPersonDTO> findContacts(String caseName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ContactPersonDTO> findContacts(String caseName) throws DALException, SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		List<ContactPersonDTO> list = new ArrayList<ContactPersonDTO>();
+		ResultSet rs = Connector.doQuery("SELECT * FROM Contactperson WHERE Casename = "
+				+ caseName);
+		Connector.closeConnection();
+
+		while (rs.next()) {
+			list.add(new ContactPersonDTO(rs.getString("caseName"), rs
+					.getString("name"), rs.getString("email"), rs
+					.getString("contactPhone"), rs.getString("contactcell"), rs.getInt("contactId")));
+		}
+		return list;
 	}
 
 	@Override
