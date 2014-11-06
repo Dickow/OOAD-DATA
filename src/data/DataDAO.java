@@ -277,7 +277,11 @@ public class DataDAO implements IDataDAO {
 		ResultSet rs = Connector.doQuery("SELECT * FROM Employee WHERE name = "
 				+ name);
 		Connector.closeConnection();
-
+		
+		if (!rs.next()) {
+			throw new DALException("Der findes ikke nogle ansatte med navnet" + name);
+		}
+		
 		while (rs.next()) {
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
 					.getString("name"), rs.getString("password"), rs.get("job")));
@@ -333,13 +337,17 @@ public class DataDAO implements IDataDAO {
 		}
 
 		List<CandidateDTO> list = new ArrayList<CandidateDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Candidate WHERE caseName = "
-				+ caseName);
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Candidate WHERE caseName = " + caseName);
 		Connector.closeConnection();
 
+		if (!rs.first()) {
+			throw new DALException("the case" + caseName
+					+ " does not have any candidate");
+		}
 		while (rs.next()) {
-			list.add(new CandidateDTO(rs.getInt("id"), rs.getString("caseName"),
-					rs.getString("status")));
+			list.add(new CandidateDTO(rs.getInt("id"),
+					rs.getString("caseName"), rs.getString("status")));
 		}
 		return list;
 	}
