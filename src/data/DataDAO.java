@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import data.Connector;
 import data.DALException;
 import domain.BranchDTO;
@@ -17,25 +18,23 @@ import domain.PersonDTO;
 public class DataDAO implements IDataDAO {
 
 	@Override
-	public void createCompany(CompanyDTO company) {
-		throws DALException {
-	try {
-		Connector.connect();
-	} catch (Exception e1) {
-		throw new DALException(
-				"Der kunne ikke oprettes forbindelse til databasen");
-	}
-	Connector.doUpdate("INSERT INTO Company VALUES (" 
-			+ Company.getCompanyName() + "," + Company.getMainCode() + "," 
-			+ Company.getCompanyAdress() + "," + Company.getCompanyTlf() + "," 
-			+ Company.getCEO() + "," + Company.getCFO() +
-			"');" );
-	Connector.closeConnection();
+	public void createCompany(CompanyDTO company) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
 		}
+		Connector.doUpdate("INSERT INTO Company VALUES ("
+				+ company.getCompanyName() + "," + company.getBranchCode()
+				+ "," + company.getCompanyAddress() + ","
+				+ company.getCompanyPhone() + "," + company.getCEO() + ","
+				+ company.getCFO() + "');");
+		Connector.closeConnection();
 	}
 
 	@Override
-	public void updateCompany(CompanyDTO company) {
+	public void updateCompany(CompanyDTO company) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -43,54 +42,168 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("UPDATE Company " + "SET" + " companyName = '"
-				+ Company.getCompanyName() + "', MainCode = '"
-				+ Company.getMainCode() + "', CompanyAdress = '"
-				+ Company.getCompanyAdress() + "', CompanyTlf = '"
-				+ Company.getCompanyTlf() + "', CEO = '" + Company.getCEO()
-				+ "', CFO = '" + Company.getCFO() + "' WHERE companyName = "
-				+ Company.getCompanyName() + ";");
+				+ company.getCompanyName() + "', BanchCode = '"
+				+ company.getBranchCode() + "', CompanyAdress = '"
+				+ company.getCompanyAddress() + "', CompanyTlf = '"
+				+ company.getCompanyPhone() + "', CEO = '" + company.getCEO()
+				+ "', CFO = '" + company.getCFO() + "' WHERE companyName = "
+				+ company.getCompanyName() + ";");
+		Connector.closeConnection();
+	}
+
+	@Override
+	public CompanyDTO findCompany(String companyName) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM company WHERE companyName = "
+						+ companyName + ";");
+		Connector.closeConnection();
+
+		try {
+			if (!rs.first()) {
+				throw new DALException("the commodity with the id = "
+						+ companyName + " does not exist");
+			}
+			return new CompanyDTO(rs.getString("companyNAme"),
+					rs.getString("branchCode"), rs.getString("companyAddress"),
+					rs.getString("companyPhone"), rs.getString("CEO"),
+					rs.getString("CFO"));
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i Commodity i metoden getCommodity()"
+							+ e.getMessage());
+		}
+	}
+
+	@Override
+	public List<CompanyDTO> findCompanies(BranchDTO branch) throws DALException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		List<CompanyDTO> list = new ArrayList<CompanyDTO>();
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Company WHERE BrancheCode = " + branch);
+		Connector.closeConnection();
+		try {
+			while (rs.next()) {
+				list.add(new CompanyDTO(rs.getString("CompanyName"), rs
+						.getString("BranchCode"), rs
+						.getString("companyAddress"), rs
+						.getString("companyPhone"), rs.getString("CEO"), rs
+						.getString("CFO")));
+			}
+		} catch (SQLException e) {
+			throw new DALException(
+					"Der skete en fejl i Commodity i metoden getComList()"
+							+ e.getMessage());
+		}
+		return list;
+	}
+
+	@Override
+	public PersonDTO findPerson(int id) throws DALException, SQLException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM person WHERE personId = " + id + ";");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("the person with the id = " + id
+					+ " does not exist");
+		}
+
+		return new PersonDTO(rs.getString("name"), rs.getString("address"),
+				rs.getString("education"), rs.getString("currentJob"),
+				rs.getString("personPhone"), rs.getString("companyMail"),
+				rs.getString("privateMail"), rs.getString("personCell"),
+				rs.getString("note"), rs.getInt("id"), rs.getInt("age"),
+				rs.getInt("salary"));
+	}
+
+	@Override
+	public List<PersonDTO> findPersons(String name) throws DALException,
+			SQLException {
+
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		List<PersonDTO> list = new ArrayList<PersonDTO>();
+		ResultSet rs = Connector.doQuery("SELECT * FROM person WHERE name = "
+				+ name);
+		Connector.closeConnection();
+
+		while (rs.next()) {
+			list.add(new PersonDTO(rs.getString("name"), rs
+					.getString("address"), rs.getString("education"), rs
+					.getString("currentJob"), rs.getString("companyMail"), rs
+					.getString("privateMail"), rs.getString("personCell"), rs
+					.getString("personPhone"), rs.getString("note"), rs
+					.getInt("id"), rs.getInt("age"), rs.getInt("salary")));
+		}
+		return list;
+	}
+
+	@Override
+	public void updatePerson(PersonDTO person) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("UPDATE Person " + "SET" + " " + "name = '"
+				+ person.getName() + "', address = '" + person.getAddress()
+				+ "', education = '" + person.getAddress()
+				+ "', currentJob = '" + person.getCurrentJob()
+				+ "', personPhone = '" + person.getPersonPhone()
+				+ "', companyMail = '" + person.getCompanyMail()
+				+ "', privateMail = '" + person.getPrivateMail()
+				+ "', personCell = '" + person.getPersonCell() + "', note = '"
+				+ person.getNote() + "', id = '" + person.getId()
+				+ "', age = '" + person.getAge() + ", salary = "
+				+ person.getSalary() +
+
+				"' WHERE name = " + person.getName() + ";");
 		Connector.closeConnection();
 
 	}
 
 	@Override
-	public CompanyDTO findCompany(String companyName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CompanyDTO> findCompanies(BranchDTO branch) {
-		
-	}
-
-	@Override
-	public PersonDTO findPerson(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PersonDTO> findPersons(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<PersonDTO> findPersons(PersonDTO person) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updatePerson(PersonDTO person) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void createPerson(PersonDTO person) {
-		// TODO Auto-generated method stub
+	public void createPerson(PersonDTO person) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("INSERT INTO Person VALUES (" + person.getName()
+				+ "," + person.getAddress() + "," + person.getEducation() + ","
+				+ person.getCurrentJob() + "," + person.getPersonPhone() + ","
+				+ person.getCompanyMail() + "," + person.getPrivateMail() + ","
+				+ person.getPersonCell() + "," + person.getNote() + ","
+				+ person.getId() + "," + person.getAge() + ","
+				+ person.getSalary() + "');");
+		Connector.closeConnection();
 
 	}
 
@@ -182,6 +295,12 @@ public class DataDAO implements IDataDAO {
 	public boolean loginExists(String[] loginInfo) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
