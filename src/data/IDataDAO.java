@@ -81,10 +81,10 @@ public interface IDataDAO {
 	public void updateContact(ContactPersonDTO contact) throws DALException;
 
 	public ContactPersonDTO findContact(int contactId, String caseName)
-			throws DALException;
+			throws DALException, SQLException;
 
 	public List<ContactPersonDTO> findContacts(String caseName)
-			throws DALException;
+			throws DALException, SQLException;
 	
 	// login
 
