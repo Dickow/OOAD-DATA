@@ -1,20 +1,21 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
 import java.awt.event.ActionListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import domain.GUITest;
 
 public class GUIW {
 
@@ -22,44 +23,35 @@ public class GUIW {
 	private JTextField userIdField;
 	private JPasswordField passwordField;
 	private final Action action = new SwingAction();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIW window = new GUIW();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	// private final Action action_7 = new SwingAction_7();
+	// private final Action action_1 = new SwingAction_1();
+	// private final Action action_2 = new SwingAction_2();
+	// private final Action action_3 = new SwingAction_3();
+	// private final Action action_4 = new SwingAction_4();
+	// private final Action action_5 = new SwingAction_5();
+	// private final Action action_6 = new SwingAction_6();
+	private GUITest test = new GUITest();
 
 	/**
 	 * Create the application.
 	 */
 	public GUIW() {
 		initialize();
-		login();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setFrame(new JFrame());
+		getFrame().setBounds(100, 100, 800, 600);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public String[] login() {
+	public void login() {
 		final String[] loginInfo = new String[2];
 		JPanel panel = new JPanel();
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		getFrame().getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 
 		JLabel lblOdgersBerndtson = new JLabel("Odgers Berndtson");
@@ -91,23 +83,42 @@ public class GUIW {
 				String pw = new String(passwordField.getPassword());
 				loginInfo[0] = id;
 				loginInfo[1] = pw;
-				System.out.println(loginInfo[0]);
-				System.out.println(loginInfo[1]);
+				test.login(loginInfo);
 			}
 		});
 		btnLogin.setAction(action);
 		btnLogin.setBounds(352, 275, 63, 25);
 		panel.add(btnLogin);
-		return loginInfo;
 	}
 
-	private class SwingAction extends AbstractAction {
+	public void menu(int jobPosition) {
+		frame.removeAll();
+		
+		if (jobPosition == 0) {
+			frame.getContentPane().add(new PartnerMenu(), BorderLayout.CENTER);
+			frame.validate();
+			frame.repaint();
+		} else {
+			frame.setContentPane(new ResearcherMenu());
+			frame.validate();
+			frame.repaint();
+		}
+	}
+
+	class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "Login");
-			putValue(SHORT_DESCRIPTION, "Some short description");
 		}
 
 		public void actionPerformed(ActionEvent e) {
 		}
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 }

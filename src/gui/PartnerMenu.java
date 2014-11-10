@@ -21,11 +21,15 @@ public class PartnerMenu extends JPanel {
 	private final Action action_4 = new SwingAction_4();
 	private final Action action_5 = new SwingAction_5();
 	private final Action action_6 = new SwingAction_6();
-
+	
 	/**
 	 * Create the panel.
 	 */
 	public PartnerMenu() {
+		create(); 
+	}
+		
+	public void create() {
 		setLayout(null);
 		
 		JButton findPerson = new JButton("Find person");

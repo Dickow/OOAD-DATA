@@ -1,18 +1,31 @@
 package domain;
 
-import gui.GUI;
+import gui.GUI2;
 
-public class GUITest {
+public class GUITest implements Runnable {
 
-	private static String[] login; 
-	public static void main(String[] args) {
-		GUI gui = new GUI(); 
-		
-		login = gui.login();
-		
-		System.out.println(login[0]);
-		System.out.println(login[1]);
-		
+	public boolean changeOccured = false ; 
+	private String[] login; 
+	
+	public GUITest(){
+		run(); 
 	}
+	@Override
+	public void run() {
+		GUI2 gui = new GUI2(); 
+		login = gui.login(this); 
+		while(!changeOccured){
+			
+		}
+		System.out.println(login);
+		int menuChoice = gui.partnerMenu(this); 
+		
+		while(! changeOccured){
+			
+		}
+		
+		System.out.println(menuChoice);
+	}
+
 
 }
