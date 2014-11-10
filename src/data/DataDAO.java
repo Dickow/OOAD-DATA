@@ -259,7 +259,7 @@ public class DataDAO implements IDataDAO {
 		}
 
 		return new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
-				rs.getString("password"), rs.get("job"));
+				rs.getString("password"), rs.get("job"));//TODO find en måde at gå fra string til enum
 
 	}
 
@@ -286,7 +286,7 @@ public class DataDAO implements IDataDAO {
 
 		while (rs.next()) {
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
-					.getString("name"), rs.getString("password"), rs.get("job")));
+					.getString("name"), rs.getString("password"), rs.get("job"))); //TODO find en måde at gå fra string til enum
 		}
 		return list;
 	}
