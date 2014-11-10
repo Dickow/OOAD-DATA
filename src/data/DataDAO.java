@@ -582,10 +582,4 @@ public class DataDAO implements IDataDAO {
 
 	}
 
-	@Override
-	public List<PersonDTO> findPersons(PersonDTO person) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

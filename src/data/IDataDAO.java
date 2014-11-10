@@ -38,8 +38,6 @@ public interface IDataDAO {
 	public List<PersonDTO> findPersons(String name) throws DALException,
 			SQLException;
 
-	public List<PersonDTO> findPersons(PersonDTO person) throws DALException;
-
 	public void updatePerson(PersonDTO person) throws DALException;
 
 	public void createPerson(PersonDTO person) throws DALException;
