@@ -87,6 +87,6 @@ public interface IDataDAO {
 	
 	// login
 
-	public boolean loginExists(String[] loginInfo) throws DALException;
+	public boolean loginExists(String[] loginInfo) throws DALException, SQLException;
 
 }

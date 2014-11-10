@@ -526,9 +526,22 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public boolean loginExists(String[] loginInfo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean loginExists(String[] loginInfo) throws DALException,
+			SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[1])); //TODO find ud af hvad loginInfo indeholder hvor.
+
+		if (tempEmployee.getPassword().equals(loginInfo[2])) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
