@@ -1,15 +1,16 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import domain.GUITest;
-import java.awt.Component;
-import javax.swing.Box;
 
 public class GUI {
 
@@ -24,21 +25,22 @@ public class GUI {
 	/**
 	 * Launch the application.
 	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// GUI window = new GUI();
-	// window.frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI window = new GUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
 	 * @wbp.parser.entryPoint
 	 */
 	public void initialize() {
@@ -55,10 +57,10 @@ public class GUI {
 		lblOdgersBerndtson.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
 				46));
 		headPanel.add(lblOdgersBerndtson);
-		
+
 		horizontalStrut = Box.createHorizontalStrut(200);
 		frame.getContentPane().add(horizontalStrut, BorderLayout.WEST);
-		
+
 		horizontalStrut_1 = Box.createHorizontalStrut(200);
 		frame.getContentPane().add(horizontalStrut_1, BorderLayout.EAST);
 		frame.setVisible(true);
