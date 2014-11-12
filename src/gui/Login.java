@@ -28,30 +28,30 @@ public class Login extends JPanel {
 		setLayout(null);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(163, 125, 116, 22);
+		passwordField.setBounds(150, 126, 116, 22);
 		add(passwordField);
 		this.add(passwordField);
 		
 		brugerIdTextField = new JTextField();
-		brugerIdTextField.setBounds(163, 78, 116, 22);
+		brugerIdTextField.setBounds(150, 79, 116, 22);
 		add(brugerIdTextField);
 		brugerIdTextField.setColumns(10);
 		this.add(brugerIdTextField);
 		
 		JButton loginButton = new JButton("Log ind");
-		loginButton.setBounds(183, 160, 73, 25);
+		loginButton.setBounds(170, 161, 73, 25);
 		loginButton.setAction(action);
 		loginButton.setActionCommand("login");
 		add(loginButton);
 		this.add(loginButton);
 		
 		JLabel brugerId = new JLabel("Bruger id");
-		brugerId.setBounds(190, 59, 52, 16);
+		brugerId.setBounds(177, 60, 52, 16);
 		add(brugerId);
 		this.add(brugerId);
 		
 		JLabel password = new JLabel("Password");
-		password.setBounds(190, 109, 55, 16);
+		password.setBounds(177, 110, 55, 16);
 		add(password);
 		this.add(password);
 		
