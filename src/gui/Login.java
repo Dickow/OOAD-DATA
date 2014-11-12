@@ -6,8 +6,12 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.Action;
+
+import domain.MainController;
 
 public class Login extends JPanel {
 	/**
@@ -68,8 +72,7 @@ public class Login extends JPanel {
 				String[] loginInfo = new String[2]; 
 				loginInfo[0] = brugerIdTextField.getText(); 
 				loginInfo[1] = new String(passwordField.getPassword());
-				
-				GUI.controller.login(loginInfo);
+				MainController.getInstance().login(loginInfo);
 			}
 		}
 	}

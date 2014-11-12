@@ -2,14 +2,20 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.AbstractAction;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.Action;
+
+import domain.MainController;
 
 public class PartnerMenuPanel extends JPanel {
 	/**
@@ -118,24 +124,33 @@ public class PartnerMenuPanel extends JPanel {
 			putValue(NAME, "SwingAction");
 		}
 		public void actionPerformed(ActionEvent e) {
+			int menuChoice = 0; 
 			switch(e.getActionCommand()){
 			
 			case "findPerson": 
+				menuChoice = 0; 
 				break; 
 			case "opretPerson": 
+				menuChoice = 1;
 				break; 
-			case "findSag": 
+			case "findSag":
+				menuChoice = 2; 
 				break; 
 			case "opretSag": 
+				menuChoice = 3; 
 				break; 
 			case "findFirma": 
+				menuChoice = 4; 
 				break; 
-			case "opretFirma": 
+			case "opretFirma":
+				menuChoice = 5; 
 				break; 
 			case "logout": 
+				menuChoice = 6; 
 				break; 
 			
 			}
+			MainController.getInstance().menuDistributor(menuChoice);
 		}
 	}
 }

@@ -18,7 +18,6 @@ public class GUI {
 	private JFrame frame;
 	private PartnerMenuPanel partnerMenu = new PartnerMenuPanel();
 	private Login loginPanel = new Login();
-	public static MainController controller = new MainController();
 	private JPanel headPanel;
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
@@ -45,6 +44,7 @@ public class GUI {
 	 */
 	public GUI() {
 		initialize();
+		login(); 
 	}
 
 	public void initialize() {
@@ -81,25 +81,18 @@ public class GUI {
 	}
 
 	public void menu(int jobPos) {
-//		frame.getContentPane().remove(
-//				layout.getLayoutComponent(BorderLayout.CENTER));
-//		switch (jobPos) {
-//		case 0:
-//			break;
-//		case 1:
-		if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
-			frame.getContentPane().remove(
-					layout.getLayoutComponent(BorderLayout.CENTER));
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		switch (jobPos) {
+		case 0:
+			break;
+		case 1:
+			frame.getContentPane().add(partnerMenu, BorderLayout.CENTER);
+			partnerMenu.setVisible(true);
+			break;
+		case 2:
+			break;
 		}
-		frame.getContentPane().add(loginPanel, BorderLayout.CENTER);
-		loginPanel.setVisible(true);
-//			frame.getContentPane().add(partnerMenu, BorderLayout.CENTER);
-//			partnerMenu.setVisible(true);
-//			break;
-//		case 2:
-//			break;
-//		}
-System.out.println("Det gik godt igennem den her metode");
 	}
 
 }
