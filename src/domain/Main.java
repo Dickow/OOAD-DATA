@@ -7,6 +7,7 @@ public class Main {
 //		
 //		menu.run(); 
 		GUITest gui = new GUITest();
+		gui.init();
 		
 		
 		

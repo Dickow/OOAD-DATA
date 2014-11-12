@@ -1,19 +1,22 @@
 package domain;
 
-import gui.GUI2;
+import gui.GUI;
 
-public class GUITest implements Runnable {
-
-	public boolean changeOccured = false ; 
-	private String[] login; 
+public class GUITest {
 	
-	public GUITest(){
-		run(); 
+	private GUI gui = new GUI(); 
+	
+	public void init(){
+		gui.initialize();
+		gui.login();
 	}
-	@Override
-	public void run() {
-
+	
+	public void login(String[] loginInfo){
+		System.out.println("du er logget ind");
+		System.out.println(loginInfo[0]);
+		System.out.println(loginInfo[1]);
+		
+		gui.menu(1);
+		return; 
 	}
-
-
 }
