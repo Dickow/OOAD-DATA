@@ -1,11 +1,8 @@
 package gui;
 
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
-import java.awt.Insets;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;

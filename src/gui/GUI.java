@@ -5,32 +5,57 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import domain.GUITest;
+import domain.MainController;
 
 public class GUI {
 
 	private JFrame frame;
-	private PartnerMenuPanel partnerMenu;
-	private Login loginPanel;
-	public static GUITest controller = new GUITest();
+	private PartnerMenuPanel partnerMenu = new PartnerMenuPanel();
+	private Login loginPanel = new Login();
+	public static MainController controller = new MainController();
 	private JPanel headPanel;
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
+	private BorderLayout layout;
+	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI window = new GUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
+	/**
+	 * Create the application.
+	 */
+	public GUI() {
+		initialize();
+	}
 
 	public void initialize() {
 		System.out.println("i gui init nu");
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.getContentPane().setLayout(layout = new BorderLayout(0, 0));
 
 		headPanel = new JPanel();
+		headPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		frame.getContentPane().add(headPanel, BorderLayout.NORTH);
 
 		JLabel lblOdgersBerndtson = new JLabel("Odgers Berndtson");
@@ -47,34 +72,34 @@ public class GUI {
 	}
 
 	public void login() {
-		loginPanel = new Login();
-		frame.getContentPane().add(headPanel, BorderLayout.NORTH);
+		if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+			frame.getContentPane().remove(
+					layout.getLayoutComponent(BorderLayout.CENTER));
+		}
 		frame.getContentPane().add(loginPanel, BorderLayout.CENTER);
 		loginPanel.setVisible(true);
-		frame.setVisible(true);
-		frame.revalidate();
-		frame.repaint();
 	}
 
 	public void menu(int jobPos) {
-
-		switch (jobPos) {
-		case 0:
-			break;
-		case 1:
-			partnerMenu = new PartnerMenuPanel();
-			frame.removeAll();
-			frame.getContentPane().add(headPanel, BorderLayout.NORTH);
-			frame.getContentPane().add(partnerMenu, BorderLayout.CENTER);
-			partnerMenu.setVisible(true);
-			frame.setVisible(true);
-			frame.revalidate();
-			frame.repaint();
-			break;
-		case 2:
-			break;
+//		frame.getContentPane().remove(
+//				layout.getLayoutComponent(BorderLayout.CENTER));
+//		switch (jobPos) {
+//		case 0:
+//			break;
+//		case 1:
+		if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+			frame.getContentPane().remove(
+					layout.getLayoutComponent(BorderLayout.CENTER));
 		}
-
+		frame.getContentPane().add(loginPanel, BorderLayout.CENTER);
+		loginPanel.setVisible(true);
+//			frame.getContentPane().add(partnerMenu, BorderLayout.CENTER);
+//			partnerMenu.setVisible(true);
+//			break;
+//		case 2:
+//			break;
+//		}
+System.out.println("Det gik godt igennem den her metode");
 	}
 
 }

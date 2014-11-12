@@ -101,7 +101,6 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_6.gridx = 3;
 		gbc_button_6.gridy = 7;
 		add(logOut, gbc_button_6);
-		this.setVisible(true);
 
 	}
 	
@@ -123,7 +122,6 @@ public class PartnerMenuPanel extends JPanel {
 			
 			case "findPerson": 
 				break; 
-			
 			case "opretPerson": 
 				break; 
 			case "findSag": 
