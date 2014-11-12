@@ -12,19 +12,7 @@ public class GUITest implements Runnable {
 	}
 	@Override
 	public void run() {
-		GUI2 gui = new GUI2(); 
-		login = gui.login(this); 
-		while(!changeOccured){
-			
-		}
-		System.out.println(login);
-		int menuChoice = gui.partnerMenu(this); 
-		
-		while(! changeOccured){
-			
-		}
-		
-		System.out.println(menuChoice);
+
 	}
 
 
