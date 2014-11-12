@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import domain.GUITest;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class GUI {
 
@@ -16,6 +18,8 @@ public class GUI {
 	private Login loginPanel;
 	public static GUITest controller = new GUITest();
 	private JPanel headPanel;
+	private Component horizontalStrut;
+	private Component horizontalStrut_1;
 
 	/**
 	 * Launch the application.
@@ -35,6 +39,7 @@ public class GUI {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	public void initialize() {
 		System.out.println("i gui init nu");
@@ -50,6 +55,12 @@ public class GUI {
 		lblOdgersBerndtson.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
 				46));
 		headPanel.add(lblOdgersBerndtson);
+		
+		horizontalStrut = Box.createHorizontalStrut(200);
+		frame.getContentPane().add(horizontalStrut, BorderLayout.WEST);
+		
+		horizontalStrut_1 = Box.createHorizontalStrut(200);
+		frame.getContentPane().add(horizontalStrut_1, BorderLayout.EAST);
 		frame.setVisible(true);
 	}
 
