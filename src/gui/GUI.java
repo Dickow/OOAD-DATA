@@ -22,27 +22,7 @@ public class GUI {
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI window = new GUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
 	public void initialize() {
 		System.out.println("i gui init nu");
 		frame = new JFrame();
