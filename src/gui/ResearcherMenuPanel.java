@@ -2,14 +2,21 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.AbstractAction;
+
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.ObjectInputStream.GetField;
+
 import javax.swing.Action;
 
+import domain.MainController;
+
 public class ResearcherMenuPanel extends JPanel {
-	private final Action action = new SwingAction();
 
 	/**
 	 * Create the panel.
@@ -17,46 +24,77 @@ public class ResearcherMenuPanel extends JPanel {
 	public ResearcherMenuPanel() {
 		setLayout(null);
 		
-		JButton button = new JButton("Find person");
-		button.setAction(action);
-		button.setActionCommand("findPerson");
-		button.setBounds(173, 35, 115, 25);
-		add(button);
+		JButton findPerson = new JButton("Find person");
+		findPerson.setName("Find person");
+		findPerson.setActionCommand("findPerson");
+		findPerson.setBounds(173, 35, 115, 25);
+		add(findPerson);
 		
-		JButton button_1 = new JButton("Opret person");
-		button_1.setAction(action);
-		button_1.setActionCommand("opretPerson");
-		button_1.setBounds(173, 65, 115, 25);
-		add(button_1);
+		JButton createPerson = new JButton("Opret person");
+		createPerson.setActionCommand("opretPerson");
+		createPerson.setBounds(173, 65, 115, 25);
+		add(createPerson);
 		
-		JButton button_2 = new JButton("Find sag");
-		button_2.setAction(action);
-		button_2.setActionCommand("findSag");
-		button_2.setBounds(173, 95, 115, 25);
-		add(button_2);
+		JButton findCase = new JButton("Find sag");
+		findCase.setActionCommand("findSag");
+		findCase.setBounds(173, 95, 115, 25);
+		add(findCase);
 		
-		JButton button_4 = new JButton("Find Firma");
-		button_4.setAction(action);
-		button_4.setActionCommand("findFirma");
-		button_4.setBounds(173, 125, 115, 25);
-		add(button_4);
+		JButton findFirm = new JButton("Find Firma");
+		findFirm.setActionCommand("findFirma");
+		findFirm.setBounds(173, 125, 115, 25);
+		add(findFirm);
 		
-		JButton button_6 = new JButton("Logout");
-		button_6.setAction(action);
-		button_6.setActionCommand("logout");
-		button_6.setBounds(173, 156, 115, 25);
-		add(button_6);
+		JButton logOut = new JButton("Logout");
+		logOut.setActionCommand("logout");
+		logOut.setBounds(173, 156, 115, 25);
+		add(logOut);
 		
-		
-		
-		
+		findPerson.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 0; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		createPerson.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 1; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		findCase.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 2; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		findFirm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 4; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		logOut.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 6; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
 	}
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-		}
-	}
+
 }

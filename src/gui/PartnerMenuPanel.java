@@ -12,6 +12,7 @@ import java.awt.Insets;
 import javax.swing.AbstractAction;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Action;
 
@@ -22,7 +23,6 @@ public class PartnerMenuPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -789221947986118945L;
-	private final Action action = new SwingAction();
 
 	/**
 	 * Create the panel.
@@ -36,8 +36,6 @@ public class PartnerMenuPanel extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JButton findPerson = new JButton("Find person");
-		findPerson.setAction(action);
-		findPerson.setActionCommand("findPerson");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button.insets = new Insets(0, 0, 5, 5);
@@ -46,8 +44,6 @@ public class PartnerMenuPanel extends JPanel {
 		add(findPerson, gbc_button);
 		
 		JButton createPerson = new JButton("Opret person");
-		createPerson.setAction(action);
-		createPerson.setActionCommand("opretPerson");
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
 		gbc_button_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button_1.insets = new Insets(0, 0, 5, 5);
@@ -56,8 +52,6 @@ public class PartnerMenuPanel extends JPanel {
 		add(createPerson, gbc_button_1);
 		
 		JButton findCase = new JButton("Find sag");
-		findCase.setAction(action);
-		findCase.setActionCommand("findSag");
 		GridBagConstraints gbc_button_3 = new GridBagConstraints();
 		gbc_button_3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button_3.insets = new Insets(0, 0, 5, 5);
@@ -66,8 +60,6 @@ public class PartnerMenuPanel extends JPanel {
 		add(findCase, gbc_button_3);
 		
 		JButton createCase = new JButton("Opret sag");
-		createCase.setAction(action);
-		createCase.setActionCommand("opretSag");
 		GridBagConstraints gbc_button_2 = new GridBagConstraints();
 		gbc_button_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button_2.insets = new Insets(0, 0, 5, 5);
@@ -76,8 +68,6 @@ public class PartnerMenuPanel extends JPanel {
 		add(createCase, gbc_button_2);
 		
 		JButton findFirm = new JButton("Find Firma");
-		findFirm.setAction(action);
-		findFirm.setActionCommand("findFirma");
 		GridBagConstraints gbc_button_4 = new GridBagConstraints();
 		gbc_button_4.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button_4.insets = new Insets(0, 0, 5, 5);
@@ -86,8 +76,6 @@ public class PartnerMenuPanel extends JPanel {
 		add(findFirm, gbc_button_4);
 		
 		JButton createFirm = new JButton("Opret firma");
-		createFirm.setAction(action);
-		createFirm.setActionCommand("opretFirma");
 		createFirm.setName("");
 		createFirm.setForeground(Color.BLACK);
 		createFirm.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -99,14 +87,77 @@ public class PartnerMenuPanel extends JPanel {
 		add(createFirm, gbc_button_5);
 		
 		JButton logOut = new JButton("Logout");
-		logOut.setAction(action);
-		logOut.setActionCommand("logout");
 		GridBagConstraints gbc_button_6 = new GridBagConstraints();
 		gbc_button_6.fill = GridBagConstraints.HORIZONTAL;
 		gbc_button_6.insets = new Insets(0, 0, 5, 5);
 		gbc_button_6.gridx = 3;
 		gbc_button_6.gridy = 7;
 		add(logOut, gbc_button_6);
+		
+		findPerson.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 0;
+				MainController.getInstance().menuDistributor(menuChoice);
+			}
+		});
+		createPerson.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 1; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		findCase.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 2; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		createCase.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 3; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		findFirm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 4; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		createFirm.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 5; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		logOut.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int menuChoice = 6; 
+				MainController.getInstance().menuDistributor(menuChoice);
+				
+			}
+		});
+		
+		
 
 	}
 	
@@ -150,7 +201,7 @@ public class PartnerMenuPanel extends JPanel {
 				break; 
 			
 			}
-			MainController.getInstance().menuDistributor(menuChoice);
+			
 		}
 	}
 }

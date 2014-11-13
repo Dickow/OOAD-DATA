@@ -16,6 +16,7 @@ public class GUI {
 
 	private JFrame frame;
 	private PartnerMenuPanel partnerMenu = new PartnerMenuPanel();
+	private ResearcherMenuPanel researcherMenu = new ResearcherMenuPanel();
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -90,6 +91,8 @@ public class GUI {
 			partnerMenu.setVisible(true);
 			break;
 		case 2:
+			frame.getContentPane().add(researcherMenu, BorderLayout.CENTER);
+			researcherMenu.setVisible(true);
 			break;
 		}
 	}
