@@ -241,7 +241,7 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public EmployeeDTO findEmployee(int employeeId) {
+	public EmployeeDTO findEmployee(int employeeId) throws DALException {
 
 		try {
 			Connector.connect();
@@ -254,21 +254,37 @@ public class DataDAO implements IDataDAO {
 						+ employeeId + ";");
 		Connector.closeConnection();
 
-		if (!rs.first()) {
-			throw new DALException("the employee with the id = " + employeeId
-					+ " does not exist");
+		try {
+			if (!rs.first()) {
+				throw new DALException("the employee with the id = " + employeeId
+						+ " does not exist");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		if(rs.getString("job").equals("PARTNER")){
-			job = EmployeeDTO.JOB.PARTNER; 
-		}else{
-			job = EmployeeDTO.JOB.RESEARCHER; 
+		try {
+			if(rs.getString("job").equals("PARTNER")){
+				job = EmployeeDTO.JOB.PARTNER; 
+			}else{
+				job = EmployeeDTO.JOB.RESEARCHER; 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		
-		return new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
-				rs.getString("password"),job);
-
+		try {
+			return new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
+					rs.getString("password"),job);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// wont ever reach this code
+		return null; 
 	}
 
 	@Override
