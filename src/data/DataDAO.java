@@ -535,9 +535,9 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 
-		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[1])); //TODO find ud af hvad loginInfo indeholder hvor.
+		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[0])); //TODO find ud af hvad loginInfo indeholder hvor.
 
-		if (tempEmployee.getPassword().equals(loginInfo[2])) {
+		if (tempEmployee.getPassword().equals(loginInfo[1])) {
 			return true;
 		} else {
 			return false;
