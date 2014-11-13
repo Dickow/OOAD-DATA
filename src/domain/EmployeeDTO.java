@@ -1,4 +1,7 @@
 package domain;
+
+import domain.EmployeeDTO.JOB;
+
 public class EmployeeDTO {
 	
 	public enum JOB{PARTNER, RESEARCHER}
@@ -9,6 +12,13 @@ public class EmployeeDTO {
 	
 	
 	
+	public EmployeeDTO(int employeeId, String name, String password, JOB job) {
+		this.employeeId = employeeId; 
+		this.name = name; 
+		this.password = password; 
+		this.job = job; 
+
+	}
 	public int getEmployeeId() {
 		return employeeId;
 	}

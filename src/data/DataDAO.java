@@ -5,19 +5,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.Connector;
-import data.DALException;
 import domain.BranchDTO;
 import domain.CandidateDTO;
 import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.ContactPersonDTO;
 import domain.EmployeeDTO;
+import domain.EmployeeDTO.JOB;
 import domain.PersonDTO;
 import domain.PersonPjLaDTO;
 import domain.ResearcherDTO;
 
 public class DataDAO implements IDataDAO {
+
+	private JOB job;
 
 	@Override
 	public void createCompany(CompanyDTO company) throws DALException {
@@ -257,9 +258,16 @@ public class DataDAO implements IDataDAO {
 			throw new DALException("the employee with the id = " + employeeId
 					+ " does not exist");
 		}
+		
+		if(rs.getString("job").equals("PARTNER")){
+			job = EmployeeDTO.JOB.PARTNER; 
+		}else{
+			job = EmployeeDTO.JOB.RESEARCHER; 
+		}
 
+		
 		return new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
-				rs.getString("password"), rs.get("job"));//TODO find en måde at gå fra string til enum
+				rs.getString("password"),job);
 
 	}
 
