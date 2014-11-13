@@ -309,8 +309,13 @@ public class DataDAO implements IDataDAO {
 		}
 
 		while (rs.next()) {
+			if(rs.getString("job").equals("PARTNER")){
+				job = EmployeeDTO.JOB.PARTNER; 
+			}else{
+				job = EmployeeDTO.JOB.RESEARCHER; 
+			}
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
-					.getString("name"), rs.getString("password"), rs.get("job"))); //TODO find en måde at gå fra string til enum
+					.getString("name"), rs.getString("password"), job)); //TODO find en måde at gå fra string til enum
 		}
 		return list;
 	}
@@ -436,7 +441,6 @@ public class DataDAO implements IDataDAO {
 	public CaseDTO findResearchersOnCase(CaseDTO Case) throws DALException,
 			SQLException {
 
-		ResearcherDTO researcherDTO = new ResearcherDTO();
 
 		try {
 			Connector.connect();
@@ -445,12 +449,13 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT Researcherid,caseName FROM Case NATURAL JOIN Researcher WHERE CaseName = "
+				.doQuery("SELECT Researcherid, Name, Password FROM Case NATURAL JOIN Researcher WHERE CaseName = "
 						+ Case.getCaseName()
-						+ "ResearcherId = "
-						+ researcherDTO.getEmployeeId() + ";");
+						+ ";");
 		Connector.closeConnection();
-
+		
+		ResearcherDTO researcherDTO = new ResearcherDTO(rs.getInt("researcherId"), rs.getString("name"), rs.getString("password"), JOB.RESEARCHER);
+		
 		if (!rs.first()) {
 			throw new DALException("the Researcher with the id = "
 					+ researcherDTO.getEmployeeId()
