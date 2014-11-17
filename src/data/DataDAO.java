@@ -121,7 +121,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT TOP 1 personId FROM person ORDER BY id DESC;");
+				.doQuery("SELECT personId FROM person ORDER BY personId DESC LIMIT 1;");
 		Connector.closeConnection();
 
 		if (!rs.first()) {
