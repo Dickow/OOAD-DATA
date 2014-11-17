@@ -3,7 +3,8 @@ package domain;
 import gui.GUI;
 
 public class MainController {
-	GUI gui =  new GUI(); 
+	private GUI gui =  new GUI(); 
+	private int jobPos; 
 
 	private static MainController mainController;
 
@@ -29,6 +30,8 @@ public class MainController {
 		System.out.println(loginInfo[0]);
 		System.out.println(loginInfo[1]);
 		
+		
+		this.jobPos = 1; 
 		gui.menu(1); 
 
 	}
@@ -57,6 +60,25 @@ public class MainController {
 			System.out.println("menu6");
 			break; 
 		}
+		
+	}
+
+	public void editChosenPerson(String chosenPerson) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getCurrentEmployee() {
+		return jobPos; 
+	}
+
+	public void findPerson(String searchField) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void goBack(Object currentEmployee) {
+		gui.menu(getCurrentEmployee());
 		
 	}
 }
