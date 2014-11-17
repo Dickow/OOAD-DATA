@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domain.CompanyDTO;
 import domain.PersonDTO;
 
 public class GUI {
@@ -22,6 +23,7 @@ public class GUI {
 	private FindPersonPanel findPersonPanel = new FindPersonPanel();
 	private CreatePersonPanel createPersonPanel = new CreatePersonPanel(); 
 	private CreateCompanyPanel createCompanyPanel = new CreateCompanyPanel(); 
+	private FindCompanyPanel findCompanyPanel = new FindCompanyPanel(); 
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -136,6 +138,17 @@ public class GUI {
 		// add the panel to the frame
 		frame.getContentPane().add(createCompanyPanel);
 		createCompanyPanel.setVisible(true);
+	}
+	public void findCompanyMenu(ArrayList<CompanyDTO> companies){
+		findCompanyPanel.clearPrevList();
+		findCompanyPanel.fillList(companies);
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		// add the panel to the frame
+		frame.getContentPane().add(findPersonPanel);
+		findPersonPanel.setVisible(true);
 	}
 
 }

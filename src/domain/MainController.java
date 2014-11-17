@@ -9,6 +9,7 @@ public class MainController {
 	private GUI gui = new GUI();
 	private int jobPos;
 	private ArrayList<PersonDTO> persons = new ArrayList<PersonDTO>();
+	private ArrayList<CompanyDTO> companies = new ArrayList<CompanyDTO>();
 
 	private static MainController mainController;
 
@@ -55,7 +56,7 @@ public class MainController {
 			System.out.println("menu3"); // TODO
 			break;
 		case 4:
-			System.out.println("menu4"); // TODO
+			gui.findCompanyMenu(companies);
 			break;
 		case 5:
 			gui.createCompanyMenu();
@@ -90,10 +91,20 @@ public class MainController {
 
 	}
 	
+	public void editChosenCompany(String chosenCompany){
+		System.out.println(chosenCompany+ " will be edited");
+	}
+	
 	public void createCompany(CompanyDTO company){
 		// send the company to the database layer 
 		// TODO
 		System.out.println("created the " + company.getCompanyName());
+	}
+	
+	public void findCompany(String searchField){
+		// Search for the companies matching something in the searchField String
+		companies.add(new CompanyDTO("Kagefabrikken", "Kage", "Kagevej 46", "12345678", "stor mand", "lille mand"));
+		gui.findCompanyMenu(companies);
 	}
 
 	public int getCurrentEmployee() {
