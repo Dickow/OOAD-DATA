@@ -113,6 +113,29 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	public PersonDTO getLastPerson() throws DALException, SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT personId FROM person ORDER BY personId DESC LIMIT 1;");
+		Connector.closeConnection();
+
+		if (!rs.first()) {
+			throw new DALException("There is no persons in the database");
+		}
+
+		return new PersonDTO(rs.getString("name"), rs.getString("address"),
+				rs.getString("education"), rs.getString("currentJob"),
+				rs.getString("personPhone"), rs.getString("companyMail"),
+				rs.getString("privateMail"), rs.getString("personCell"),
+				rs.getString("note"), rs.getInt("id"), rs.getInt("age"),
+				rs.getInt("salary"));
+	}
+
 	@Override
 	public PersonDTO findPerson(int id) throws DALException, SQLException {
 
@@ -314,16 +337,7 @@ public class DataDAO implements IDataDAO {
 				job = EmployeeDTO.JOB.RESEARCHER;
 			}
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
-					.getString("name"), rs.getString("password"), job)); // TODO
-																			// find
-																			// en
-																			// måde
-																			// at
-																			// gå
-																			// fra
-																			// string
-																			// til
-																			// enum
+					.getString("name"), rs.getString("password"), job));
 		}
 		return list;
 	}
@@ -577,15 +591,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 
-		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[0])); // TODO
-																					// find
-																					// ud
-																					// af
-																					// hvad
-																					// loginInfo
-																					// indeholder
-																					// hvor.
-
+		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[0]));
 		if (tempEmployee.getPassword().equals(loginInfo[1])) {
 			return true;
 		} else {
@@ -630,5 +636,4 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 
 	}
-
 }

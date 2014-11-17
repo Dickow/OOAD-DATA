@@ -36,6 +36,8 @@ public interface IDataDAO {
 
 	public PersonDTO findPerson(int id) throws DALException, SQLException;
 
+	public PersonDTO getLastPerson() throws DALException, SQLException;
+	
 	public List<PersonDTO> findPersons(String name) throws DALException,
 			SQLException;
 
@@ -86,6 +88,7 @@ public interface IDataDAO {
 	
 	// login
 
-	public boolean loginExists(String[] loginInfo) throws DALException, SQLException;
+	public boolean loginExists(String[] loginInfo) throws DALException,
+			SQLException;
 
 }
