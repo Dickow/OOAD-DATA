@@ -21,6 +21,7 @@ public class GUI {
 	private ResearcherMenuPanel researcherMenu = new ResearcherMenuPanel();
 	private FindPersonPanel findPersonPanel = new FindPersonPanel();
 	private CreatePersonPanel createPersonPanel = new CreatePersonPanel(); 
+	private CreateCompanyPanel createCompanyPanel = new CreateCompanyPanel(); 
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -125,6 +126,16 @@ public class GUI {
 		// add the panel to the frame
 		frame.getContentPane().add(createPersonPanel);
 		createPersonPanel.setVisible(true);
+	}
+	
+	public void createCompanyMenu(){
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		// add the panel to the frame
+		frame.getContentPane().add(createCompanyPanel);
+		createCompanyPanel.setVisible(true);
 	}
 
 }

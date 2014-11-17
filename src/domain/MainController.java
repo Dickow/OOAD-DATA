@@ -43,27 +43,24 @@ public class MainController {
 	public void menuDistributor(int menuChoice) {
 		switch (menuChoice) {
 		case 0:
-			System.out.println("menu 0");
 			gui.findPersonMenu(persons);
 			break;
 		case 1:
-			System.out.println("menu1");
 			gui.createPersonMenu();
 			break;
 		case 2:
-			System.out.println("menu2");
+			System.out.println("menu2"); // TODO
 			break;
 		case 3:
-			System.out.println("menu3");
+			System.out.println("menu3"); // TODO
 			break;
 		case 4:
-			System.out.println("menu4");
+			System.out.println("menu4"); // TODO
 			break;
 		case 5:
-			System.out.println("menu5");
+			gui.createCompanyMenu();
 			break;
 		case 6:
-			System.out.println("menu6");
 			gui.login();
 			break;
 		}
@@ -74,6 +71,7 @@ public class MainController {
 		int day = new Integer(date.substring(0, 1));
 		int month = new Integer(date.substring(2, 3));
 		int year = new Integer(date.substring(4));
+		@SuppressWarnings("deprecation")
 		Date yearOfBirth = new Date(day,month,year); 
 		
 		int salary1 = new Integer(salary); 
@@ -91,11 +89,18 @@ public class MainController {
 		
 
 	}
+	
+	public void createCompany(CompanyDTO company){
+		// send the company to the database layer 
+		// TODO
+		System.out.println("created the " + company.getCompanyName());
+	}
 
 	public int getCurrentEmployee() {
 		return jobPos;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void findPerson(String searchField) {
 		// Test data for the JList
 		persons.add(new PersonDTO("Jeppe", "Address", "DTU", "Sejt job", "TLF", "mobil telefon", "privat mail", "Mobil", "lol note", 1, new Date(0,0,0), 50000000));
