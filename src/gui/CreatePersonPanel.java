@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import domain.MainController;
 import domain.PersonDTO;
 
+@SuppressWarnings("serial")
 public class CreatePersonPanel extends JPanel {
 	private JTextField nameTextField;
 	private JTextField addressTextField;
