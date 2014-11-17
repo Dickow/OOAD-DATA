@@ -2,7 +2,7 @@ package domain;
 
 public class CompanyDTO {
 	
-	private static String companyName;
+	private static String companyName;	
 	private static String branchCode;
 	private static String companyAddress;
 	private static String companyPhone;
