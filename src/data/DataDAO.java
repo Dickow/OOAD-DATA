@@ -1,5 +1,6 @@
 package data;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -127,12 +128,13 @@ public class DataDAO implements IDataDAO {
 		if (!rs.first()) {
 			throw new DALException("There is no persons in the database");
 		}
-
+		Date age = rs.getDate("date");
+		
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
 				rs.getString("privateMail"), rs.getString("personCell"),
-				rs.getString("note"), rs.getInt("id"), rs.getInt("age"),
+				rs.getString("note"), rs.getInt("id"), age,
 				rs.getInt("salary"));
 	}
 
@@ -153,12 +155,13 @@ public class DataDAO implements IDataDAO {
 			throw new DALException("the person with the id = " + id
 					+ " does not exist");
 		}
-
+		Date age = rs.getDate("date");
+		
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
 				rs.getString("privateMail"), rs.getString("personCell"),
-				rs.getString("note"), rs.getInt("id"), rs.getInt("age"),
+				rs.getString("note"), rs.getInt("id"), age,
 				rs.getInt("salary"));
 	}
 
@@ -179,12 +182,13 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 
 		while (rs.next()) {
+			Date age = rs.getDate("date");
 			list.add(new PersonDTO(rs.getString("name"), rs
 					.getString("address"), rs.getString("education"), rs
 					.getString("currentJob"), rs.getString("companyMail"), rs
 					.getString("privateMail"), rs.getString("personCell"), rs
 					.getString("personPhone"), rs.getString("note"), rs
-					.getInt("id"), rs.getInt("age"), rs.getInt("salary")));
+					.getInt("id"), age, rs.getInt("salary")));
 		}
 		return list;
 	}
@@ -550,7 +554,7 @@ public class DataDAO implements IDataDAO {
 		return new ContactPersonDTO(rs.getString("caseName"),
 				rs.getString("name"), rs.getString("email"),
 				rs.getString("contactPhone"), rs.getString("contactcell"),
-				rs.getInt("contactId"));
+				rs.getInt("contactId"), rs.getString("CompanyName"));
 	}
 
 	@Override
@@ -576,7 +580,7 @@ public class DataDAO implements IDataDAO {
 			list.add(new ContactPersonDTO(rs.getString("caseName"), rs
 					.getString("name"), rs.getString("email"), rs
 					.getString("contactPhone"), rs.getString("contactcell"), rs
-					.getInt("contactId")));
+					.getInt("contactId"), rs.getString("companyName")));
 		}
 		return list;
 	}
