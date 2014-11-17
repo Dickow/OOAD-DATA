@@ -1,6 +1,5 @@
 package domain;
 
-import domain.EmployeeDTO.JOB;
 
 public class EmployeeDTO {
 	
