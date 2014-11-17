@@ -10,10 +10,13 @@ import data.DALException;
 
 public class ContactPersonDTO {
 
-	private String caseName, name, email, contactPhone, contactCell;
+	private String caseName, name, email, contactPhone, contactCell,
+			companyName;
+	private int contactId;
 
 	public ContactPersonDTO(String caseName, String name, String email,
-			String contactPhone, String contactcell, int contactId) {
+			String contactPhone, String contactcell, int contactId,
+			String companyName) {
 
 	}
 
@@ -23,6 +26,22 @@ public class ContactPersonDTO {
 
 	public void setCaseName(String caseName) {
 		this.caseName = caseName;
+	}
+
+	public int getcontactId() {
+		return contactId;
+	}
+
+	public void setcontactId(int contactId) {
+		this.contactId = contactId;
+	}
+
+	public String getcompanyName() {
+		return companyName;
+	}
+
+	public void setcompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 	public String getName() {
