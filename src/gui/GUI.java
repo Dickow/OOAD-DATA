@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import domain.EmployeeDTO;
+import domain.PersonDTO;
 
 public class GUI {
 
@@ -20,6 +20,7 @@ public class GUI {
 	private PartnerMenuPanel partnerMenu = new PartnerMenuPanel();
 	private ResearcherMenuPanel researcherMenu = new ResearcherMenuPanel();
 	private FindPersonPanel findPersonPanel = new FindPersonPanel();
+	private CreatePersonPanel createPersonPanel = new CreatePersonPanel(); 
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -66,10 +67,10 @@ public class GUI {
 				46));
 		headPanel.add(lblOdgersBerndtson);
 
-		horizontalStrut = Box.createHorizontalStrut(200);
+		horizontalStrut = Box.createHorizontalStrut(180);
 		frame.getContentPane().add(horizontalStrut, BorderLayout.WEST);
 
-		horizontalStrut_1 = Box.createHorizontalStrut(200);
+		horizontalStrut_1 = Box.createHorizontalStrut(180);
 		frame.getContentPane().add(horizontalStrut_1, BorderLayout.EAST);
 		frame.setVisible(true);
 	}
@@ -103,9 +104,9 @@ public class GUI {
 		}
 	}
 
-	public void findPersonMenu(ArrayList<EmployeeDTO> employees) {
+	public void findPersonMenu(ArrayList<PersonDTO> persons) {
 		findPersonPanel.clearPrevList();
-		findPersonPanel.fillList(employees);
+		findPersonPanel.fillList(persons);
 		// remove previous panel
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
@@ -114,6 +115,16 @@ public class GUI {
 		frame.getContentPane().add(findPersonPanel);
 		findPersonPanel.setVisible(true);
 
+	}
+	
+	public void createPersonMenu(){
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		// add the panel to the frame
+		frame.getContentPane().add(createPersonPanel);
+		createPersonPanel.setVisible(true);
 	}
 
 }

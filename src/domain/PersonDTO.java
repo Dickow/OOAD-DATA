@@ -1,19 +1,21 @@
 package domain;
 
+import java.sql.Date;
+
 public class PersonDTO {
 
 	private String name, address, education, currentJob, personPhone,
 			companyMail, privateMail, personCell, note;
-	private int id, age, salary;
+	private int id, salary;
+	private Date birthYear; 
 	
-
 	public PersonDTO(){
 		
 	}
 	
 	public PersonDTO(String name, String address, String education,
 			String currentJob, String personPhone, String companyMail,
-			String privateMail, String personCell, String note, int id, int age, int salary) {
+			String privateMail, String personCell, String note, int id, Date age, int salary) {
 	}
 
 	public String getName() {
@@ -96,12 +98,12 @@ public class PersonDTO {
 		this.id = id;
 	}
 
-	public int getAge() {
-		return age;
+	public Date getAge() {
+		return birthYear;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public void setAge(Date age) {
+		this.birthYear = age;
 	}
 
 	public int getSalary() {

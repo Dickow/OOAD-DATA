@@ -8,19 +8,17 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import domain.EmployeeDTO;
 import domain.MainController;
-import javax.swing.AbstractListModel;
+import domain.PersonDTO;
 
 @SuppressWarnings("serial")
 public class FindPersonPanel extends JPanel {
 	private JTextField searchPersonTextField;
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
-	private JList<String> list = new JList<String>(listModel); 
+	private JList<String> list = new JList<String>(listModel);
 
 	/**
 	 * Create the panel.
@@ -47,9 +45,8 @@ public class FindPersonPanel extends JPanel {
 		JButton searchPersonBtn = new JButton("Søg");
 		searchPersonBtn.setBounds(297, 236, 68, 25);
 		add(searchPersonBtn);
-		
+
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    list.setSelectedIndex(0);
 		list.setBounds(12, 13, 273, 211);
 		add(list);
 
@@ -90,13 +87,13 @@ public class FindPersonPanel extends JPanel {
 		listModel.clear();
 	}
 
-	public void fillList(ArrayList<EmployeeDTO> employeeList) {
+	public void fillList(ArrayList<PersonDTO> personList) {
 		// Fill the list with new arguments
-		if (employeeList.isEmpty()) {
-			for (int i = 0; i < employeeList.size(); i++) {
+		if (!personList.isEmpty()) {
+			for (int i = 0; i < personList.size(); i++) {
 				listModel.addElement("id: "
-						+ employeeList.get(i).getEmployeeId() + " navn: "
-						+ employeeList.get(i).getName());
+						+ personList.get(i).getId() + " navn: "
+						+ personList.get(i).getName());
 			}
 		}
 
