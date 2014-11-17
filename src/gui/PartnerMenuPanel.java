@@ -29,12 +29,14 @@ public class PartnerMenuPanel extends JPanel {
 	 */
 	public PartnerMenuPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{99, 0, 47, 55, 39, 45, 81, 0};
-		gridBagLayout.rowHeights = new int[]{25, 25, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 99, 0, 47, 55, 39, 45, 81, 0 };
+		gridBagLayout.rowHeights = new int[] { 25, 25, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
-		
+
 		JButton findPerson = new JButton("Find person");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.fill = GridBagConstraints.HORIZONTAL;
@@ -42,7 +44,7 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button.gridx = 3;
 		gbc_button.gridy = 1;
 		add(findPerson, gbc_button);
-		
+
 		JButton createPerson = new JButton("Opret person");
 		GridBagConstraints gbc_button_1 = new GridBagConstraints();
 		gbc_button_1.fill = GridBagConstraints.HORIZONTAL;
@@ -50,7 +52,7 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_1.gridx = 3;
 		gbc_button_1.gridy = 2;
 		add(createPerson, gbc_button_1);
-		
+
 		JButton findCase = new JButton("Find sag");
 		GridBagConstraints gbc_button_3 = new GridBagConstraints();
 		gbc_button_3.fill = GridBagConstraints.HORIZONTAL;
@@ -58,7 +60,7 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_3.gridx = 3;
 		gbc_button_3.gridy = 3;
 		add(findCase, gbc_button_3);
-		
+
 		JButton createCase = new JButton("Opret sag");
 		GridBagConstraints gbc_button_2 = new GridBagConstraints();
 		gbc_button_2.fill = GridBagConstraints.HORIZONTAL;
@@ -66,7 +68,7 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_2.gridx = 3;
 		gbc_button_2.gridy = 4;
 		add(createCase, gbc_button_2);
-		
+
 		JButton findFirm = new JButton("Find Firma");
 		GridBagConstraints gbc_button_4 = new GridBagConstraints();
 		gbc_button_4.fill = GridBagConstraints.HORIZONTAL;
@@ -74,7 +76,7 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_4.gridx = 3;
 		gbc_button_4.gridy = 5;
 		add(findFirm, gbc_button_4);
-		
+
 		JButton createFirm = new JButton("Opret firma");
 		createFirm.setName("");
 		createFirm.setForeground(Color.BLACK);
@@ -85,7 +87,7 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_5.gridx = 3;
 		gbc_button_5.gridy = 6;
 		add(createFirm, gbc_button_5);
-		
+
 		JButton logOut = new JButton("Logout");
 		GridBagConstraints gbc_button_6 = new GridBagConstraints();
 		gbc_button_6.fill = GridBagConstraints.HORIZONTAL;
@@ -93,9 +95,9 @@ public class PartnerMenuPanel extends JPanel {
 		gbc_button_6.gridx = 3;
 		gbc_button_6.gridy = 7;
 		add(logOut, gbc_button_6);
-		
+
 		findPerson.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int menuChoice = 0;
@@ -103,105 +105,60 @@ public class PartnerMenuPanel extends JPanel {
 			}
 		});
 		createPerson.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int menuChoice = 1; 
+				int menuChoice = 1;
 				MainController.getInstance().menuDistributor(menuChoice);
-				
+
 			}
 		});
 		findCase.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int menuChoice = 2; 
+				int menuChoice = 2;
 				MainController.getInstance().menuDistributor(menuChoice);
-				
+
 			}
 		});
 		createCase.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int menuChoice = 3; 
+				int menuChoice = 3;
 				MainController.getInstance().menuDistributor(menuChoice);
-				
+
 			}
 		});
 		findFirm.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int menuChoice = 4; 
+				int menuChoice = 4;
 				MainController.getInstance().menuDistributor(menuChoice);
-				
+
 			}
 		});
 		createFirm.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int menuChoice = 5; 
+				int menuChoice = 5;
 				MainController.getInstance().menuDistributor(menuChoice);
-				
+
 			}
 		});
 		logOut.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				int menuChoice = 6; 
+				int menuChoice = 6;
 				MainController.getInstance().menuDistributor(menuChoice);
-				
+
 			}
 		});
-		
-		
 
 	}
-	
-	/* A collection of all the actions commands that the buttons can trigger 
-	 * collected in a switch statement, where the actions command is gathered through the
-	 * acionPerformed method. 
-	*/
 
-	private class SwingAction extends AbstractAction {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 2849057626039315237L;
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-		}
-		public void actionPerformed(ActionEvent e) {
-			int menuChoice = 0; 
-			switch(e.getActionCommand()){
-			
-			case "findPerson": 
-				menuChoice = 0; 
-				break; 
-			case "opretPerson": 
-				menuChoice = 1;
-				break; 
-			case "findSag":
-				menuChoice = 2; 
-				break; 
-			case "opretSag": 
-				menuChoice = 3; 
-				break; 
-			case "findFirma": 
-				menuChoice = 4; 
-				break; 
-			case "opretFirma":
-				menuChoice = 5; 
-				break; 
-			case "logout": 
-				menuChoice = 6; 
-				break; 
-			
-			}
-			
-		}
-	}
 }

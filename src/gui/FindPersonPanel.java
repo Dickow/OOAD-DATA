@@ -20,6 +20,7 @@ import javax.swing.AbstractListModel;
 public class FindPersonPanel extends JPanel {
 	private JTextField searchPersonTextField;
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
+	private JList<String> list = new JList<String>(listModel); 
 
 	/**
 	 * Create the panel.
@@ -47,15 +48,6 @@ public class FindPersonPanel extends JPanel {
 		searchPersonBtn.setBounds(297, 236, 68, 25);
 		add(searchPersonBtn);
 		
-		final JList<String> list = new JList<String>(new AbstractListModel() {
-			String[] values = new String[] {"Jeppe\t", "Lars", "Nikolaj"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    list.setSelectedIndex(0);
 		list.setBounds(12, 13, 273, 211);

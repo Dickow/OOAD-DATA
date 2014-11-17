@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -11,18 +12,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domain.EmployeeDTO;
 
 public class GUI {
 
 	private JFrame frame;
 	private PartnerMenuPanel partnerMenu = new PartnerMenuPanel();
 	private ResearcherMenuPanel researcherMenu = new ResearcherMenuPanel();
+	private FindPersonPanel findPersonPanel = new FindPersonPanel();
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
 	private Component horizontalStrut_1;
 	private BorderLayout layout;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +47,7 @@ public class GUI {
 	 */
 	public GUI() {
 		initialize();
-		login(); 
+		login();
 	}
 
 	public void initialize() {
@@ -73,14 +76,17 @@ public class GUI {
 
 	public void login() {
 		if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
+			layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 			frame.getContentPane().remove(
 					layout.getLayoutComponent(BorderLayout.CENTER));
 		}
+		
 		frame.getContentPane().add(loginPanel, BorderLayout.CENTER);
 		loginPanel.setVisible(true);
 	}
 
 	public void menu(int jobPos) {
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
 				layout.getLayoutComponent(BorderLayout.CENTER));
 		switch (jobPos) {
@@ -95,6 +101,19 @@ public class GUI {
 			researcherMenu.setVisible(true);
 			break;
 		}
+	}
+
+	public void findPersonMenu(ArrayList<EmployeeDTO> employees) {
+		findPersonPanel.clearPrevList();
+		findPersonPanel.fillList(employees);
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		// add the panel to the frame
+		frame.getContentPane().add(findPersonPanel);
+		findPersonPanel.setVisible(true);
+
 	}
 
 }
