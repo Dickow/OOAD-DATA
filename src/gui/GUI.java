@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.PersonDTO;
 
@@ -24,6 +25,8 @@ public class GUI {
 	private CreatePersonPanel createPersonPanel = new CreatePersonPanel(); 
 	private CreateCompanyPanel createCompanyPanel = new CreateCompanyPanel(); 
 	private FindCompanyPanel findCompanyPanel = new FindCompanyPanel(); 
+	private FindCasePanel findCasePanel = new FindCasePanel(); 
+	private CreateCasePanel createCasePanel = new CreateCasePanel();
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -54,6 +57,9 @@ public class GUI {
 		login();
 	}
 
+	/**
+	 * Initialize the GUI frame 
+	 */
 	public void initialize() {
 		System.out.println("i gui init nu");
 		frame = new JFrame();
@@ -78,6 +84,9 @@ public class GUI {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * the login menu of the GUI.   
+	 */
 	public void login() {
 		if (layout.getLayoutComponent(BorderLayout.CENTER) != null) {
 			layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
@@ -88,7 +97,10 @@ public class GUI {
 		frame.getContentPane().add(loginPanel, BorderLayout.CENTER);
 		loginPanel.setVisible(true);
 	}
-
+	/**
+	 * The main menu of the GUI, it distributes the user. 
+	 * @param jobPos
+	 */
 	public void menu(int jobPos) {
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
@@ -107,6 +119,10 @@ public class GUI {
 		}
 	}
 
+	/**
+	 * Find persons windows of the GUI.
+	 * @param persons
+	 */
 	public void findPersonMenu(ArrayList<PersonDTO> persons) {
 		findPersonPanel.clearPrevList();
 		findPersonPanel.fillList(persons);
@@ -139,6 +155,16 @@ public class GUI {
 		frame.getContentPane().add(createCompanyPanel);
 		createCompanyPanel.setVisible(true);
 	}
+	
+	public void createCaseMenu(){
+		// remove previous panel
+				layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+				frame.getContentPane().remove(
+						layout.getLayoutComponent(BorderLayout.CENTER));
+				// add the panel to the frame
+				frame.getContentPane().add(createCompanyPanel);
+				createCompanyPanel.setVisible(true);
+	}
 	public void findCompanyMenu(ArrayList<CompanyDTO> companies){
 		findCompanyPanel.clearPrevList();
 		findCompanyPanel.fillList(companies);
@@ -147,8 +173,18 @@ public class GUI {
 		frame.getContentPane().remove(
 				layout.getLayoutComponent(BorderLayout.CENTER));
 		// add the panel to the frame
-		frame.getContentPane().add(findPersonPanel);
-		findPersonPanel.setVisible(true);
+		frame.getContentPane().add(findCompanyPanel);
+		findCompanyPanel.setVisible(true);
+	}
+	
+	public void findCaseMenu(ArrayList<CaseDTO> cases){
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		// add the panel to the frame
+		frame.getContentPane().add(createCasePanel);
+		createCasePanel.setVisible(true);
 	}
 
 }

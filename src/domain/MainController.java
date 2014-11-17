@@ -10,6 +10,7 @@ public class MainController {
 	private int jobPos;
 	private ArrayList<PersonDTO> persons = new ArrayList<PersonDTO>();
 	private ArrayList<CompanyDTO> companies = new ArrayList<CompanyDTO>();
+	private ArrayList<CaseDTO> cases = new ArrayList<CaseDTO>(); 
 
 	private static MainController mainController;
 
@@ -50,10 +51,10 @@ public class MainController {
 			gui.createPersonMenu();
 			break;
 		case 2:
-			System.out.println("menu2"); // TODO
+			gui.findCaseMenu(cases);
 			break;
 		case 3:
-			System.out.println("menu3"); // TODO
+			gui.createCaseMenu();
 			break;
 		case 4:
 			gui.findCompanyMenu(companies);
@@ -67,7 +68,10 @@ public class MainController {
 		}
 
 	}
+	
+	// Create methods
 	public void createPerson(PersonDTO person,String date, String salary){
+
 		// look in the database for the last id and create the person with that id + 1
 		int day = new Integer(date.substring(0, 1));
 		int month = new Integer(date.substring(2, 3));
@@ -84,21 +88,24 @@ public class MainController {
 		
 		
 	}
+	
+	public void createCompany(CompanyDTO company){
+		// send the company to the database layer 
+		// TODO
+		System.out.println("created the " + company.getCompanyName());
+	}
 
+	// Edit methods
 	public void editChosenPerson(String chosenPerson) {
-		System.out.println(chosenPerson);
-		
-
+		System.out.println(chosenPerson + " will be edited");
 	}
 	
 	public void editChosenCompany(String chosenCompany){
 		System.out.println(chosenCompany+ " will be edited");
 	}
 	
-	public void createCompany(CompanyDTO company){
-		// send the company to the database layer 
-		// TODO
-		System.out.println("created the " + company.getCompanyName());
+	public void editChosenCase(String chosenCase){
+		System.out.println(chosenCase + "will be edited");
 	}
 	
 	public void findCompany(String searchField){
@@ -106,11 +113,7 @@ public class MainController {
 		companies.add(new CompanyDTO("Kagefabrikken", "Kage", "Kagevej 46", "12345678", "stor mand", "lille mand"));
 		gui.findCompanyMenu(companies);
 	}
-
-	public int getCurrentEmployee() {
-		return jobPos;
-	}
-
+	
 	@SuppressWarnings("deprecation")
 	public void findPerson(String searchField) {
 		// Test data for the JList
@@ -118,6 +121,22 @@ public class MainController {
 		System.out.println(searchField);
 		
 		gui.findPersonMenu(persons);
+	}
+
+	public void findCase(String searchField){
+		// Search for the cases matching something in the searchField String
+		
+		// Test data for the JList
+		cases.add(new CaseDTO("god case", "Kagefabrikken", 2, 1));
+		
+		gui.findCaseMenu(cases);
+		
+	}
+	
+	
+	
+	public int getCurrentEmployee() {
+		return jobPos;
 	}
 
 	public void goBack(Object currentEmployee) {

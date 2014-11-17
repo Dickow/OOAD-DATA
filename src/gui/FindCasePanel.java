@@ -10,13 +10,11 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 
-import domain.CompanyDTO;
+import domain.CaseDTO;
 import domain.MainController;
 
-@SuppressWarnings("serial")
-public class FindCompanyPanel extends JPanel {
+public class FindCasePanel extends JPanel {
 	private JTextField searchTextField;
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 	private JList<String> list = new JList<String>(listModel);
@@ -24,35 +22,34 @@ public class FindCompanyPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public FindCompanyPanel() {
+	public FindCasePanel() {
 		setLayout(null);
 
 		JButton editBtn = new JButton("Rediger");
-		editBtn.setBounds(12, 262, 83, 25);
+		editBtn.setBounds(10, 259, 83, 25);
 		add(editBtn);
 
 		JButton goBackBtn = new JButton("G\u00E5 tilbage");
-		goBackBtn.setBounds(196, 262, 89, 25);
+		goBackBtn.setBounds(194, 259, 89, 25);
 		add(goBackBtn);
 
 		JButton logoutBtn = new JButton("Log ud");
-		logoutBtn.setBounds(107, 262, 77, 25);
+		logoutBtn.setBounds(105, 259, 77, 25);
 		add(logoutBtn);
 
 		searchTextField = new JTextField();
 		searchTextField.setColumns(10);
-		searchTextField.setBounds(12, 237, 273, 22);
+		searchTextField.setBounds(10, 234, 273, 22);
 		add(searchTextField);
 
 		JButton searchBtn = new JButton("S\u00F8g");
-		searchBtn.setBounds(297, 236, 68, 25);
+		searchBtn.setBounds(295, 233, 68, 25);
 		add(searchBtn);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 273, 214);
+		scrollPane.setBounds(10, 10, 273, 214);
 		add(scrollPane);
 
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 
 		logoutBtn.addActionListener(new ActionListener() {
@@ -60,7 +57,7 @@ public class FindCompanyPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				MainController.getInstance().menuDistributor(6);
-				
+
 			}
 		});
 
@@ -77,8 +74,9 @@ public class FindCompanyPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String chosenCompany = list.getSelectedValue(); 
-				MainController.getInstance().editChosenCompany(chosenCompany);; 
+				String chosenCase = list.getSelectedValue();
+				MainController.getInstance().editChosenCompany(chosenCase);
+				;
 
 			}
 		});
@@ -98,13 +96,13 @@ public class FindCompanyPanel extends JPanel {
 		listModel.clear();
 	}
 
-	public void fillList(ArrayList<CompanyDTO> personList) {
+	public void fillList(ArrayList<CaseDTO> personList) {
 		// Fill the list with new arguments
 		if (!personList.isEmpty()) {
 			for (int i = 0; i < personList.size(); i++) {
-				listModel.addElement("Firma navn: "
-						+ personList.get(i).getCompanyName() + " addresse: "
-						+ personList.get(i).getCompanyAddress());
+				listModel.addElement("Sags navn: "
+						+ personList.get(i).getCaseName() + " firma navn: "
+						+ personList.get(i).getCompanyName());
 			}
 		}
 
