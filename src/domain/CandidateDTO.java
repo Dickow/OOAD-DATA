@@ -2,18 +2,18 @@ package domain;
 
 public class CandidateDTO {
 
-	private int id; 
+	private int candidateId; 
 	private String caseName, status;
 	
 	
 	
-	public CandidateDTO(int id, String caseName, String status) {
+	public CandidateDTO(int candidateId, String caseName, String status) {
 	}
-	public int getId() {
-		return id;
+	public int getCandidateId() {
+		return candidateId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCandidateId(int candidateId) {
+		this.candidateId = candidateId;
 	}
 	public String getCaseName() {
 		return caseName;

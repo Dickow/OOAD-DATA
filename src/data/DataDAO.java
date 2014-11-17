@@ -30,7 +30,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO Company VALUES ("
-				+ company.getCompanyName() + "," + company.getBranchCode()
+				+ company.getCompanyName() + "," + company.getMainCode()
 				+ "," + company.getCompanyAddress() + ","
 				+ company.getCompanyPhone() + "," + company.getCEO() + ","
 				+ company.getCFO() + "');");
@@ -47,7 +47,7 @@ public class DataDAO implements IDataDAO {
 		}
 		Connector.doUpdate("UPDATE Company " + "SET" + " companyName = '"
 				+ company.getCompanyName() + "', BanchCode = '"
-				+ company.getBranchCode() + "', CompanyAdress = '"
+				+ company.getMainCode() + "', CompanyAdress = '"
 				+ company.getCompanyAddress() + "', CompanyTlf = '"
 				+ company.getCompanyPhone() + "', CEO = '" + company.getCEO()
 				+ "', CFO = '" + company.getCFO() + "' WHERE companyName = "
@@ -209,8 +209,8 @@ public class DataDAO implements IDataDAO {
 				+ "', companyMail = '" + person.getCompanyMail()
 				+ "', privateMail = '" + person.getPrivateMail()
 				+ "', personCell = '" + person.getPersonCell() + "', note = '"
-				+ person.getNote() + "', id = '" + person.getId()
-				+ "', age = '" + person.getAge() + ", salary = "
+				+ person.getNote() + "', id = '" + person.getPersonId()
+				+ "', age = '" + person.getBirthYear() + ", salary = "
 				+ person.getSalary() +
 
 				"' WHERE name = " + person.getName() + ";");
@@ -231,7 +231,7 @@ public class DataDAO implements IDataDAO {
 				+ person.getCurrentJob() + "," + person.getPersonPhone() + ","
 				+ person.getCompanyMail() + "," + person.getPrivateMail() + ","
 				+ person.getPersonCell() + "," + person.getNote() + ","
-				+ person.getId() + "," + person.getAge() + ","
+				+ person.getPersonId() + "," + person.getBirthYear() + ","
 				+ person.getSalary() + "');");
 		Connector.closeConnection();
 
@@ -354,7 +354,7 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("INSERT INTO Candidate VALUES (" + candidate.getId()
+		Connector.doUpdate("INSERT INTO Candidate VALUES (" + candidate.getCandidateId()
 				+ "," + candidate.getCaseName() + "," + candidate.getStatus()
 				+ "');");
 	}
@@ -441,7 +441,7 @@ public class DataDAO implements IDataDAO {
 		}
 		Connector.doUpdate("UPDATE Case " + "SET" + " CaseName = '"
 				+ Case.getCaseName() + "', CompanyName = '"
-				+ Case.getCompanyName() + "', Id = '" + Case.getId()
+				+ Case.getCompanyName() + "', Id = '" + Case.getPartnerId()
 				+ "', PartnerId = '" + Case.getPartnerId() + ";");
 		Connector.closeConnection();
 
@@ -457,7 +457,7 @@ public class DataDAO implements IDataDAO {
 		}
 		Connector.doUpdate("UPDATE Case " + "SET" + " caseName = '"
 				+ Case.getCaseName() + "', CompanyName = '"
-				+ Case.getCompanyName() + "', id = '" + Case.getId()
+				+ Case.getCompanyName() + "', id = '" + Case.getPartnerId()
 				+ "', partnerId = '" + Case.getPartnerId() + ";");
 		Connector.closeConnection();
 
@@ -476,7 +476,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT Researcherid, Name, Password FROM Case NATURAL JOIN Researcher WHERE CaseName = "
+				.doQuery("SELECT Researcherid, CaseName FROM Case NATURAL JOIN Researcher WHERE CaseName = "
 						+ Case.getCaseName() + ";");
 		Connector.closeConnection();
 
@@ -635,7 +635,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO PersonPjLa VALUES ("
-				+ personpjlaDTO.getId() + "," + personpjlaDTO.getLanguage()
+				+ personpjlaDTO.getPersonId() + "," + personpjlaDTO.getLanguage()
 				+ "," + personpjlaDTO.getPreviousJobs() + "');");
 		Connector.closeConnection();
 
