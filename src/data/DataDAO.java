@@ -256,35 +256,34 @@ public class DataDAO implements IDataDAO {
 
 		try {
 			if (!rs.first()) {
-				throw new DALException("the employee with the id = " + employeeId
-						+ " does not exist");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			if(rs.getString("job").equals("PARTNER")){
-				job = EmployeeDTO.JOB.PARTNER; 
-			}else{
-				job = EmployeeDTO.JOB.RESEARCHER; 
+				throw new DALException("the employee with the id = "
+						+ employeeId + " does not exist");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
 		try {
-			return new EmployeeDTO(rs.getInt("employeeId"), rs.getString("name"),
-					rs.getString("password"),job);
+			if (rs.getString("job").equals("PARTNER")) {
+				job = EmployeeDTO.JOB.PARTNER;
+			} else {
+				job = EmployeeDTO.JOB.RESEARCHER;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		try {
+			return new EmployeeDTO(rs.getInt("employeeId"),
+					rs.getString("name"), rs.getString("password"), job);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// wont ever reach this code
-		return null; 
+		return null;
 	}
 
 	@Override
@@ -309,8 +308,22 @@ public class DataDAO implements IDataDAO {
 		}
 
 		while (rs.next()) {
+			if (rs.getString("job").equals("PARTNER")) {
+				job = EmployeeDTO.JOB.PARTNER;
+			} else {
+				job = EmployeeDTO.JOB.RESEARCHER;
+			}
 			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
-					.getString("name"), rs.getString("password"), rs.get("job"))); //TODO find en måde at gå fra string til enum
+					.getString("name"), rs.getString("password"), job)); // TODO
+																			// find
+																			// en
+																			// måde
+																			// at
+																			// gå
+																			// fra
+																			// string
+																			// til
+																			// enum
 		}
 		return list;
 	}
@@ -433,10 +446,10 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public CaseDTO findResearchersOnCase(CaseDTO Case) throws DALException,
-			SQLException {
+	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case)
+			throws DALException, SQLException {
 
-		ResearcherDTO researcherDTO = new ResearcherDTO();
+		List<ResearcherDTO> list = new ArrayList<ResearcherDTO>();
 
 		try {
 			Connector.connect();
@@ -445,21 +458,26 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT Researcherid,caseName FROM Case NATURAL JOIN Researcher WHERE CaseName = "
-						+ Case.getCaseName()
-						+ "ResearcherId = "
-						+ researcherDTO.getEmployeeId() + ";");
+				.doQuery("SELECT Researcherid, Name, Password FROM Case NATURAL JOIN Researcher WHERE CaseName = "
+						+ Case.getCaseName() + ";");
 		Connector.closeConnection();
 
 		if (!rs.first()) {
-			throw new DALException("the Researcher with the id = "
-					+ researcherDTO.getEmployeeId()
-					+ " is not on the case with this name: "
-					+ Case.getCaseName());
+			throw new DALException(
+					"There is currently no researchers on the case with this name: "
+							+ Case.getCaseName());
 		}
 
-		return new CaseDTO(rs.getString("caseName"),
-				rs.getString("ResearcherId"), 0, 0);
+		while (rs.next()) {
+			if (rs.getString("job").equals("PARTNER")) {
+				job = EmployeeDTO.JOB.PARTNER;
+			} else {
+				job = EmployeeDTO.JOB.RESEARCHER;
+			}
+			list.add(new ResearcherDTO(rs.getInt("researcherId"), rs
+					.getString("name"), rs.getString("password"), job));
+		}
+		return list;
 	}
 
 	@Override
@@ -559,7 +577,14 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 
-		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[0])); //TODO find ud af hvad loginInfo indeholder hvor.
+		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[0])); // TODO
+																					// find
+																					// ud
+																					// af
+																					// hvad
+																					// loginInfo
+																					// indeholder
+																					// hvor.
 
 		if (tempEmployee.getPassword().equals(loginInfo[1])) {
 			return true;

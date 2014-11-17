@@ -11,6 +11,7 @@ import domain.ContactPersonDTO;
 import domain.EmployeeDTO;
 import domain.PersonDTO;
 import domain.PersonPjLaDTO;
+import domain.ResearcherDTO;
 
 public interface IDataDAO {
 	
@@ -69,7 +70,7 @@ public interface IDataDAO {
 
 	public void createCase(CaseDTO Case) throws DALException;
 	
-	public CaseDTO findResearchersOnCase(CaseDTO Case) throws DALException, SQLException;
+	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case) throws DALException, SQLException;
 	
 	// Contact
 
