@@ -92,7 +92,7 @@ public class FindPersonPanel extends JPanel {
 		if (!personList.isEmpty()) {
 			for (int i = 0; i < personList.size(); i++) {
 				listModel.addElement("id: "
-						+ personList.get(i).getPersonId() + " navn: "
+						+ personList.get(i).getPersonId() + ", navn: "
 						+ personList.get(i).getName());
 			}
 		}

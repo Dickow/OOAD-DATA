@@ -3,10 +3,12 @@ package domain;
 import gui.GUI;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import data.DALException;
 import data.DataDAO;
 
 public class MainController {
@@ -85,6 +87,14 @@ public class MainController {
 	public void createPerson(PersonDTO person,String date, String salary){
 
 		// look in the database for the last id and create the person with that id + 1
+		try {
+			int tmpId = database.getLastPerson().getPersonId()+1;
+			person.setId(tmpId);
+		} catch (DALException e) {
+			e.getMessage(); //TODO
+		} catch (SQLException e) {
+			e.getMessage(); //TODO
+		}
 		int day = new Integer(date.substring(0, 1));
 		int month = new Integer(date.substring(2, 3));
 		int year = new Integer(date.substring(4));
@@ -96,12 +106,22 @@ public class MainController {
 		// put the person into the database now!!
 		person.setBirthYear(yearOfBirth);
 		person.setSalary(salary1);
+		
+		try {
+			database.createPerson(person);
+		} catch (DALException e) {
+			e.getMessage(); //TODO
+		}
 	}
 	
 	public void createCompany(CompanyDTO company){
 		// send the company to the database layer 
-		// TODO
 		System.out.println("created the " + company.getCompanyName());
+		try {
+			database.createCompany(company);
+		} catch (DALException e) {
+			e.getMessage();//TODO
+		}
 	}
 	
 	public void createCase(CaseDTO casetmp, String researchers, String candidates){
@@ -122,9 +142,18 @@ public class MainController {
 	 */
 	public void editChosenPerson(String chosenPerson) {
 		System.out.println(chosenPerson + " will be edited");
-		int id = chosenPerson.split(arg0, arg1);
-		database.findPerson(id)
-		gui.editPersonMenu(person);
+		String[] tmpStrings = chosenPerson.split(" , "); 
+		int id = new Integer(tmpStrings[0].substring(4));
+		PersonDTO person;
+		try {
+			person = database.findPerson(id);
+			gui.editPersonMenu(person);
+		} catch (DALException e) {
+			e.getMessage(); //TODO
+		} catch (SQLException e) {
+			e.getMessage(); //TODO
+		} 
+		
 	}
 	
 	public void editChosenCompany(String chosenCompany){
@@ -142,7 +171,11 @@ public class MainController {
 	
 	public void editPersonInDatabase(PersonDTO person){
 		// Take the id from the given person and update him in the database
-		// TODO
+		try {
+			database.updatePerson(person);
+		} catch (DALException e) {
+			e.getMessage(); //TODO
+		}
 	}
 	
 	public void editCompanyInDatabase(CompanyDTO company){
