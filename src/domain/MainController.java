@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import data.DataDAO;
+
 public class MainController {
 	private GUI gui = new GUI();
 	private int jobPos;
@@ -16,6 +18,7 @@ public class MainController {
 	private List<String> researchers;
 	private List<String> candidates; 
 	private int id; 
+	private DataDAO database = new DataDAO(); 
 
 	private static MainController mainController;
 
@@ -119,6 +122,9 @@ public class MainController {
 	 */
 	public void editChosenPerson(String chosenPerson) {
 		System.out.println(chosenPerson + " will be edited");
+		int id = chosenPerson.split(arg0, arg1);
+		database.findPerson(id)
+		gui.editPersonMenu(person);
 	}
 	
 	public void editChosenCompany(String chosenCompany){
@@ -129,7 +135,23 @@ public class MainController {
 		System.out.println(chosenCase + "will be edited");
 	}
 	
+	/*
+	 * ###################################################
+	 * Edit methods that update the data in the database.
+	 */
 	
+	public void editPersonInDatabase(PersonDTO person){
+		// Take the id from the given person and update him in the database
+		// TODO
+	}
+	
+	public void editCompanyInDatabase(CompanyDTO company){
+		
+	}
+	
+	public void editCaseInDatabase(CaseDTO curCase){
+		
+	}
 	
 	
 	/*

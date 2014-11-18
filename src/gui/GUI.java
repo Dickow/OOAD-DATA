@@ -27,6 +27,9 @@ public class GUI {
 	private FindCompanyPanel findCompanyPanel = new FindCompanyPanel();
 	private FindCasePanel findCasePanel = new FindCasePanel();
 	private CreateCasePanel createCasePanel = new CreateCasePanel();
+	private EditCasePanel editCasePanel = new EditCasePanel();
+	private EditCompanyPanel editCompanyPanel = new EditCompanyPanel();
+	private EditPersonPanel editPersonPanel = new EditPersonPanel();
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -156,7 +159,7 @@ public class GUI {
 		frame.getContentPane().add(createCasePanel);
 		createCasePanel.setVisible(true);
 	}
-	
+
 	public void findPersonMenu(ArrayList<PersonDTO> persons) {
 		findPersonPanel.clearPrevList();
 		findPersonPanel.fillList(persons);
@@ -192,6 +195,26 @@ public class GUI {
 		// add the panel to the frame
 		frame.getContentPane().add(findCasePanel);
 		findCasePanel.setVisible(true);
+	}
+
+	public void editPersonMenu(PersonDTO person) {
+		editPersonPanel.fillTextBoxes(person);
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		
+		// Add the new panel to the frame 
+		frame.getContentPane().add(editPersonPanel); 
+		editPersonPanel.setVisible(true);
+	}
+
+	public void editCaseMenu(CaseDTO curCase) {
+
+	}
+
+	public void editCompanyMenu(CompanyDTO company) {
+
 	}
 
 }
