@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 
+import domain.CaseDTO;
 import domain.MainController;
 
 public class CreateCasePanel extends JPanel {
@@ -47,11 +48,11 @@ public class CreateCasePanel extends JPanel {
 		candidateLabel.setBounds(203, 109, 56, 16);
 		add(candidateLabel);
 		
-		JTextArea researcherTextArea = new JTextArea("input id'er separeret med ,");
+		final JTextArea researcherTextArea = new JTextArea("input id'er separeret med ,");
 		researcherTextArea.setBounds(75, 126, 116, 77);
 		add(researcherTextArea);
 		
-		JTextArea candidateTextArea = new JTextArea("input id'er separeret med ,");
+		final JTextArea candidateTextArea = new JTextArea("input id'er separeret med ,");
 		candidateTextArea.setBounds(203, 126, 116, 77);
 		add(candidateTextArea);
 		
@@ -92,6 +93,10 @@ public class CreateCasePanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
+				
+				
+				MainController.getInstance().createCase(new CaseDTO(caseNameTextField.getText(), companyNameTextField.getText(), 0, 0), 
+						researcherTextArea.getText(), candidateTextArea.getText());
 			}
 		});
 	}

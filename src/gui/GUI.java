@@ -126,18 +126,6 @@ public class GUI {
 	 * 
 	 * @param persons
 	 */
-	public void findPersonMenu(ArrayList<PersonDTO> persons) {
-		findPersonPanel.clearPrevList();
-		findPersonPanel.fillList(persons);
-		// remove previous panel
-		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
-		frame.getContentPane().remove(
-				layout.getLayoutComponent(BorderLayout.CENTER));
-		// add the panel to the frame
-		frame.getContentPane().add(findPersonPanel);
-		findPersonPanel.setVisible(true);
-
-	}
 
 	public void createPersonMenu() {
 		// remove previous panel
@@ -167,6 +155,19 @@ public class GUI {
 		// add the panel to the frame
 		frame.getContentPane().add(createCasePanel);
 		createCasePanel.setVisible(true);
+	}
+	
+	public void findPersonMenu(ArrayList<PersonDTO> persons) {
+		findPersonPanel.clearPrevList();
+		findPersonPanel.fillList(persons);
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+		// add the panel to the frame
+		frame.getContentPane().add(findPersonPanel);
+		findPersonPanel.setVisible(true);
+
 	}
 
 	public void findCompanyMenu(ArrayList<CompanyDTO> companies) {

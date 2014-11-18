@@ -75,7 +75,7 @@ public class FindCasePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String chosenCase = list.getSelectedValue();
-				MainController.getInstance().editChosenCompany(chosenCase);
+				MainController.getInstance().editChosenCase(chosenCase);
 				;
 
 			}
@@ -85,7 +85,7 @@ public class FindCasePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String searchField = searchTextField.getText();
-				MainController.getInstance().findCompany(searchField);
+				MainController.getInstance().findCase(searchField);
 
 			}
 		});
