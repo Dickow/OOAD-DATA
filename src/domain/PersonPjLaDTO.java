@@ -2,19 +2,19 @@ package domain;
 
 public class PersonPjLaDTO {
 	PersonDTO personDTO = new PersonDTO();
-	private int id;
+	private int personId;
 	private String previousJobs, language;
 
-	public PersonPjLaDTO(String previousJobs, String language, int id) {
+	public PersonPjLaDTO(String previousJobs, String language, int personId) {
 
 	}
 
-	public int getId() {
-		return id;
+	public int getPersonId() {
+		return personId;
 	}
 
-	public void setId() {
-		id = personDTO.getId();
+	public void setPersonId() {
+		id = personDTO.getPersonId();
 	}
 
 	public String getPreviousJobs() {

@@ -2,21 +2,13 @@ package domain;
 
 public class CompanyDTO {
 	
-	private static String companyName;	
-	private static String branchCode;
-	private static String companyAddress;
-	private static String companyPhone;
-	private static String CEO;
-	private static String CFO;
+	private String companyName, mainCode, companyAddress, companyPhone, CEO, CFO;
 
 	public CompanyDTO(String CampanyName, String BranchCode, String CompanyAddress,
 			String CompanyPhone, String CEO, String CFO) {
-		setCompanyName(CampanyName);
-		setCompanyAddress(CompanyAddress);
-		setCompanyPhone(CompanyPhone);
-		setBranchCode(BranchCode);
-		setCEO(CEO);
-		setCFO(CFO);
+	}
+	
+	public CompanyDTO(){
 		
 	}
 
@@ -25,15 +17,15 @@ public class CompanyDTO {
 	}
 	
 	public void setCompanyName(String companyName) {
-		CompanyDTO.companyName = companyName;
+		this.companyName = companyName;
 	}
 
-	public String getBranchCode() {
-		return branchCode;
+	public String getMainCode() {
+		return mainCode;
 	}
 
-	public void setBranchCode(String branchCode) {
-		CompanyDTO.branchCode = branchCode;
+	public void setMainCode(String mainCode) {
+		this.mainCode = mainCode;
 	}
 
 	public String getCompanyAddress() {
@@ -41,7 +33,7 @@ public class CompanyDTO {
 	}
 
 	public void setCompanyAddress(String companyAddress) {
-		CompanyDTO.companyAddress = companyAddress;
+		this.companyAddress = companyAddress;
 	}
 
 	public String getCompanyPhone() {
@@ -49,7 +41,7 @@ public class CompanyDTO {
 	}
 
 	public void setCompanyPhone(String companyPhone) {
-		CompanyDTO.companyPhone = companyPhone;
+		this.companyPhone = companyPhone;
 	}
 
 	public String getCEO() {

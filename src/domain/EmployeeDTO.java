@@ -11,13 +11,12 @@ public class EmployeeDTO {
 	
 	
 	
-	public EmployeeDTO(int employeeId, String name, String password, JOB job) {
-		this.employeeId = employeeId; 
-		this.name = name; 
-		this.password = password; 
-		this.job = job; 
-
+	public EmployeeDTO(int employeeId, String name, String password, JOB job) { 
 	}
+	public EmployeeDTO(){
+		
+	}
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}

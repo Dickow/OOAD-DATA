@@ -6,7 +6,7 @@ public class PersonDTO {
 
 	private String name, address, education, currentJob, personPhone,
 			companyMail, privateMail, personCell, note;
-	private int id, salary;
+	private int personId, salary;
 	private Date birthYear; 
 	
 	public PersonDTO(){
@@ -15,7 +15,7 @@ public class PersonDTO {
 	
 	public PersonDTO(String name, String address, String education,
 			String currentJob, String personPhone, String companyMail,
-			String privateMail, String personCell, String note, int id, Date age, int salary) {
+			String privateMail, String personCell, String note, int personId, Date birthYear, int salary) {
 	}
 
 	public String getName() {
@@ -90,20 +90,20 @@ public class PersonDTO {
 		this.note = note;
 	}
 
-	public int getId() {
-		return id;
+	public int getPersonId() {
+		return personId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int personId) {
+		this.personId = personId;
 	}
 
-	public Date getAge() {
+	public Date getBirthYear() {
 		return birthYear;
 	}
 
-	public void setAge(Date age) {
-		this.birthYear = age;
+	public void setBirthYear(Date birthYear) {
+		this.birthYear = birthYear;
 	}
 
 	public int getSalary() {

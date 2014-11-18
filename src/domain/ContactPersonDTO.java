@@ -1,7 +1,5 @@
 package domain;
 
-
-
 public class ContactPersonDTO {
 
 	private String caseName, name, email, contactPhone, contactCell,
@@ -11,7 +9,10 @@ public class ContactPersonDTO {
 	public ContactPersonDTO(String caseName, String name, String email,
 			String contactPhone, String contactcell, int contactId,
 			String companyName) {
-
+	}
+	
+	public ContactPersonDTO(){
+		
 	}
 
 	public String getCaseName() {
