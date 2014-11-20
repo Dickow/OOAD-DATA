@@ -21,6 +21,8 @@ public class DataDAO implements IDataDAO {
 
 	private JOB job;
 
+	//Ændring af Company
+	
 	@Override
 	public void createCompany(CompanyDTO company) throws DALException {
 		try {
@@ -114,6 +116,8 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	//Ændring af person
+	
 	public PersonDTO getLastPerson() throws DALException, SQLException {
 		try {
 			Connector.connect();
@@ -237,6 +241,8 @@ public class DataDAO implements IDataDAO {
 
 	}
 
+	//Ændring af Employee
+	
 	@Override
 	public void updateEmployee(EmployeeDTO employee) throws DALException {
 		try {
@@ -346,6 +352,7 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	//Ændring af Candidate
 	@Override
 	public void createCandidate(CandidateDTO candidate) throws DALException {
 		try {
@@ -409,6 +416,8 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	//Ændring af Case
+	
 	@Override
 	public CaseDTO findCase(String caseName) throws DALException, SQLException {
 		try {
@@ -463,6 +472,8 @@ public class DataDAO implements IDataDAO {
 
 	}
 
+	//Ændring af Researcher
+	
 	@Override
 	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case)
 			throws DALException, SQLException {
@@ -498,6 +509,8 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	//Ændring af ContactPerson
+	
 	@Override
 	public void createContact(ContactPersonDTO contact) throws DALException {
 		try {
@@ -585,6 +598,7 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	//Login check
 	@Override
 	public boolean loginExists(String[] loginInfo) throws DALException,
 			SQLException {
@@ -603,6 +617,8 @@ public class DataDAO implements IDataDAO {
 		}
 	}
 
+	//Ændring af PersonPjLa
+	
 	@Override
 	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
 			SQLException {
