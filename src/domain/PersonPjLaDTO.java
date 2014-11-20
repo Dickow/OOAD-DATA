@@ -13,8 +13,8 @@ public class PersonPjLaDTO {
 		return personId;
 	}
 
-	public void setPersonId() {
-		personId = personDTO.getPersonId();
+	public void setPersonId(int personId) {
+		this.personId = personId;
 	}
 
 	public String getPreviousJobs() {
