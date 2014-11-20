@@ -113,6 +113,7 @@ public class GUI {
 				layout.getLayoutComponent(BorderLayout.CENTER));
 		switch (jobPos) {
 		case 0:
+			// for the sysadmin when it gets implemented
 			break;
 		case 1:
 			frame.getContentPane().add(partnerMenu, BorderLayout.CENTER);
