@@ -157,11 +157,14 @@ public class MainController {
 	}
 	
 	public void editChosenCompany(String chosenCompany){
+		//TODO
 		System.out.println(chosenCompany+ " will be edited");
 	}
 	
 	public void editChosenCase(String chosenCase){
-		System.out.println(chosenCase + "will be edited");
+		String[] tmpStrings = chosenCase.split(" , "); 
+		String curCase = tmpStrings[0].substring(11);
+		
 	}
 	
 	/*
@@ -179,13 +182,20 @@ public class MainController {
 	}
 	
 	public void editCompanyInDatabase(CompanyDTO company){
-		
+		// TODO
 	}
 	
-	public void editCaseInDatabase(CaseDTO curCase){
-		
+	public void addResearcherToCaseInDatabase(String chosenAvailableResearcher){
+		String[] tmpStrings = chosenAvailableResearcher.split(" , "); 
+		int id = new Integer(tmpStrings[0].substring(4));
+		//TODO mangler en metode til at tilføje en researcher til en eksisterende case
 	}
 	
+	public void removeResearcherFromCaseInDatabase(String chosenResearcherOnCase){
+		String[] tmpStrings = chosenResearcherOnCase.split(" , "); 
+		int id = new Integer(tmpStrings[0].substring(4));
+		//TODO mangler en metode til at fjerne researchere fra en eksisterende case
+	}
 	
 	/*
 	 * ############################################################

@@ -10,10 +10,12 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import domain.CaseDTO;
 import domain.MainController;
 
+@SuppressWarnings("serial")
 public class FindCasePanel extends JPanel {
 	private JTextField searchTextField;
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
@@ -50,8 +52,9 @@ public class FindCasePanel extends JPanel {
 		scrollPane.setBounds(10, 10, 273, 214);
 		add(scrollPane);
 
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
-
+		
 		logoutBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -101,7 +104,7 @@ public class FindCasePanel extends JPanel {
 		if (!personList.isEmpty()) {
 			for (int i = 0; i < personList.size(); i++) {
 				listModel.addElement("Sags navn: "
-						+ personList.get(i).getCaseName() + " firma navn: "
+						+ personList.get(i).getCaseName() + ", firma navn: "
 						+ personList.get(i).getCompanyName());
 			}
 		}
