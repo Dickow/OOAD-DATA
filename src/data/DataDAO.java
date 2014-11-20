@@ -568,7 +568,7 @@ public class DataDAO implements IDataDAO {
 		}
 
 		ResultSet rs = Connector
-				.doQuery("SELECT researcherId FROM ResearcherOnCase WHERE caseName = '"
+				.doQuery("SELECT researcherId FROM ResearchersOnCase WHERE caseName = '"
 						+ caseName + "';");
 
 		while (rs.next()) {
@@ -591,7 +591,7 @@ public class DataDAO implements IDataDAO {
 		}
 
 		ResultSet rs = Connector
-				.doQuery("SELECT researcherId FROM ResearcherOnCase WHERE caseName NOT '"
+				.doQuery("SELECT researcherId FROM ResearchersOnCase WHERE caseName NOT '"
 						+ caseName + "';");
 
 		while (rs.next()) {
