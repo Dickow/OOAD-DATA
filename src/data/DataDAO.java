@@ -12,6 +12,7 @@ import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.ContactPersonDTO;
 import domain.EmployeeDTO;
+import domain.ResearcherOnCaseDTO;
 import domain.EmployeeDTO.JOB;
 import domain.PersonDTO;
 import domain.PersonPjLaDTO;
@@ -543,6 +544,29 @@ public class DataDAO implements IDataDAO {
 		}
 
 		Connector.closeConnection();
+	}
+
+	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName)
+			throws DALException, SQLException {
+		List<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		ResultSet rs = Connector
+				.doQuery("SELECT researcherId FROM ResearcherOnCase WHERE caseName = '"
+						+ caseName + "';");
+
+		while (rs.next()) {
+			list.add(new ResearcherOnCaseDTO(rs.getInt("researcherId"), rs
+					.getString("caseName")));
+		}
+
+		return list;
+
 	}
 
 	// Ændring af ContactPerson
