@@ -144,6 +144,7 @@ public class CreatePersonPanel extends JPanel {
 
 		saveBtn.addActionListener(new ActionListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String date = ageTextField.getText();

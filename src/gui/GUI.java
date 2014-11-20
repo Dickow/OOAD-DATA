@@ -27,7 +27,7 @@ public class GUI {
 	private FindCompanyPanel findCompanyPanel = new FindCompanyPanel();
 	private FindCasePanel findCasePanel = new FindCasePanel();
 	private CreateCasePanel createCasePanel = new CreateCasePanel();
-	private EditCasePanel editCasePanel = new EditCasePanel();
+	private EditCaseResearchersPanel editCasePanel = new EditCaseResearchersPanel();
 	private EditCompanyPanel editCompanyPanel = new EditCompanyPanel();
 	private EditPersonPanel editPersonPanel = new EditPersonPanel();
 	private Login loginPanel = new Login();
@@ -210,7 +210,7 @@ public class GUI {
 	}
 
 	public void editCaseMenu(CaseDTO curCase) {
-
+		
 	}
 
 	public void editCompanyMenu(CompanyDTO company) {
