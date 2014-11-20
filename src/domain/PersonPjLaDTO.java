@@ -14,7 +14,7 @@ public class PersonPjLaDTO {
 	}
 
 	public void setPersonId() {
-		id = personDTO.getPersonId();
+		personId = personDTO.getPersonId();
 	}
 
 	public String getPreviousJobs() {
