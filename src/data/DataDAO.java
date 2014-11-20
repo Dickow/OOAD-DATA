@@ -21,8 +21,8 @@ public class DataDAO implements IDataDAO {
 
 	private JOB job;
 
-	//Ændring af Company
-	
+	// Ændring af Company
+
 	@Override
 	public void createCompany(CompanyDTO company) throws DALException {
 		try {
@@ -32,10 +32,9 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO Company VALUES ("
-				+ company.getCompanyName() + "," + company.getMainCode()
-				+ "," + company.getCompanyAddress() + ","
-				+ company.getCompanyPhone() + "," + company.getCEO() + ","
-				+ company.getCFO() + "');");
+				+ company.getCompanyName() + "," + company.getMainCode() + ","
+				+ company.getCompanyAddress() + "," + company.getCompanyPhone()
+				+ "," + company.getCEO() + "," + company.getCFO() + "');");
 		Connector.closeConnection();
 	}
 
@@ -116,8 +115,24 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	//Ændring af person
-	
+	public String deleteCompany(String compName) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindekse til databasen");
+		}
+
+		Connector.doQuery("DELETE from Company WHERE companyName ='" + compName
+				+ "';");
+		Connector.closeConnection();
+
+		return compName; // TODO Lav det om til void, hvis vi vil få navnet på
+							// en anden måde.
+	}
+
+	// Ændring af person
+
 	public PersonDTO getLastPerson() throws DALException, SQLException {
 		try {
 			Connector.connect();
@@ -133,13 +148,12 @@ public class DataDAO implements IDataDAO {
 			throw new DALException("There is no persons in the database");
 		}
 		Date age = rs.getDate("date");
-		
+
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
 				rs.getString("privateMail"), rs.getString("personCell"),
-				rs.getString("note"), rs.getInt("id"), age,
-				rs.getInt("salary"));
+				rs.getString("note"), rs.getInt("id"), age, rs.getInt("salary"));
 	}
 
 	@Override
@@ -160,13 +174,12 @@ public class DataDAO implements IDataDAO {
 					+ " does not exist");
 		}
 		Date age = rs.getDate("date");
-		
+
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
 				rs.getString("privateMail"), rs.getString("personCell"),
-				rs.getString("note"), rs.getInt("id"), age,
-				rs.getInt("salary"));
+				rs.getString("note"), rs.getInt("id"), age, rs.getInt("salary"));
 	}
 
 	@Override
@@ -241,8 +254,8 @@ public class DataDAO implements IDataDAO {
 
 	}
 
-	//Ændring af Employee
-	
+	// Ændring af Employee
+
 	@Override
 	public void updateEmployee(EmployeeDTO employee) throws DALException {
 		try {
@@ -352,7 +365,7 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	//Ændring af Candidate
+	// Ændring af Candidate
 	@Override
 	public void createCandidate(CandidateDTO candidate) throws DALException {
 		try {
@@ -361,9 +374,9 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("INSERT INTO Candidate VALUES (" + candidate.getCandidateId()
-				+ "," + candidate.getCaseName() + "," + candidate.getStatus()
-				+ "');");
+		Connector.doUpdate("INSERT INTO Candidate VALUES ("
+				+ candidate.getCandidateId() + "," + candidate.getCaseName()
+				+ "," + candidate.getStatus() + "');");
 	}
 
 	@Override
@@ -416,8 +429,8 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	//Ændring af Case
-	
+	// Ændring af Case
+
 	@Override
 	public CaseDTO findCase(String caseName) throws DALException, SQLException {
 		try {
@@ -457,7 +470,11 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void createCase(CaseDTO Case) throws DALException {
+	public void createCase(CaseDTO Case) throws DALException {// TODO Denne
+																// metode
+																// opdatere en
+																// CASE, laver
+																// ikke en ny!!!
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -472,8 +489,8 @@ public class DataDAO implements IDataDAO {
 
 	}
 
-	//Ændring af Researcher
-	
+	// Ændring af Researcher
+
 	@Override
 	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case)
 			throws DALException, SQLException {
@@ -509,8 +526,27 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	//Ændring af ContactPerson
-	
+	public void addResearcherToCase(int rID, String caseName)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		try {
+			Connector.doQuery("INSERT INTO ResearcherOnCase VALUES" + rID + ","
+					+ caseName + ");");
+		} catch (Exception e) {
+			throw new DALException(
+					"Kunne ikke oprettes en ResearcherOnCase, da den allerede eksistere");
+		}
+
+		Connector.closeConnection();
+	}
+
+	// Ændring af ContactPerson
+
 	@Override
 	public void createContact(ContactPersonDTO contact) throws DALException {
 		try {
@@ -598,7 +634,7 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	//Login check
+	// Login check
 	@Override
 	public boolean loginExists(String[] loginInfo) throws DALException,
 			SQLException {
@@ -617,8 +653,8 @@ public class DataDAO implements IDataDAO {
 		}
 	}
 
-	//Ændring af PersonPjLa
-	
+	// Ændring af PersonPjLa
+
 	@Override
 	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
 			SQLException {
@@ -651,8 +687,9 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO PersonPjLa VALUES ("
-				+ personpjlaDTO.getPersonId() + "," + personpjlaDTO.getLanguage()
-				+ "," + personpjlaDTO.getPreviousJobs() + "');");
+				+ personpjlaDTO.getPersonId() + ","
+				+ personpjlaDTO.getLanguage() + ","
+				+ personpjlaDTO.getPreviousJobs() + "');");
 		Connector.closeConnection();
 
 	}
