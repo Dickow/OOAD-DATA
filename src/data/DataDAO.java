@@ -559,7 +559,7 @@ public class DataDAO implements IDataDAO {
 
 	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName) //TODO 
 			throws DALException, SQLException {
-		List<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
+		ArrayList<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
 		try {
 			Connector.connect();
 		} catch (Exception e) {
@@ -582,7 +582,7 @@ public class DataDAO implements IDataDAO {
 
 	public List<ResearcherOnCaseDTO> getAllresearcherNotOnCases(String caseName) //TODO 
 			throws DALException, SQLException {
-		List<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
+		ArrayList<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
 		try {
 			Connector.connect();
 		} catch (Exception e) {

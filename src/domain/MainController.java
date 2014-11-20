@@ -10,6 +10,7 @@ import java.util.List;
 
 import data.DALException;
 import data.DataDAO;
+import domain.EmployeeDTO.JOB;
 
 public class MainController {
 	private GUI gui = new GUI();
@@ -44,14 +45,29 @@ public class MainController {
 	}
 
 	public void login(String[] loginInfo) {
+		loginInfo[0].trim();
 		id = new Integer(loginInfo[0]); 
-		System.out.println("du er logget ind");
-		System.out.println(loginInfo[0]);
-		System.out.println(loginInfo[1]);
 
-		// TODO check if the one that logs in acctually exists
-		this.jobPos = 1;
-		gui.menu(1);
+		try {
+			database.loginExists(loginInfo);
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		} catch (SQLException e) {
+			e.getMessage(); // TODO exception handling
+		} 
+		
+		try {
+			if(database.findEmployee(id).getJob().equals(JOB.PARTNER)){
+				this.jobPos = 1; 
+			}
+			else{
+				jobPos = 2; 
+			}
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		}
+		
+		gui.menu(jobPos);
 
 	}
 
@@ -178,10 +194,17 @@ public class MainController {
 	public void editChosenCase(String chosenCase){
 		String[] tmpStrings = chosenCase.split(" , "); 
 		curCase = tmpStrings[0].substring(11);
-		
-		// TODO
-		
-		
+		// first get all the researchers on a given case and all the researchers not on that given case
+		//TODO get the available researchers
+		try {
+			gui.editCaseMenu(database.getAllresearcherOnCases(curCase), database.getAllresearcherNotOnCases(curCase));
+		} catch (DALException e) {
+			e.getMessage(); // TODO
+		} catch (SQLException e) {
+			e.getMessage(); // TODO
+		}	
+	}
+	public void editChosenCaseForController(String curCase){
 		
 	}
 	
@@ -226,8 +249,10 @@ public class MainController {
 	public void removeResearcherFromCaseInDatabase(String chosenResearcherOnCase){
 		String[] tmpStrings = chosenResearcherOnCase.split(" , "); 
 		int id = new Integer(tmpStrings[0].substring(4));
-		
 		//TODO mangler en metode til at fjerne researchere fra en eksisterende case
+		
+		
+		MainController.getInstance().editChosenCaseForController(curCase);
 	}
 	
 	/*
