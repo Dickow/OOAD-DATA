@@ -494,14 +494,14 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void createCase(String caseName, String firmaNavn, int kandidatId, int PartnerId) throws DALException {
+	public void createCase(CaseDTO name) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("Insert into Case VALUES " + caseName + "," + firmaNavn + "," + kandidatId + "," + PartnerId + ";");
+		Connector.doUpdate("Insert into Case VALUES " + name.getCaseName() + "," + name.getCompanyName() + ","  + name.getPartnerId() + ";");
 		Connector.closeConnection();
 
 	}

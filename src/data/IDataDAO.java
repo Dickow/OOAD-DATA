@@ -73,8 +73,7 @@ public interface IDataDAO {
 
 	public void updateCase(CaseDTO Case) throws DALException;
 
-	void createCase(String caseName, String firmaNavn, int kandidatId,
-			int PartnerId) throws DALException;
+	void createCase(CaseDTO name) throws DALException;
 
 	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case)
 			throws DALException, SQLException;
