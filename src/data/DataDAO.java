@@ -116,7 +116,7 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	public String deleteCompany(String compName) throws DALException {
+	public void deleteCompany(String compName) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e) {
@@ -127,10 +127,7 @@ public class DataDAO implements IDataDAO {
 		Connector.doQuery("DELETE from Company WHERE companyName ='" + compName
 				+ "';");
 		Connector.closeConnection();
-
-		return compName; // TODO Lav det om til void, hvis vi vil få navnet på
-							// en anden måde.
-	}
+		}
 
 	// Ændring af person
 
@@ -254,6 +251,19 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 
 	}
+
+	public void deletePerson(int id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindekse til databasen");
+		}
+
+		Connector.doQuery("DELETE from person WHERE personId ='" + id
+				+ "';");
+		Connector.closeConnection();
+		}
 
 	// Ændring af Employee
 
@@ -430,6 +440,19 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
+	public void deleteCandidate(int id) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindekse til databasen");
+		}
+
+		Connector.doQuery("DELETE from Candidate WHERE canditateId ='" + id
+				+ "';");
+		Connector.closeConnection();
+		}
+
 	// Ændring af Case
 
 	@Override
@@ -471,21 +494,14 @@ public class DataDAO implements IDataDAO {
 	}
 
 	@Override
-	public void createCase(CaseDTO Case) throws DALException {// TODO Denne
-																// metode
-																// opdatere en
-																// CASE, laver
-																// ikke en ny!!!
+	public void createCase(String caseName, String firmaNavn, int kandidatId, int PartnerId) throws DALException {
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("UPDATE Case " + "SET" + " caseName = '"
-				+ Case.getCaseName() + "', CompanyName = '"
-				+ Case.getCompanyName() + "', id = '" + Case.getPartnerId()
-				+ "', partnerId = '" + Case.getPartnerId() + ";");
+		Connector.doUpdate("Insert into Case VALUES " + caseName + "," + firmaNavn + "," + kandidatId + "," + PartnerId + ";");
 		Connector.closeConnection();
 
 	}
