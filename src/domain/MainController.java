@@ -21,6 +21,8 @@ public class MainController {
 	private List<String> candidates; 
 	private int id; 
 	private DataDAO database = new DataDAO(); 
+	private String curCase; 
+	private String curCompany; 
 
 	private static MainController mainController;
 
@@ -91,9 +93,9 @@ public class MainController {
 			int tmpId = database.getLastPerson().getPersonId()+1;
 			person.setId(tmpId);
 		} catch (DALException e) {
-			e.getMessage(); //TODO
+			e.getMessage(); //TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); //TODO
+			e.getMessage(); //TODO exception handling
 		}
 		int day = new Integer(date.substring(0, 1));
 		int month = new Integer(date.substring(2, 3));
@@ -103,14 +105,15 @@ public class MainController {
 		
 		int salary1 = new Integer(salary); 
 		
-		// put the person into the database now!!
+		// put the int casted values into the object
 		person.setBirthYear(yearOfBirth);
 		person.setSalary(salary1);
 		
+		//create the person in the database
 		try {
 			database.createPerson(person);
 		} catch (DALException e) {
-			e.getMessage(); //TODO
+			e.getMessage(); //TODO exception handling
 		}
 	}
 	
@@ -120,18 +123,24 @@ public class MainController {
 		try {
 			database.createCompany(company);
 		} catch (DALException e) {
-			e.getMessage();//TODO
+			e.getMessage();//TODO exception handling
 		}
 	}
 	
 	public void createCase(CaseDTO casetmp, String researchers, String candidates){
+		
+		// set the saved id from the person, because the id can not be edited by anyone
 		casetmp.setPartnerId(id);
 		
+		// split the arrays by ,
 		this.researchers = new ArrayList<String>(Arrays.asList(researchers.split(" , ")));
 		this.candidates = new ArrayList<String>(Arrays.asList(candidates.split(" , "))); 
 		
-		// create everything in the database now. 
-		// TODO
+		try {
+			database.createCase(casetmp);
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		}
 		
 	}
 	
@@ -149,21 +158,30 @@ public class MainController {
 			person = database.findPerson(id);
 			gui.editPersonMenu(person);
 		} catch (DALException e) {
-			e.getMessage(); //TODO
+			e.getMessage(); //TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); //TODO
+			e.getMessage(); //TODO exception handling
 		} 
 		
 	}
 	
 	public void editChosenCompany(String chosenCompany){
-		//TODO
-		System.out.println(chosenCompany+ " will be edited");
+		curCompany = chosenCompany; 
+		
+		try {
+			gui.editCompanyMenu(database.findCompany(chosenCompany));
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling 
+		}
 	}
 	
 	public void editChosenCase(String chosenCase){
 		String[] tmpStrings = chosenCase.split(" , "); 
-		String curCase = tmpStrings[0].substring(11);
+		curCase = tmpStrings[0].substring(11);
+		
+		// TODO
+		
+		
 		
 	}
 	
@@ -177,23 +195,38 @@ public class MainController {
 		try {
 			database.updatePerson(person);
 		} catch (DALException e) {
-			e.getMessage(); //TODO
+			e.getMessage(); //TODO exception handling
 		}
 	}
 	
 	public void editCompanyInDatabase(CompanyDTO company){
-		// TODO
+		try {
+			database.deleteCompany(curCompany);
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		}
+		
+		try {
+			database.createCompany(company);
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		}
 	}
 	
 	public void addResearcherToCaseInDatabase(String chosenAvailableResearcher){
 		String[] tmpStrings = chosenAvailableResearcher.split(" , "); 
 		int id = new Integer(tmpStrings[0].substring(4));
-		//TODO mangler en metode til at tilføje en researcher til en eksisterende case
+		try {
+			database.addResearcherToCase(id, curCase);
+		} catch (DALException e) {
+			e.getMessage();
+		}
 	}
 	
 	public void removeResearcherFromCaseInDatabase(String chosenResearcherOnCase){
 		String[] tmpStrings = chosenResearcherOnCase.split(" , "); 
 		int id = new Integer(tmpStrings[0].substring(4));
+		
 		//TODO mangler en metode til at fjerne researchere fra en eksisterende case
 	}
 	
