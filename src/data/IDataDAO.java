@@ -12,6 +12,7 @@ import domain.EmployeeDTO;
 import domain.PersonDTO;
 import domain.PersonPjLaDTO;
 import domain.ResearcherDTO;
+import domain.ResearcherOnCaseDTO;
 
 public interface IDataDAO {
 
@@ -52,7 +53,7 @@ public interface IDataDAO {
 
 	public void createEmployee(EmployeeDTO employee) throws DALException;
 
-	public EmployeeDTO findEmployee(int EmployeeId) throws DALException;
+	public EmployeeDTO findEmployee(int EmployeeId) throws DALException, SQLException;
 
 	public List<EmployeeDTO> findEmployees(String name) throws DALException,
 			SQLException;
@@ -73,10 +74,12 @@ public interface IDataDAO {
 
 	public void updateCase(CaseDTO Case) throws DALException;
 
-	void createCase(CaseDTO name) throws DALException;
+	public void createCase(CaseDTO name) throws DALException;
 
-	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case)
+	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName)
 			throws DALException, SQLException;
+
+	public void addResearcherToCase(int rID, String caseName) throws DALException;
 
 	// Contact
 
@@ -94,5 +97,4 @@ public interface IDataDAO {
 
 	public boolean loginExists(String[] loginInfo) throws DALException,
 			SQLException;
-
 }

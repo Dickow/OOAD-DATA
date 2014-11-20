@@ -127,7 +127,7 @@ public class DataDAO implements IDataDAO {
 		Connector.doQuery("DELETE from Company WHERE companyName ='" + compName
 				+ "';");
 		Connector.closeConnection();
-		}
+	}
 
 	// Ændring af person
 
@@ -260,10 +260,9 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindekse til databasen");
 		}
 
-		Connector.doQuery("DELETE from person WHERE personId ='" + id
-				+ "';");
+		Connector.doQuery("DELETE from person WHERE personId ='" + id + "';");
 		Connector.closeConnection();
-		}
+	}
 
 	// Ændring af Employee
 
@@ -341,6 +340,20 @@ public class DataDAO implements IDataDAO {
 		}
 		// wont ever reach this code
 		return null;
+	}
+
+	public void deleteEmployee(String employeeName) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindekse til databasen");
+		}
+
+		Connector.doQuery("DELETE from Employee WHERE name ='" + employeeName
+				+ "';");
+		Connector.closeConnection();
+
 	}
 
 	@Override
@@ -451,7 +464,7 @@ public class DataDAO implements IDataDAO {
 		Connector.doQuery("DELETE from Candidate WHERE canditateId ='" + id
 				+ "';");
 		Connector.closeConnection();
-		}
+	}
 
 	// Ændring af Case
 
@@ -501,48 +514,30 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("Insert into Case VALUES " + name.getCaseName() + "," + name.getCompanyName() + ","  + name.getPartnerId() + ";");
+		Connector
+				.doUpdate("Insert into Case VALUES " + name.getCaseName() + ","
+						+ name.getCompanyName() + "," + name.getPartnerId()
+						+ ";");
 		Connector.closeConnection();
 
+	}
+
+	public void deleteCase(String caseName) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindekse til databasen");
+		}
+
+		Connector.doQuery("DELETE from Case WHERE caseName ='" + caseName
+				+ "';");
+		Connector.closeConnection();
 	}
 
 	// Ændring af Researcher
 
 	@Override
-	public List<ResearcherDTO> findResearchersOnCase(CaseDTO Case)
-			throws DALException, SQLException {
-
-		List<ResearcherDTO> list = new ArrayList<ResearcherDTO>();
-
-		try {
-			Connector.connect();
-		} catch (Exception e1) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-		ResultSet rs = Connector
-				.doQuery("SELECT Researcherid, CaseName FROM Case NATURAL JOIN Researcher WHERE CaseName = "
-						+ Case.getCaseName() + ";");
-		Connector.closeConnection();
-
-		if (!rs.first()) {
-			throw new DALException(
-					"There is currently no researchers on the case with this name: "
-							+ Case.getCaseName());
-		}
-
-		while (rs.next()) {
-			if (rs.getString("job").equals("PARTNER")) {
-				job = EmployeeDTO.JOB.PARTNER;
-			} else {
-				job = EmployeeDTO.JOB.RESEARCHER;
-			}
-			list.add(new ResearcherDTO(rs.getInt("researcherId"), rs
-					.getString("name"), rs.getString("password"), job));
-		}
-		return list;
-	}
-
 	public void addResearcherToCase(int rID, String caseName)
 			throws DALException {
 		try {
@@ -562,7 +557,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName)
+	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName) //TODO 
 			throws DALException, SQLException {
 		List<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
 		try {
@@ -585,6 +580,7 @@ public class DataDAO implements IDataDAO {
 
 	}
 
+	
 	// Ændring af ContactPerson
 
 	@Override
@@ -673,7 +669,19 @@ public class DataDAO implements IDataDAO {
 		}
 		return list;
 	}
+	
+	public void deleteContactPerson(int contactId) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindekse til databasen");
+		}
 
+		Connector.doQuery("DELETE from Contactperson WHERE contactId ='" + contactId
+				+ "';");
+		Connector.closeConnection();
+	}
 	// Login check
 	@Override
 	public boolean loginExists(String[] loginInfo) throws DALException,
