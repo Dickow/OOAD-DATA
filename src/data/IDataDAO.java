@@ -79,6 +79,9 @@ public interface IDataDAO {
 	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName)
 			throws DALException, SQLException;
 
+	public List<ResearcherOnCaseDTO> getAllresearcherNotOnCases(String caseName)
+			throws DALException, SQLException;
+
 	public void addResearcherToCase(int rID, String caseName) throws DALException;
 
 	// Contact

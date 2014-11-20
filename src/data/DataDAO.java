@@ -580,6 +580,28 @@ public class DataDAO implements IDataDAO {
 
 	}
 
+	public List<ResearcherOnCaseDTO> getAllresearcherNotOnCases(String caseName) //TODO 
+			throws DALException, SQLException {
+		List<ResearcherOnCaseDTO> list = new ArrayList<ResearcherOnCaseDTO>();
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		ResultSet rs = Connector
+				.doQuery("SELECT researcherId FROM ResearcherOnCase WHERE caseName NOT '"
+						+ caseName + "';");
+
+		while (rs.next()) {
+			list.add(new ResearcherOnCaseDTO(rs.getInt("researcherId"), rs
+					.getString("caseName")));
+		}
+
+		return list;
+
+	}
 	
 	// Ændring af ContactPerson
 
