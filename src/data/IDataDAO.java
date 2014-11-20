@@ -76,10 +76,10 @@ public interface IDataDAO {
 
 	public void createCase(CaseDTO name) throws DALException;
 
-	public List<ResearcherOnCaseDTO> getAllresearcherOnCases(String caseName)
+	public List<ResearcherDTO> getAllresearcherOnCases(String caseName)
 			throws DALException, SQLException;
 
-	public List<ResearcherOnCaseDTO> getAllresearcherNotOnCases(String caseName)
+	public List<ResearcherDTO> getAllresearcherNotOnCases(String caseName)
 			throws DALException, SQLException;
 
 	public void addResearcherToCase(int rID, String caseName) throws DALException;
