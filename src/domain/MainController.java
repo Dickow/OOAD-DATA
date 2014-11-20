@@ -21,8 +21,10 @@ public class MainController {
 
 	// Bad fix to make the code work Should be remade in future iterations
 	private ArrayList<CaseDTO> singleCaseArray = new ArrayList<CaseDTO>();
-	private List<String> researchers;
-	private List<String> candidates;
+	private ArrayList<String> researchers;
+	private ArrayList<String> candidates;
+	private ArrayList<ResearcherOnCaseDTO> researchersOnCase = new ArrayList<ResearcherOnCaseDTO>();
+	private ArrayList<CandidateDTO> candidatesOnCase = new ArrayList<CandidateDTO>();
 	private int employeeId;
 	private DataDAO database = new DataDAO();
 	private String curCase;
@@ -302,7 +304,7 @@ public class MainController {
 
 	public void findCompany(String searchField) {
 		companies.clear();
-		
+
 		try {
 			companies.add(database.findCompany(searchField));
 		} catch (DALException e) {
@@ -356,6 +358,24 @@ public class MainController {
 
 		// TODO mangler en metode til at opdatere en kandidats status i
 		// databasen
+
+	}
+
+	public void viewSpecificCase(String chosenCase) {
+		try {
+			researchersOnCase = (ArrayList<ResearcherOnCaseDTO>) database
+					.getAllresearcherOnCases(chosenCase);
+			candidatesOnCase = (ArrayList<CandidateDTO>) database
+					.findCaseCandidates(chosenCase);
+			CaseDTO tmpCase = database.findCase(chosenCase);
+			EmployeeDTO partner = database.findEmployee(tmpCase.getPartnerId());
+			gui.viewCase(tmpCase.getCaseName(), partner.getName(),
+					researchersOnCase, candidatesOnCase);
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		} catch (SQLException e) {
+			e.getMessage(); // TODO exception handling
+		}
 
 	}
 }
