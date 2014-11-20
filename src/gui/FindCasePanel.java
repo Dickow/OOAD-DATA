@@ -55,6 +55,10 @@ public class FindCasePanel extends JPanel {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
+		JButton viewCaseBtn = new JButton("Se sag");
+		viewCaseBtn.setBounds(295, 259, 97, 25);
+		add(viewCaseBtn);
+		
 		logoutBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -90,6 +94,14 @@ public class FindCasePanel extends JPanel {
 				String searchField = searchTextField.getText();
 				MainController.getInstance().findCase(searchField);
 
+			}
+		});
+		viewCaseBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String chosenCase = list.getSelectedValue(); 
+				MainController.getInstance().viewSpecificCase(chosenCase);
 			}
 		});
 	}

@@ -12,10 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domain.CandidateDTO;
 import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.EmployeeDTO;
 import domain.PersonDTO;
+import domain.ResearcherDTO;
+import domain.ResearcherOnCaseDTO;
 
 public class GUI {
 
@@ -30,7 +33,8 @@ public class GUI {
 	private CreateCasePanel createCasePanel = new CreateCasePanel();
 	private EditCompanyPanel editCompanyPanel = new EditCompanyPanel();
 	private EditPersonPanel editPersonPanel = new EditPersonPanel();
-	private EditCaseResearchersPanel editCaseResearchersPanel = new EditCaseResearchersPanel(); 
+	private EditCaseResearchersPanel editCaseResearchersPanel = new EditCaseResearchersPanel();
+	private ViewCasePanel viewCasePanel = new ViewCasePanel();
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -113,6 +117,7 @@ public class GUI {
 				layout.getLayoutComponent(BorderLayout.CENTER));
 		switch (jobPos) {
 		case 0:
+			// for the sysadmin when it gets implemented
 			break;
 		case 1:
 			frame.getContentPane().add(partnerMenu, BorderLayout.CENTER);
@@ -204,24 +209,26 @@ public class GUI {
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
 				layout.getLayoutComponent(BorderLayout.CENTER));
-		
-		// Add the new panel to the frame 
-		frame.getContentPane().add(editPersonPanel); 
+
+		// Add the new panel to the frame
+		frame.getContentPane().add(editPersonPanel);
 		editPersonPanel.setVisible(true);
 	}
 
-	public void editCaseMenu(ArrayList<EmployeeDTO> researchersOnCase, ArrayList<EmployeeDTO> researchersAvailable) {
+	public void editCaseMenu(ArrayList<EmployeeDTO> researchersOnCase,
+			ArrayList<EmployeeDTO> researchersAvailable) {
 		editCaseResearchersPanel.clearLists();
-		editCaseResearchersPanel.fillLists(researchersOnCase, researchersAvailable);
+		editCaseResearchersPanel.fillLists(researchersOnCase,
+				researchersAvailable);
 		// remove previous panel
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
 				layout.getLayoutComponent(BorderLayout.CENTER));
-				
-		// Add the new panel to the frame 
-		frame.getContentPane().add(editCaseResearchersPanel); 
+
+		// Add the new panel to the frame
+		frame.getContentPane().add(editCaseResearchersPanel);
 		editCaseResearchersPanel.setVisible(true);
-		
+
 	}
 
 	public void editCompanyMenu(CompanyDTO company) {
@@ -230,12 +237,28 @@ public class GUI {
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
 				layout.getLayoutComponent(BorderLayout.CENTER));
-		
-		// Add the new panel to the frame 
-		frame.getContentPane().add(editCompanyPanel); 
+
+		// Add the new panel to the frame
+		frame.getContentPane().add(editCompanyPanel);
 		editCompanyPanel.setVisible(true);
-		
-		
+
+	}
+
+	public void viewCase(String caseName, String partnerName,
+			ArrayList<ResearcherOnCaseDTO> researchers,
+			ArrayList<CandidateDTO> candidates) {
+		viewCasePanel.clearLists();
+		viewCasePanel.fillListsAndLabels(caseName, partnerName, researchers,
+				candidates);
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+
+		// Add the new panel to the frame
+		frame.getContentPane().add(viewCasePanel);
+		viewCasePanel.setVisible(true);
+
 	}
 
 }
