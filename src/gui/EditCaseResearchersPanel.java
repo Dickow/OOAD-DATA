@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import domain.EmployeeDTO;
 import domain.MainController;
+import domain.ResearcherDTO;
 
 @SuppressWarnings("serial")
 public class EditCaseResearchersPanel extends JPanel {
@@ -119,8 +119,8 @@ public class EditCaseResearchersPanel extends JPanel {
 		listModelAvailable.clear();
 	}
 
-	public void fillLists(ArrayList<EmployeeDTO> researchersOnCase,
-			ArrayList<EmployeeDTO> researchersAvailable) {
+	public void fillLists(ArrayList<ResearcherDTO> researchersOnCase,
+			ArrayList<ResearcherDTO> researchersAvailable) {
 		for (int i = 0; i < researchersOnCase.size(); i++) {
 			listModelOnCase.addElement("id : "
 					+ researchersOnCase.get(i).getEmployeeId() + ", navn : "

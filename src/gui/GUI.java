@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -215,8 +216,8 @@ public class GUI {
 		editPersonPanel.setVisible(true);
 	}
 
-	public void editCaseMenu(ArrayList<EmployeeDTO> researchersOnCase,
-			ArrayList<EmployeeDTO> researchersAvailable) {
+	public void editCaseMenu(ArrayList<ResearcherDTO> researchersOnCase,
+			ArrayList<ResearcherDTO> researchersAvailable) {
 		editCaseResearchersPanel.clearLists();
 		editCaseResearchersPanel.fillLists(researchersOnCase,
 				researchersAvailable);
@@ -245,10 +246,10 @@ public class GUI {
 	}
 
 	public void viewCase(String caseName, String partnerName,
-			ArrayList<ResearcherOnCaseDTO> researchers,
+			ArrayList<ResearcherDTO> researchersOnCase,
 			ArrayList<CandidateDTO> candidates) {
 		viewCasePanel.clearLists();
-		viewCasePanel.fillListsAndLabels(caseName, partnerName, researchers,
+		viewCasePanel.fillListsAndLabels(caseName, partnerName, researchersOnCase,
 				candidates);
 		// remove previous panel
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
@@ -260,5 +261,6 @@ public class GUI {
 		viewCasePanel.setVisible(true);
 
 	}
+
 
 }

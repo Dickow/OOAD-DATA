@@ -23,7 +23,7 @@ public class MainController {
 	private ArrayList<CaseDTO> singleCaseArray = new ArrayList<CaseDTO>();
 	private ArrayList<String> researchers;
 	private ArrayList<String> candidates;
-	private ArrayList<ResearcherOnCaseDTO> researchersOnCase = new ArrayList<ResearcherOnCaseDTO>();
+	private ArrayList<ResearcherDTO> researchersOnCase = new ArrayList<ResearcherDTO>();
 	private ArrayList<CandidateDTO> candidatesOnCase = new ArrayList<CandidateDTO>();
 	private int employeeId;
 	private DataDAO database = new DataDAO();
@@ -229,10 +229,12 @@ public class MainController {
 		curCase = tmpStrings[0].substring(11);
 		// first get all the researchers on a given case and all the researchers
 		// not on that given case
-		// TODO get the available researchers
 		try {
-			gui.editCaseMenu(database.getAllresearcherOnCases(curCase),
-					database.getAllresearcherNotOnCases(curCase));
+			gui.editCaseMenu(
+					new ArrayList<ResearcherDTO>(database
+							.getAllresearcherOnCases(curCase)),
+					new ArrayList<ResearcherDTO>(database
+							.getAllresearcherNotOnCases(curCase)));
 		} catch (DALException e) {
 			e.getMessage(); // TODO
 		} catch (SQLException e) {
@@ -242,8 +244,11 @@ public class MainController {
 
 	public void editChosenCaseForController(String curCase) {
 		try {
-			gui.editCaseMenu(database.getAllresearcherOnCases(curCase),
-					database.getAllresearcherNotOnCases(curCase));
+			gui.editCaseMenu(
+					new ArrayList<ResearcherDTO>(database
+							.getAllresearcherOnCases(curCase)),
+					new ArrayList<ResearcherDTO>(database
+							.getAllresearcherNotOnCases(curCase)));
 		} catch (DALException e) {
 			e.getMessage(); // TODO exception handling
 		} catch (SQLException e) {
@@ -294,12 +299,23 @@ public class MainController {
 		int id = new Integer(tmpStrings[0].substring(4));
 		// TODO mangler en metode til at fjerne researchere fra en eksisterende
 		// case
+		try {
+			CaseDTO currentCase = database.findCase(curCase);
+			ResearcherDTO researcher = (ResearcherDTO) database
+					.findEmployee(id);
+			database.removeResearcherCase(researcher, currentCase);
+		} catch (DALException e) {
+			e.getMessage(); // TODO exception handling
+		} catch (SQLException e) {
+			e.getMessage(); // TODO exception handling
+		}
 
 		MainController.getInstance().editChosenCaseForController(curCase);
 	}
 
 	/*
-	 * ############################################################ Find Methods
+	 * #####################################################################
+	 * Find Methods
 	 */
 
 	public void findCompany(String searchField) {
@@ -313,7 +329,6 @@ public class MainController {
 		gui.findCompanyMenu(companies);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void findPerson(String searchField) {
 		persons.clear();
 
@@ -363,7 +378,7 @@ public class MainController {
 
 	public void viewSpecificCase(String chosenCase) {
 		try {
-			researchersOnCase = (ArrayList<ResearcherOnCaseDTO>) database
+			researchersOnCase = (ArrayList<ResearcherDTO>) database
 					.getAllresearcherOnCases(chosenCase);
 			candidatesOnCase = (ArrayList<CandidateDTO>) database
 					.findCaseCandidates(chosenCase);

@@ -14,8 +14,8 @@ import javax.swing.ListSelectionModel;
 import domain.CandidateDTO;
 import domain.MainController;
 import domain.ResearcherDTO;
-import domain.ResearcherOnCaseDTO;
 
+@SuppressWarnings("serial")
 public class ViewCasePanel extends JPanel {
 	private DefaultListModel<String> researcherListModel = new DefaultListModel<String>();
 	private JList<String> researcherList = new JList<String>(
@@ -88,8 +88,9 @@ public class ViewCasePanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String chosenCandidate = candidatesList.getSelectedValue(); 
-				MainController.getInstance().updateStatusOfCandidate(chosenCandidate); 
+				String chosenCandidate = candidatesList.getSelectedValue();
+				MainController.getInstance().updateStatusOfCandidate(
+						chosenCandidate);
 
 			}
 		});
@@ -101,14 +102,14 @@ public class ViewCasePanel extends JPanel {
 	}
 
 	public void fillListsAndLabels(String caseName, String partnerName,
-			ArrayList<ResearcherOnCaseDTO> researchers,
+			ArrayList<ResearcherDTO> researchers,
 			ArrayList<CandidateDTO> candidates) {
 		caseNameLabel.setText(caseName);
 		partnerNameLabel.setText(partnerName);
 
 		for (int i = 0; i < researchers.size(); i++) {
 			researcherListModel.addElement("Researcher ID : "
-					+ researchers.get(i).getResearcherId());
+					+ researchers.get(i).getEmployeeId());
 		}
 		for (int i = 0; i < candidates.size(); i++) {
 			candidateListModel.addElement("Kandidat ID : "
