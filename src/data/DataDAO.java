@@ -352,7 +352,7 @@ public class DataDAO implements IDataDAO {
 
 		job = PartnerDTO.JOB.PARTNER;
 		try {
-			return new PartnerDTO(rs.getInt("employeeId"),
+			return new PartnerDTO(rs.getInt("partnerId"),
 					rs.getString("name"), rs.getString("password"), job);
 		} catch (SQLException e) {
 			e.printStackTrace();
