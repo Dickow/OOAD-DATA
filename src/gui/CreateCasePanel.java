@@ -97,7 +97,7 @@ public class CreateCasePanel extends JPanel {
 
 				MainController.getInstance().createCase(
 						new CaseDTO(caseNameTextField.getText(),
-								companyNameTextField.getText(), 0, 0),
+								companyNameTextField.getText(), 0),
 						researcherTextArea.getText(),
 						candidateTextArea.getText());
 			}

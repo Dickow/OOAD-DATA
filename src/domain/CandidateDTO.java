@@ -8,6 +8,9 @@ public class CandidateDTO {
 	
 	
 	public CandidateDTO(int candidateId, String caseName, String status) {
+		this.candidateId = candidateId; 
+		this.caseName = caseName; 
+		this.status = status; 
 	}
 	public int getCandidateId() {
 		return candidateId;

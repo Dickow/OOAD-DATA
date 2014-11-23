@@ -6,7 +6,6 @@ public class PersonPjLaDTO {
 	private String previousJobs, language;
 
 	public PersonPjLaDTO(String previousJobs, String language, int personId) {
-
 	}
 
 	public int getPersonId() {

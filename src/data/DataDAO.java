@@ -592,8 +592,7 @@ public class DataDAO implements IDataDAO {
 		}
 
 		return new CaseDTO(rs.getString("caseName"),
-				rs.getString("CompanyName"), rs.getInt("id"),
-				rs.getInt("PartnerId"));
+				rs.getString("CompanyName"), rs.getInt("PartnerId"));
 	}
 
 	@Override

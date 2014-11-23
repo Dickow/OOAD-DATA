@@ -4,8 +4,14 @@ public class CompanyDTO {
 	
 	private String companyName, mainCode, companyAddress, companyPhone, CEO, CFO;
 
-	public CompanyDTO(String CampanyName, String BranchCode, String CompanyAddress,
-			String CompanyPhone, String CEO, String CFO) {
+	public CompanyDTO(String companyName, String branchCode, String companyAddress,
+			String companyPhone, String CEO, String CFO) {
+		this.companyName = companyName; 
+		this.companyAddress = companyAddress; 
+		this.companyPhone = companyPhone; 
+		this.mainCode = branchCode; 
+		this.CEO = CEO; 
+		this.CFO = CFO; 
 	}
 	
 	public CompanyDTO(){

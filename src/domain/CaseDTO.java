@@ -5,13 +5,15 @@ import java.util.List;
 public class CaseDTO {
 
 	private String caseName, companyName; 
-	private int candidateId,partnerId; 
-	private List researcherIds;
+	private int partnerId; 
 	
 	public CaseDTO(){
 	}
 	
-	public CaseDTO(String caseName, String companyName, int candidateId, int partnerId){
+	public CaseDTO(String caseName, String companyName, int partnerId){
+		this.caseName = caseName; 
+		this.companyName = companyName; 
+		this.partnerId = partnerId; 
 		
 	}
 	
@@ -27,23 +29,11 @@ public class CaseDTO {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public int getcandidateId() {
-		return candidateId;
-	}
-	public void setId(int candidateId) {
-		this.candidateId = candidateId;
-	}
 	public int getPartnerId() {
 		return partnerId;
 	}
 	public void setPartnerId(int partnerId) {
 		this.partnerId = partnerId;
-	}
-	public List getResearcherIds() {
-		return researcherIds;
-	}
-	public void setResearcherIds(List researcherIds) {
-		this.researcherIds = researcherIds;
 	}
 	
 }

@@ -6,7 +6,8 @@ public class ResearcherOnCaseDTO {
 	String caseName;
 	
 	public ResearcherOnCaseDTO(int researcherId, String caseName) {
-		// TODO Auto-generated constructor stub
+		this.researcherId = researcherId; 
+		this.caseName = caseName; 
 	}
 
 	public int getResearcherId(){

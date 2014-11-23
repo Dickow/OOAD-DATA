@@ -2,6 +2,11 @@ package domain;
 
 public class BranchDTO {
 	private String mainCode, subCode;
+	
+	public BranchDTO(String mainCode, String subCode){
+		this.mainCode = mainCode; 
+		this.subCode = subCode; 
+	}
 
 	public String getMainCode() {
 		return mainCode;

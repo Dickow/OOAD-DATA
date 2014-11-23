@@ -9,10 +9,17 @@ public class ContactPersonDTO {
 	public ContactPersonDTO(String caseName, String name, String email,
 			String contactPhone, String contactcell, int contactId,
 			String companyName) {
+		this.caseName = caseName;
+		this.name = name;
+		this.email = email;
+		this.contactPhone = contactPhone;
+		this.contactCell = contactcell;
+		this.companyName = companyName;
+		this.contactId = contactId;
 	}
-	
-	public ContactPersonDTO(){
-		
+
+	public ContactPersonDTO() {
+
 	}
 
 	public String getCaseName() {
