@@ -369,9 +369,37 @@ public class MainController {
 	public void updateStatusOfCandidate(String chosenCandidate) {
 		String[] tmpString = chosenCandidate.split(",");
 		int candidateId = new Integer(tmpString[0].substring(14));
+		try {
+			CandidateDTO candi = database.findCaseCandidate(candidateId);
 
-		// TODO mangler en metode til at opdatere en kandidats status i
-		// databasen
+			if (candi.getStatus().equals("Potential prospect")) {
+				// Update to prospect
+				database.changeCandidateStatus(candi, "Prospect");
+			}
+			if (candi.getStatus().equals("Prospect")) {
+				// Update to Phone interview
+				database.changeCandidateStatus(candi, "Phone interview");
+			}
+			if (candi.getStatus().equals("Personal Meeting")) {
+				// Update to presented
+				database.changeCandidateStatus(candi, "Presented");
+			}
+			if (candi.getStatus().equals("Presented")) {
+				// Update to placed
+				database.changeCandidateStatus(candi, "Placed");
+			}
+			if (candi.getStatus().equals("Exprospect")) {
+				return;
+			}
+			if (candi.getStatus().equals("Expresented")) {
+				return;
+			}
+		} catch (DALException e) {
+			System.out.println(e.getMessage());
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
 
 	}
 
@@ -395,6 +423,5 @@ public class MainController {
 		} catch (SQLException e) {
 			e.getMessage(); // TODO exception handling
 		}
-
 	}
 }
