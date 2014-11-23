@@ -466,6 +466,18 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
+	public void changeCandidateStatus(CandidateDTO candi, String status)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException("Kan ikke oprette forbindelse til databasen");
+		}
+		Connector.doQuery("Update Candidate set status ='" + status
+				+ "' WHERE candidateId ='" + candi.getCandidateId() + "';");
+		Connector.closeConnection();
+	}
+
 	// Ændring af Case
 
 	@Override
