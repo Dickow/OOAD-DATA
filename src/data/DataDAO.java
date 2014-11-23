@@ -171,13 +171,12 @@ public class DataDAO implements IDataDAO {
 			throw new DALException("the person with the id = " + id
 					+ " does not exist");
 		}
-		Date age = rs.getDate("date");
 
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
 				rs.getString("privateMail"), rs.getString("personCell"),
-				rs.getString("note"), rs.getInt("id"), age, rs.getInt("salary"));
+				rs.getString("note"), rs.getInt("personId"), rs.getDate("birthYear"), rs.getInt("salary"));
 	}
 
 	@Override
@@ -192,18 +191,17 @@ public class DataDAO implements IDataDAO {
 		}
 
 		List<PersonDTO> list = new ArrayList<PersonDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM person WHERE name = "
-				+ name);
+		ResultSet rs = Connector.doQuery("SELECT * FROM person WHERE name = '"
+				+ name+"';");
 		Connector.closeConnection();
 
 		while (rs.next()) {
-			Date age = rs.getDate("date");
 			list.add(new PersonDTO(rs.getString("name"), rs
 					.getString("address"), rs.getString("education"), rs
 					.getString("currentJob"), rs.getString("companyMail"), rs
 					.getString("privateMail"), rs.getString("personCell"), rs
 					.getString("personPhone"), rs.getString("note"), rs
-					.getInt("id"), age, rs.getInt("salary")));
+					.getInt("personId"), rs.getDate("birthYear"), rs.getInt("salary")));
 		}
 		return list;
 	}

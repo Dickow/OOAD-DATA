@@ -210,7 +210,7 @@ public class MainController {
 	 */
 	public void editChosenPerson(String chosenPerson) {
 		System.out.println(chosenPerson + " will be edited");
-		String[] tmpStrings = chosenPerson.split(" , ");
+		String[] tmpStrings = chosenPerson.split(",");
 		int id = new Integer(tmpStrings[0].substring(4));
 		PersonDTO person;
 		try {
