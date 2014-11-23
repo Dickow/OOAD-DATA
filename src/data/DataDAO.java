@@ -337,7 +337,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Partner WHERE partnerId = " + partnerId
+				.doQuery("SELECT * FROM partner WHERE partnerId = " + partnerId
 						+ ";");
 		Connector.closeConnection();
 
@@ -352,8 +352,11 @@ public class DataDAO implements IDataDAO {
 
 		job = PartnerDTO.JOB.PARTNER;
 		try {
-			return new PartnerDTO(rs.getInt("partnerId"),
-					rs.getString("name"), rs.getString("password"), job);
+			int ID = rs.getInt("partnerId");
+			String name = rs.getString("name");
+			String password = rs.getString("password");
+
+			return new PartnerDTO(ID, name, password, job);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -839,7 +842,7 @@ public class DataDAO implements IDataDAO {
 		switch (PartnerOrResearcher(Integer.parseInt(loginInfo[0]))) {
 
 		case 1:
-			throw new DALException("Der fidnes ikke en ansat med indtastede ID");
+			throw new DALException("Der findes ikke en ansat med indtastede ID");
 
 		case 2:
 			PartnerDTO tempEmployee = findPartner(Integer
