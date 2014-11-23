@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,10 +15,8 @@ import javax.swing.JPanel;
 import domain.CandidateDTO;
 import domain.CaseDTO;
 import domain.CompanyDTO;
-import domain.EmployeeDTO;
 import domain.PersonDTO;
 import domain.ResearcherDTO;
-import domain.ResearcherOnCaseDTO;
 
 public class GUI {
 

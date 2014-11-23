@@ -103,7 +103,7 @@ public class FindCompanyPanel extends JPanel {
 		if (!personList.isEmpty()) {
 			for (int i = 0; i < personList.size(); i++) {
 				listModel.addElement("Firma navn: "
-						+ personList.get(i).getCompanyName() + " addresse: "
+						+ personList.get(i).getCompanyName() + ", addresse: "
 						+ personList.get(i).getCompanyAddress());
 			}
 		}

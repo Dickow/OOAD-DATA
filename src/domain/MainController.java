@@ -9,7 +9,6 @@ import java.util.Arrays;
 
 import data.DALException;
 import data.DataDAO;
-import domain.EmployeeDTO.JOB;
 
 public class MainController {
 	private GUI gui = new GUI();
@@ -166,9 +165,9 @@ public class MainController {
 
 		// split the arrays by ,
 		this.researchers = new ArrayList<String>(Arrays.asList(researchers
-				.split(" , ")));
+				.split(",")));
 		this.candidates = new ArrayList<String>(Arrays.asList(candidates
-				.split(" , ")));
+				.split(",")));
 
 		try {
 			database.createCase(casetmp);
@@ -209,7 +208,6 @@ public class MainController {
 	 * Edit methods
 	 */
 	public void editChosenPerson(String chosenPerson) {
-		System.out.println(chosenPerson + " will be edited");
 		String[] tmpStrings = chosenPerson.split(",");
 		int id = new Integer(tmpStrings[0].substring(4));
 		PersonDTO person;
@@ -225,17 +223,18 @@ public class MainController {
 	}
 
 	public void editChosenCompany(String chosenCompany) {
-		curCompany = chosenCompany;
-
+		String[] tmpStrings = chosenCompany.split(",");
+		curCompany = tmpStrings[0].substring(12);
+		
 		try {
-			gui.editCompanyMenu(database.findCompany(chosenCompany));
+			gui.editCompanyMenu(database.findCompany(curCompany));
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
 	}
 
 	public void editChosenCase(String chosenCase) {
-		String[] tmpStrings = chosenCase.split(" , ");
+		String[] tmpStrings = chosenCase.split(",");
 		curCase = tmpStrings[0].substring(11);
 		// first get all the researchers on a given case and all the researchers
 		// not on that given case
