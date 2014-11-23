@@ -12,6 +12,7 @@ import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.ContactPersonDTO;
 import domain.EmployeeDTO;
+import domain.PartnerDTO;
 import domain.ResearcherOnCaseDTO;
 import domain.EmployeeDTO.JOB;
 import domain.PersonDTO;
@@ -296,6 +297,99 @@ public class DataDAO implements IDataDAO {
 
 	}
 
+	public ResearcherDTO findResearcher(int researcherId) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Researcher WHERE employeeId = "
+						+ researcherId + ";");
+		Connector.closeConnection();
+
+		try {
+			if (!rs.first()) {
+				throw new DALException("the employee with the id = "
+						+ researcherId + " does not exist");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		job = ResearcherDTO.JOB.RESEARCHER;
+		try {
+			return new ResearcherDTO(rs.getInt("employeeId"),
+					rs.getString("name"), rs.getString("password"), job);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// wont ever reach this code
+		return null;
+	}
+
+	public PartnerDTO findPartner(int partnerId) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Partner WHERE partnerId = " + partnerId
+						+ ";");
+		Connector.closeConnection();
+
+		try {
+			if (!rs.first()) {
+				throw new DALException("the partner with the id = " + partnerId
+						+ " does not exist");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		job = PartnerDTO.JOB.PARTNER;
+		try {
+			return new PartnerDTO(rs.getInt("employeeId"),
+					rs.getString("name"), rs.getString("password"), job);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		// wont ever reach this code
+		return null;
+	}
+
+	public int PartnerOrResearcher(int partnerId) throws DALException,
+			SQLException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		ResultSet rs = Connector
+				.doQuery("SELECT * FROM Partner WHERE partnerId = " + partnerId
+						+ ";");
+
+		if (!rs.first()) {
+			rs = Connector
+					.doQuery("SELECT * FROM Researcher WHERE employeeId = "
+							+ partnerId + ";");
+			Connector.closeConnection();
+			return 3;
+			// Vi har en Researcher
+		}
+		if (!rs.first()) {
+			return 1;
+			// Her er ingen af delene
+		}
+		Connector.closeConnection();
+		return 2;
+		// Vi får en researcher
+	}
+
 	@Override
 	public EmployeeDTO findEmployee(int employeeId) throws DALException {
 
@@ -556,8 +650,8 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		try {
-			Connector.doQuery("INSERT INTO ResearcherOnCase VALUES(" + rID + ","
-					+ caseName + ");");
+			Connector.doQuery("INSERT INTO ResearcherOnCase VALUES(" + rID
+					+ "," + caseName + ");");
 		} catch (Exception e) {
 			throw new DALException(
 					"Kunne ikke oprettes en ResearcherOnCase, da den allerede eksistere");
@@ -742,15 +836,31 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 
-		EmployeeDTO tempEmployee = findEmployee(Integer.parseInt(loginInfo[0]));
-		if (tempEmployee.getPassword().equals(loginInfo[1])) {
-			return true;
-		} else {
-			return false;
+		switch (PartnerOrResearcher(Integer.parseInt(loginInfo[0]))) {
+
+		case 1:
+			throw new DALException("Der fidnes ikke en ansat med indtastede ID");
+
+		case 2:
+			PartnerDTO tempEmployee = findPartner(Integer
+					.parseInt(loginInfo[0]));
+			if (tempEmployee.getPassword().equals(loginInfo[1])) {
+				return true;
+			}
+
+		case 3:
+			ResearcherDTO tempResearcher = findResearcher(Integer
+					.parseInt(loginInfo[0]));
+			if (tempResearcher.getPassword().equals(loginInfo[1])) {
+				return true;
+
+			}
 		}
+		return false;
+
 	}
 
-	// Ændring af PersonPjLa
+	// Ændring af PersonPjLa TODO
 
 	@Override
 	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
