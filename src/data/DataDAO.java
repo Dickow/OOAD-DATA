@@ -140,19 +140,18 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT personId FROM person ORDER BY personId DESC LIMIT 1;");
+				.doQuery("SELECT * FROM person ORDER BY personId DESC LIMIT 1;");
 		Connector.closeConnection();
 
 		if (!rs.first()) {
 			throw new DALException("There is no persons in the database");
 		}
-		Date age = rs.getDate("date");
-
+		System.out.println("jeg når ned til lige inden retur");
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
 				rs.getString("privateMail"), rs.getString("personCell"),
-				rs.getString("note"), rs.getInt("id"), age, rs.getInt("salary"));
+				rs.getString("note"),rs.getInt("personId"), rs.getDate("birthYear"), rs.getInt("salary"));
 	}
 
 	@Override
@@ -242,13 +241,13 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		Connector.doUpdate("INSERT INTO Person VALUES (" + person.getName()
-				+ "," + person.getAddress() + "," + person.getEducation() + ","
-				+ person.getCurrentJob() + "," + person.getPersonPhone() + ","
-				+ person.getCompanyMail() + "," + person.getPrivateMail() + ","
-				+ person.getPersonCell() + "," + person.getNote() + ","
-				+ person.getPersonId() + "," + person.getBirthYear() + ","
-				+ person.getSalary() + "');");
+		Connector.doUpdate("INSERT INTO person VALUES (" + person.getPersonId() + ",'" + person.getName()
+				+ "','" + person.getAddress() + "','" + person.getEducation() + "','"
+				+ person.getCurrentJob() + "','" + person.getPersonPhone() + "','"
+				+ person.getCompanyMail() + "','" + person.getPrivateMail() + "','"
+				+ person.getPersonCell() + "','" + person.getNote() + "','"
+				+ person.getBirthYear() + "',"
+				+ person.getSalary() + ");");
 		Connector.closeConnection();
 
 	}

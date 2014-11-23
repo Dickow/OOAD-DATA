@@ -120,15 +120,16 @@ public class MainController {
 		// id + 1
 		try {
 			int tmpId = database.getLastPerson().getPersonId() + 1;
+			System.out.println(tmpId);
 			person.setId(tmpId);
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
-		int day = new Integer(date.substring(0, 1));
-		int month = new Integer(date.substring(2, 3));
-		int year = new Integer(date.substring(4));
+		int day = new Integer(date.substring(0, 2));
+		int month = new Integer(date.substring(3, 5));
+		int year = new Integer(date.substring(6));
 		@SuppressWarnings("deprecation")
 		Date yearOfBirth = new Date(day, month, year);
 
@@ -137,7 +138,7 @@ public class MainController {
 		// put the integer casted values into the object
 		person.setBirthYear(yearOfBirth);
 		person.setSalary(salary1);
-
+		System.out.println("jeg når ned til lige inden create");
 		// create the person in the database
 		try {
 			database.createPerson(person);

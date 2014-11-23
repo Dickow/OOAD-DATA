@@ -16,6 +16,18 @@ public class PersonDTO {
 	public PersonDTO(String name, String address, String education,
 			String currentJob, String personPhone, String companyMail,
 			String privateMail, String personCell, String note, int personId, Date birthYear, int salary) {
+		this.name = name; 
+		this.address = address; 
+		this.education = education; 
+		this.currentJob = currentJob; 
+		this.personPhone = personPhone; 
+		this.companyMail = companyMail; 
+		this.privateMail = privateMail; 
+		this.personCell = personCell; 
+		this.note = note; 
+		this.personId = personId; 
+		this.salary = salary; 
+		this.birthYear = birthYear; 
 	}
 
 	public String getName() {
