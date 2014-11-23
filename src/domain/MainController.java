@@ -55,9 +55,10 @@ public class MainController {
 		try {
 			database.loginExists(loginInfo);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			
+			System.out.println(e.getMessage()); // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		try {
@@ -67,7 +68,7 @@ public class MainController {
 				jobPos = 2;
 			}
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		gui.menu(jobPos);
@@ -113,9 +114,9 @@ public class MainController {
 			int tmpId = database.getLastPerson().getPersonId() + 1;
 			person.setId(tmpId);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 		int day = new Integer(date.substring(0, 1));
 		int month = new Integer(date.substring(2, 3));
@@ -133,7 +134,7 @@ public class MainController {
 		try {
 			database.createPerson(person);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 	}
 
@@ -143,7 +144,7 @@ public class MainController {
 		try {
 			database.createCompany(company);
 		} catch (DALException e) {
-			e.getMessage();// TODO exception handling
+			System.out.println(e.getMessage()); // TODO exception handling
 		}
 	}
 
@@ -163,7 +164,7 @@ public class MainController {
 		try {
 			database.createCase(casetmp);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		// Bad code, but lacks a better method in the database access layer
@@ -173,9 +174,9 @@ public class MainController {
 						new Integer(this.researchers.get(i)),
 						casetmp.getCaseName());
 			} catch (NumberFormatException e) {
-				e.getMessage(); // TODO exception handling
+				System.out.println(e.getMessage());  // TODO exception handling
 			} catch (DALException e) {
-				e.getMessage(); // TODO exception handling
+				System.out.println(e.getMessage());  // TODO exception handling
 			}
 		}
 
@@ -187,9 +188,9 @@ public class MainController {
 						this.candidates.get(i)), casetmp.getCaseName(),
 						"Potentiel prospect"));
 			} catch (NumberFormatException e) {
-				e.getMessage(); // TODO exception handling
+				System.out.println(e.getMessage());  // TODO exception handling
 			} catch (DALException e) {
-				e.getMessage(); // TODO exception handling
+				System.out.println(e.getMessage());  // TODO exception handling
 			}
 		}
 	}
@@ -207,9 +208,9 @@ public class MainController {
 			person = database.findPerson(id);
 			gui.editPersonMenu(person);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 	}
@@ -220,7 +221,7 @@ public class MainController {
 		try {
 			gui.editCompanyMenu(database.findCompany(chosenCompany));
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 	}
 
@@ -236,9 +237,9 @@ public class MainController {
 					new ArrayList<ResearcherDTO>(database
 							.getAllresearcherNotOnCases(curCase)));
 		} catch (DALException e) {
-			e.getMessage(); // TODO
+			System.out.println(e.getMessage());  // TODO
 		} catch (SQLException e) {
-			e.getMessage(); // TODO
+			System.out.println(e.getMessage());  // TODO
 		}
 	}
 
@@ -250,9 +251,9 @@ public class MainController {
 					new ArrayList<ResearcherDTO>(database
 							.getAllresearcherNotOnCases(curCase)));
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 	}
 
@@ -266,7 +267,7 @@ public class MainController {
 		try {
 			database.updatePerson(person);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 	}
 
@@ -274,13 +275,13 @@ public class MainController {
 		try {
 			database.deleteCompany(curCompany);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		try {
 			database.createCompany(company);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 	}
 
@@ -290,7 +291,7 @@ public class MainController {
 		try {
 			database.addResearcherToCase(id, curCase);
 		} catch (DALException e) {
-			e.getMessage();
+			System.out.println(e.getMessage()); 
 		}
 	}
 
@@ -304,9 +305,9 @@ public class MainController {
 					.findEmployee(id);
 			database.removeResearcherCase(researcher, currentCase);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		MainController.getInstance().editChosenCaseForController(curCase);
@@ -323,7 +324,7 @@ public class MainController {
 		try {
 			companies.add(database.findCompany(searchField));
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 		gui.findCompanyMenu(companies);
 	}
@@ -334,9 +335,9 @@ public class MainController {
 		try {
 			persons = (ArrayList<PersonDTO>) database.findPersons(searchField);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		gui.findPersonMenu(persons);
@@ -348,9 +349,9 @@ public class MainController {
 		try {
 			singleCaseArray.add(database.findCase(searchField));
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 
 		gui.findCaseMenu(singleCaseArray);
@@ -419,9 +420,9 @@ public class MainController {
 			gui.viewCase(tmpCase.getCaseName(), partner.getName(),
 					researchersOnCase, candidatesOnCase);
 		} catch (DALException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		} catch (SQLException e) {
-			e.getMessage(); // TODO exception handling
+			System.out.println(e.getMessage());  // TODO exception handling
 		}
 	}
 }
