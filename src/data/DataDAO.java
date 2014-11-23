@@ -22,7 +22,7 @@ public class DataDAO implements IDataDAO {
 
 	private JOB job;
 
-	// Ændring af Company
+	// Ændring af Company TODO
 
 	@Override
 	public void createCompany(CompanyDTO company) throws DALException {
@@ -129,7 +129,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	// Ændring af person
+	// Ændring af person TODO
 
 	public PersonDTO getLastPerson() throws DALException, SQLException {
 		try {
@@ -264,7 +264,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	// Ændring af Employee
+	// Ændring af Employee TODO
 
 	@Override
 	public void updateEmployee(EmployeeDTO employee) throws DALException {
@@ -316,7 +316,6 @@ public class DataDAO implements IDataDAO {
 						+ employeeId + " does not exist");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -327,7 +326,6 @@ public class DataDAO implements IDataDAO {
 				job = EmployeeDTO.JOB.RESEARCHER;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -335,7 +333,6 @@ public class DataDAO implements IDataDAO {
 			return new EmployeeDTO(rs.getInt("employeeId"),
 					rs.getString("name"), rs.getString("password"), job);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// wont ever reach this code
@@ -389,7 +386,7 @@ public class DataDAO implements IDataDAO {
 		return list;
 	}
 
-	// Ændring af Candidate
+	// Ændring af Candidate TODO
 	@Override
 	public void createCandidate(CandidateDTO candidate) throws DALException {
 		try {
@@ -478,7 +475,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	// Ændring af Case
+	// Ændring af Case TODO
 
 	@Override
 	public CaseDTO findCase(String caseName) throws DALException, SQLException {
@@ -547,7 +544,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	// Ændring af Researcher
+	// Ændring af Researcher TODO
 
 	@Override
 	public void addResearcherToCase(int rID, String caseName)
@@ -559,7 +556,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		try {
-			Connector.doQuery("INSERT INTO ResearcherOnCase VALUES" + rID + ","
+			Connector.doQuery("INSERT INTO ResearcherOnCase VALUES(" + rID + ","
 					+ caseName + ");");
 		} catch (Exception e) {
 			throw new DALException(
@@ -569,7 +566,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	public List<ResearcherDTO> getAllresearcherOnCases(String caseName) // TODO
+	public List<ResearcherDTO> getAllresearcherOnCases(String caseName)
 			throws DALException, SQLException {
 		ArrayList<ResearcherDTO> list = new ArrayList<ResearcherDTO>();
 		try {
@@ -580,7 +577,7 @@ public class DataDAO implements IDataDAO {
 		}
 
 		ResultSet rs = Connector
-				.doQuery("SELECT researcherId FROM ResearchersOnCase WHERE caseName = '"
+				.doQuery("SELECT employeeId FROM ResearchersOnCase WHERE caseName = '"
 						+ caseName + "';");
 
 		while (rs.next()) {
@@ -602,13 +599,13 @@ public class DataDAO implements IDataDAO {
 					"Kunne ikke oprette forbindelse til databasen");
 		}
 
-		Connector.doQuery("DELETE from researcherOnCase WHERE id ='"
+		Connector.doQuery("DELETE from researcherOnCase WHERE employeeId ='"
 				+ researcher.getEmployeeId() + "' AND caseName ='"
 				+ theCase.getCaseName() + "';");
 
 	}
 
-	public List<ResearcherDTO> getAllresearcherNotOnCases(String caseName) // TODO
+	public List<ResearcherDTO> getAllresearcherNotOnCases(String caseName)
 			throws DALException, SQLException {
 		ArrayList<ResearcherDTO> list = new ArrayList<ResearcherDTO>();
 		try {
@@ -619,7 +616,7 @@ public class DataDAO implements IDataDAO {
 		}
 
 		ResultSet rs = Connector
-				.doQuery("SELECT researcherId FROM ResearchersOnCase WHERE caseName NOT '"
+				.doQuery("SELECT employeeId FROM ResearchersOnCase WHERE caseName NOT '"
 						+ caseName + "';");
 
 		while (rs.next()) {
@@ -632,7 +629,7 @@ public class DataDAO implements IDataDAO {
 
 	}
 
-	// Ændring af ContactPerson
+	// Ændring af ContactPerson TODO
 
 	@Override
 	public void createContact(ContactPersonDTO contact) throws DALException {
@@ -734,7 +731,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
-	// Login check
+	// Login check TODO
 	@Override
 	public boolean loginExists(String[] loginInfo) throws DALException,
 			SQLException {
