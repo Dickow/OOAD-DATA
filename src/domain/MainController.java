@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import data.DALException;
 import data.DataDAO;
@@ -103,8 +102,8 @@ public class MainController {
 	}
 
 	/*
-	 * ################################################################ Create
-	 * methods
+	 * ##########################################################################
+	 * Create methods
 	 */
 	public void createPerson(PersonDTO person, String date, String salary) {
 
@@ -196,7 +195,8 @@ public class MainController {
 	}
 
 	/*
-	 * ########################################################### Edit methods
+	 * ########################################################################
+	 * Edit methods
 	 */
 	public void editChosenPerson(String chosenPerson) {
 		System.out.println(chosenPerson + " will be edited");
@@ -257,8 +257,8 @@ public class MainController {
 	}
 
 	/*
-	 * ################################################### Edit methods that
-	 * update the data in the database.
+	 * ######################################################################
+	 * Edit methods that update the data in the database.
 	 */
 
 	public void editPersonInDatabase(PersonDTO person) {
@@ -297,8 +297,7 @@ public class MainController {
 	public void removeResearcherFromCaseInDatabase(String chosenResearcherOnCase) {
 		String[] tmpStrings = chosenResearcherOnCase.split(" , ");
 		int id = new Integer(tmpStrings[0].substring(4));
-		// TODO mangler en metode til at fjerne researchere fra en eksisterende
-		// case
+
 		try {
 			CaseDTO currentCase = database.findCase(curCase);
 			ResearcherDTO researcher = (ResearcherDTO) database
@@ -377,6 +376,11 @@ public class MainController {
 	}
 
 	public void viewSpecificCase(String chosenCase) {
+		// get all the researchers on the case
+		// get all the candidates on the case
+		// pass them on to the gui along with the current case and the partner
+		// working on the case
+
 		try {
 			researchersOnCase = (ArrayList<ResearcherDTO>) database
 					.getAllresearcherOnCases(chosenCase);

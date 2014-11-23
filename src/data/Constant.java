@@ -8,8 +8,8 @@ package data;
  */
 public abstract class Constant {
 	public static final 
-	String server = "localhost", database = "weight",username = "root", password = "1234";
-//	 public static final String server = "localhost", database = "testweight",
+	String server = "localhost", database = "odgersberndtson",username = "root", password = "1234";
+//	 public static final String server = "localhost", database = "odgersberndtson",
 //	 username = "root", password = "1234";
 
 	// port number to establish connection

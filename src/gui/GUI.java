@@ -146,7 +146,10 @@ public class GUI {
 		frame.getContentPane().add(createPersonPanel);
 		createPersonPanel.setVisible(true);
 	}
-
+	
+	/**
+	 * The menu to create a new company in the database
+	 */
 	public void createCompanyMenu() {
 		// remove previous panel
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
@@ -157,6 +160,9 @@ public class GUI {
 		createCompanyPanel.setVisible(true);
 	}
 
+	/**
+	 * The menu to create a new case in the database
+	 */
 	public void createCaseMenu() {
 		// remove previous panel
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
@@ -167,6 +173,11 @@ public class GUI {
 		createCasePanel.setVisible(true);
 	}
 
+	/**
+	 * The menu to find a person from the database, takes an ArrayList<PersonDTO> as parameter
+	 * to show the found persons from the database
+	 * @param persons
+	 */
 	public void findPersonMenu(ArrayList<PersonDTO> persons) {
 		findPersonPanel.clearPrevList();
 		findPersonPanel.fillList(persons);
@@ -180,6 +191,11 @@ public class GUI {
 
 	}
 
+	/**
+	 * The menu to find a company from the database, takes an ArrayList<CompanyDTO> as parameter
+	 * to show the found companies from the database
+	 * @param companies
+	 */
 	public void findCompanyMenu(ArrayList<CompanyDTO> companies) {
 		findCompanyPanel.clearPrevList();
 		findCompanyPanel.fillList(companies);
@@ -192,6 +208,11 @@ public class GUI {
 		findCompanyPanel.setVisible(true);
 	}
 
+	/**
+	 * The menu to find a case from the database, takes an ArrayList<CaseDTO> as parameter
+	 * to show the found cases from the database
+	 * @param cases
+	 */
 	public void findCaseMenu(ArrayList<CaseDTO> cases) {
 		findCasePanel.clearPrevList();
 		findCasePanel.fillList(cases);
