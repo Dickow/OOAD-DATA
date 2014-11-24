@@ -82,10 +82,10 @@ public class GUI {
 				46));
 		headPanel.add(lblOdgersBerndtson);
 
-		horizontalStrut = Box.createHorizontalStrut(180);
+		horizontalStrut = Box.createHorizontalStrut(140);
 		frame.getContentPane().add(horizontalStrut, BorderLayout.WEST);
 
-		horizontalStrut_1 = Box.createHorizontalStrut(180);
+		horizontalStrut_1 = Box.createHorizontalStrut(140);
 		frame.getContentPane().add(horizontalStrut_1, BorderLayout.EAST);
 		frame.setVisible(true);
 	}

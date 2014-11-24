@@ -507,7 +507,7 @@ public class DataDAO implements IDataDAO {
 			throw new DALException(
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
-		ResultSet rs = Connector.doQuery("SELECT * FROM Candidate WHERE id = "
+		ResultSet rs = Connector.doQuery("SELECT * FROM Candidate WHERE personId = "
 				+ id + ";");
 		Connector.closeConnection();
 
@@ -516,7 +516,7 @@ public class DataDAO implements IDataDAO {
 					+ " does not exist");
 		}
 
-		return new CandidateDTO(rs.getInt("candidateId"),
+		return new CandidateDTO(rs.getInt("personId"),
 				rs.getString("caseName"), rs.getString("status"));
 	}
 
@@ -542,7 +542,7 @@ public class DataDAO implements IDataDAO {
 					+ " does not have any candidate");
 		}
 		while (rs.next()) {
-			list.add(new CandidateDTO(rs.getInt("candidateId"), rs
+			list.add(new CandidateDTO(rs.getInt("personId"), rs
 					.getString("caseName"), rs.getString("status")));
 		}
 		return list;
@@ -556,7 +556,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindekse til databasen");
 		}
 
-		Connector.doQuery("DELETE from Candidate WHERE canditateId =" + id
+		Connector.doUpdate("DELETE from Candidate WHERE canditateId =" + id
 				+ ";");
 		Connector.closeConnection();
 	}
@@ -568,8 +568,8 @@ public class DataDAO implements IDataDAO {
 		} catch (Exception e) {
 			throw new DALException("Kan ikke oprette forbindelse til databasen");
 		}
-		Connector.doQuery("UPDATE candidate SET status ='" + status
-				+ "' WHERE candidateId =" + candi.getCandidateId() + ";");
+		Connector.doUpdate("UPDATE candidate SET status ='" + status
+				+ "' WHERE personId =" + candi.getCandidateId() + ";");
 		Connector.closeConnection();
 	}
 
