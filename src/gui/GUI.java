@@ -17,6 +17,7 @@ import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.PersonDTO;
 import domain.ResearcherDTO;
+import javax.swing.ImageIcon;
 
 public class GUI {
 
@@ -77,7 +78,8 @@ public class GUI {
 		headPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		frame.getContentPane().add(headPanel, BorderLayout.NORTH);
 
-		JLabel lblOdgersBerndtson = new JLabel("Odgers Berndtson");
+		JLabel lblOdgersBerndtson = new JLabel("");
+		lblOdgersBerndtson.setIcon(new ImageIcon(GUI.class.getResource("/resources/OdgersBerndtsonLOGO.jpg")));
 		lblOdgersBerndtson.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
 				46));
 		headPanel.add(lblOdgersBerndtson);

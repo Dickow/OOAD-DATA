@@ -260,7 +260,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindekse til databasen");
 		}
 
-		Connector.doQuery("DELETE from person WHERE personId ='" + id + "';");
+		Connector.doUpdate("DELETE from person WHERE personId ='" + id + "';");
 		Connector.closeConnection();
 	}
 
@@ -275,26 +275,14 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("Update Employee SET name = '" + employee.getName()
-				+ "', SET employeeId = '" + employee.getEmployeeId()
+				+ "', SET researcherId = '" + employee.getEmployeeId()
 				+ "', SET password = '" + employee.getPassword()
 				+ "', SET job = '" + employee.getJob() + "');");
 		Connector.closeConnection();
 
 	}
 
-	@Override
-	public void createEmployee(EmployeeDTO employee) throws DALException {
-		try {
-			Connector.connect();
-		} catch (Exception e) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-		Connector.doUpdate("INSERT INTO employee VALUES ("
-				+ employee.getEmployeeId() + "," + employee.getName() + ","
-				+ employee.getPassword() + "," + employee.getJob() + "');");
 
-	}
 
 	public ResearcherDTO findResearcher(int researcherId) throws DALException {
 		try {
@@ -304,7 +292,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Researcher WHERE employeeId = "
+				.doQuery("SELECT * FROM Researcher WHERE researcherId = "
 						+ researcherId + ";");
 		Connector.closeConnection();
 
@@ -319,7 +307,7 @@ public class DataDAO implements IDataDAO {
 
 		job = ResearcherDTO.JOB.RESEARCHER;
 		try {
-			return new ResearcherDTO(rs.getInt("employeeId"),
+			return new ResearcherDTO(rs.getInt("researcherId"),
 					rs.getString("name"), rs.getString("password"), job);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -377,7 +365,7 @@ public class DataDAO implements IDataDAO {
 
 		if (!rs.first()) {
 			rs = Connector
-					.doQuery("SELECT * FROM Researcher WHERE employeeId = "
+					.doQuery("SELECT * FROM Researcher WHERE researcherId = "
 							+ partnerId + ";");
 			Connector.closeConnection();
 			return 3;
@@ -392,49 +380,6 @@ public class DataDAO implements IDataDAO {
 		// Vi får en researcher
 	}
 
-	@Override
-	public EmployeeDTO findEmployee(int employeeId) throws DALException {
-
-		try {
-			Connector.connect();
-		} catch (Exception e1) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Employee WHERE employeeId = "
-						+ employeeId + ";");
-		Connector.closeConnection();
-
-		try {
-			if (!rs.first()) {
-				throw new DALException("the employee with the id = "
-						+ employeeId + " does not exist");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			if (rs.getString("job").equals("PARTNER")) {
-				job = EmployeeDTO.JOB.PARTNER;
-			} else {
-				job = EmployeeDTO.JOB.RESEARCHER;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			return new EmployeeDTO(rs.getInt("employeeId"),
-					rs.getString("name"), rs.getString("password"), job);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		// wont ever reach this code
-		return null;
-	}
-
 	public void deleteEmployee(String employeeName) throws DALException {
 		try {
 			Connector.connect();
@@ -447,39 +392,6 @@ public class DataDAO implements IDataDAO {
 				+ "';");
 		Connector.closeConnection();
 
-	}
-
-	@Override
-	public List<EmployeeDTO> findEmployees(String name) throws DALException,
-			SQLException {
-
-		try {
-			Connector.connect();
-		} catch (Exception e1) {
-			throw new DALException(
-					"Der kunne ikke oprettes forbindelse til databasen");
-		}
-
-		List<EmployeeDTO> list = new ArrayList<EmployeeDTO>();
-		ResultSet rs = Connector.doQuery("SELECT * FROM Employee WHERE name = "
-				+ name);
-		Connector.closeConnection();
-
-		if (!rs.next()) {
-			throw new DALException("Der findes ikke nogle ansatte med navnet"
-					+ name);
-		}
-
-		while (rs.next()) {
-			if (rs.getString("job").equals("PARTNER")) {
-				job = EmployeeDTO.JOB.PARTNER;
-			} else {
-				job = EmployeeDTO.JOB.RESEARCHER;
-			}
-			list.add(new EmployeeDTO(rs.getInt("employeeId"), rs
-					.getString("name"), rs.getString("password"), job));
-		}
-		return list;
 	}
 
 	// Ændring af Candidate TODO
@@ -713,12 +625,12 @@ public class DataDAO implements IDataDAO {
 		}
 
 		ResultSet rs = Connector
-				.doQuery("SELECT employeeId FROM researcher WHERE employeeId "
+				.doQuery("SELECT * FROM researcher WHERE researcherId "
 						+ "NOT IN (SELECT researcherId FROM researcheroncase "
 						+ "WHERE caseName = '" + caseName + "');");
-
+		Connector.closeConnection();
 		while (rs.next()) {
-			list.add(new ResearcherDTO(rs.getInt("employeeId"), rs
+			list.add(new ResearcherDTO(rs.getInt("researcherId"), rs
 					.getString("name"), rs.getString("password"),
 					JOB.RESEARCHER));
 		}

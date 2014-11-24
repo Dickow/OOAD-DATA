@@ -74,11 +74,13 @@ public class EditCaseResearchersPanel extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
 				String chosenAvailableResearcher = availableResearchersList
 						.getSelectedValue();
-				MainController.getInstance().addResearcherToCaseInDatabase(
-						chosenAvailableResearcher);
-
+				if (chosenAvailableResearcher != null) {
+					MainController.getInstance().addResearcherToCaseInDatabase(
+							chosenAvailableResearcher);
+				}
 			}
 		});
 
@@ -88,9 +90,11 @@ public class EditCaseResearchersPanel extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				String chosenResearcherOnCase = researchersOnCaseList
 						.getSelectedValue();
-				MainController.getInstance().removeResearcherFromCaseInDatabase(
-						chosenResearcherOnCase);
-
+				if (chosenResearcherOnCase != null) {
+					MainController.getInstance()
+							.removeResearcherFromCaseInDatabase(
+									chosenResearcherOnCase);
+				}
 			}
 		});
 

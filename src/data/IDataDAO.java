@@ -51,13 +51,6 @@ public interface IDataDAO {
 
 	public void updateEmployee(EmployeeDTO employee) throws DALException;
 
-	public void createEmployee(EmployeeDTO employee) throws DALException;
-
-	public EmployeeDTO findEmployee(int EmployeeId) throws DALException, SQLException;
-
-	public List<EmployeeDTO> findEmployees(String name) throws DALException,
-			SQLException;
-
 	// Candidate
 
 	public void createCandidate(CandidateDTO candidate) throws DALException;

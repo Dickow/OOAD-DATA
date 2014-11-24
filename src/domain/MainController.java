@@ -11,7 +11,7 @@ import data.DALException;
 import data.DataDAO;
 
 public class MainController {
-	private GUI gui = new GUI();
+	private GUI gui = new GUI(); 
 	private int jobPos;
 	private ArrayList<PersonDTO> persons = new ArrayList<PersonDTO>();
 	private ArrayList<CompanyDTO> companies = new ArrayList<CompanyDTO>();
@@ -239,6 +239,7 @@ public class MainController {
 		curCase = tmpStrings[0].substring(11);
 		// first get all the researchers on a given case and all the researchers
 		// not on that given case
+		System.out.println(curCase);
 		try {
 			gui.editCaseMenu(
 					new ArrayList<ResearcherDTO>(database
@@ -253,6 +254,7 @@ public class MainController {
 	}
 
 	public void editChosenCaseForController(String curCase) {
+		System.out.println(curCase);
 		try {
 			gui.editCaseMenu(
 					new ArrayList<ResearcherDTO>(database
@@ -295,23 +297,23 @@ public class MainController {
 	}
 
 	public void addResearcherToCaseInDatabase(String chosenAvailableResearcher) {
-		String[] tmpStrings = chosenAvailableResearcher.split(" , ");
-		int id = new Integer(tmpStrings[0].substring(4));
+		String[] tmpStrings = chosenAvailableResearcher.split(",");
+		int id = new Integer(tmpStrings[0].substring(5));
 		try {
 			database.addResearcherToCase(id, curCase);
 		} catch (DALException e) {
 			System.out.println(e.getMessage());
 		}
+		MainController.getInstance().editChosenCaseForController(curCase);
 	}
 
 	public void removeResearcherFromCaseInDatabase(String chosenResearcherOnCase) {
-		String[] tmpStrings = chosenResearcherOnCase.split(" , ");
-		int id = new Integer(tmpStrings[0].substring(4));
+		String[] tmpStrings = chosenResearcherOnCase.split(",");
+		int id = new Integer(tmpStrings[0].substring(5));
 
 		try {
 			CaseDTO currentCase = database.findCase(curCase);
-			ResearcherDTO researcher = (ResearcherDTO) database
-					.findEmployee(id);
+			ResearcherDTO researcher = database.findResearcher(id);
 			database.removeResearcherCase(researcher, currentCase);
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
@@ -422,7 +424,7 @@ public class MainController {
 		// pass them on to the gui along with the current case and the partner
 		// working on the case
 		String[] tmpString = chosenCase.split(",");
-		String ThechosenCase = tmpString[0].substring(11); 
+		String ThechosenCase = tmpString[0].substring(11);
 		try {
 			researchersOnCase = (ArrayList<ResearcherDTO>) database
 					.getAllresearcherOnCases(ThechosenCase);
