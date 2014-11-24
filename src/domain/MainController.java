@@ -168,7 +168,7 @@ public class MainController {
 				.split(",")));
 		this.candidates = new ArrayList<String>(Arrays.asList(candidates
 				.split(",")));
-
+		
 		try {
 			database.createCase(casetmp);
 		} catch (DALException e) {
@@ -194,7 +194,7 @@ public class MainController {
 			try {
 				database.createCandidate(new CandidateDTO(new Integer(
 						this.candidates.get(i)), casetmp.getCaseName(),
-						"Potentiel prospect"));
+						"Potential prospect"));
 			} catch (NumberFormatException e) {
 				System.out.println(e.getMessage()); // TODO exception handling
 			} catch (DALException e) {

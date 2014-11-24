@@ -491,8 +491,9 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector.doUpdate("INSERT INTO Candidate VALUES ("
-				+ candidate.getCandidateId() + "," + candidate.getCaseName()
-				+ "," + candidate.getStatus() + "');");
+				+ candidate.getCandidateId() + ",'" + candidate.getCaseName()
+				+ "','" + candidate.getStatus() + "');");
+		Connector.closeConnection();
 	}
 
 	@Override
@@ -618,7 +619,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		Connector
-				.doUpdate("Insert into case VALUES ('" + name.getCaseName() + "','"
+				.doUpdate("INSERT INTO case VALUES ('" + name.getCaseName() + "','"
 						+ name.getCompanyName() + "', " + name.getPartnerId()
 						+ " );");
 		Connector.closeConnection();
@@ -651,10 +652,10 @@ public class DataDAO implements IDataDAO {
 		}
 		try {
 			Connector.doQuery("INSERT INTO ResearcherOnCase VALUES(" + rID
-					+ "," + caseName + ");");
+					+ ",'" + caseName + "');");
 		} catch (Exception e) {
 			throw new DALException(
-					"Kunne ikke oprettes en ResearcherOnCase, da den allerede eksistere");
+					"Kunne ikke oprettes en ResearcherOnCase, da den allerede eksisterer");
 		}
 
 		Connector.closeConnection();
