@@ -194,7 +194,8 @@ public class MainController {
 			try {
 				database.createCandidate(new CandidateDTO(new Integer(
 						this.candidates.get(i)), casetmp.getCaseName(),
-						"Potential prospect"));
+						"Potential prospect",new Integer(
+								this.candidates.get(i))));
 			} catch (NumberFormatException e) {
 				System.out.println(e.getMessage()); // TODO exception handling
 			} catch (DALException e) {
