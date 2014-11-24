@@ -175,6 +175,7 @@ public class MainController {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
 
+		System.out.println(casetmp.getCaseName());
 		// Bad code, but lacks a better method in the database access layer
 		for (int i = 0; i < this.researchers.size(); i++) {
 			try {
