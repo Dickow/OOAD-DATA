@@ -2,16 +2,15 @@ package domain;
 
 public class CandidateDTO {
 
-	private int candidateId, personId; 
+	private int candidateId; 
 	private String caseName, status;
 	
 	
 	
-	public CandidateDTO(int candidateId, String caseName, String status, int personId) {
+	public CandidateDTO(int candidateId, String caseName, String status) {
 		this.candidateId = candidateId; 
 		this.caseName = caseName; 
 		this.status = status; 
-		this.setPersonId(personId); 
 	}
 	public int getCandidateId() {
 		return candidateId;
@@ -31,12 +30,6 @@ public class CandidateDTO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getPersonId() {
-		return personId;
-	}
-	public void setPersonId(int personId) {
-		this.personId = personId;
-	} 
 	
 	
 }

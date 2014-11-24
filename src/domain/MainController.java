@@ -168,7 +168,7 @@ public class MainController {
 				.split(",")));
 		this.candidates = new ArrayList<String>(Arrays.asList(candidates
 				.split(",")));
-		
+
 		try {
 			database.createCase(casetmp);
 		} catch (DALException e) {
@@ -195,8 +195,7 @@ public class MainController {
 			try {
 				database.createCandidate(new CandidateDTO(new Integer(
 						this.candidates.get(i)), casetmp.getCaseName(),
-						"Potential prospect",new Integer(
-								this.candidates.get(i))));
+						"Potential prospect"));
 			} catch (NumberFormatException e) {
 				System.out.println(e.getMessage()); // TODO exception handling
 			} catch (DALException e) {
@@ -227,7 +226,7 @@ public class MainController {
 	public void editChosenCompany(String chosenCompany) {
 		String[] tmpStrings = chosenCompany.split(",");
 		curCompany = tmpStrings[0].substring(12);
-		
+
 		try {
 			gui.editCompanyMenu(database.findCompany(curCompany));
 		} catch (DALException e) {
@@ -418,16 +417,29 @@ public class MainController {
 		// get all the candidates on the case
 		// pass them on to the gui along with the current case and the partner
 		// working on the case
-
+		String[] tmpString = chosenCase.split(",");
+		String ThechosenCase = tmpString[0].substring(11); 
 		try {
 			researchersOnCase = (ArrayList<ResearcherDTO>) database
-					.getAllresearcherOnCases(chosenCase);
+					.getAllresearcherOnCases(ThechosenCase);
+			System.out.println("den første går godt");
 			candidatesOnCase = (ArrayList<CandidateDTO>) database
-					.findCaseCandidates(chosenCase);
-			CaseDTO tmpCase = database.findCase(chosenCase);
-			EmployeeDTO partner = database.findEmployee(tmpCase.getPartnerId());
-			gui.viewCase(tmpCase.getCaseName(), partner.getName(),
-					researchersOnCase, candidatesOnCase);
+					.findCaseCandidates(ThechosenCase);
+			System.out.println("den anden går godt");
+			CaseDTO tmpCase = database.findCase(ThechosenCase);
+			System.out.println("den tredje går godt");
+			if (employeeId == 1) {
+				EmployeeDTO partner = database.findPartner(tmpCase
+						.getPartnerId());
+				gui.viewCase(tmpCase.getCaseName(), partner.getName(),
+						researchersOnCase, candidatesOnCase);
+			}
+			if (employeeId == 2) {
+				EmployeeDTO researcher = database.findResearcher(employeeId);
+				gui.viewCase(tmpCase.getCaseName(), researcher.getName(),
+						researchersOnCase, candidatesOnCase);
+			}
+
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		} catch (SQLException e) {
