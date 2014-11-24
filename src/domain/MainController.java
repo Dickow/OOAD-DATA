@@ -391,6 +391,10 @@ public class MainController {
 				// Update to Phone interview
 				database.changeCandidateStatus(candi, "Phone interview");
 			}
+			if (candi.getStatus().equals("Phone interview")) {
+				// Update to Personlan Meting
+				database.changeCandidateStatus(candi, "Personal Meeting");
+			}
 			if (candi.getStatus().equals("Personal Meeting")) {
 				// Update to presented
 				database.changeCandidateStatus(candi, "Presented");
