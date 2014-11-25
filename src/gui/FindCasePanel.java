@@ -32,7 +32,7 @@ public class FindCasePanel extends JPanel {
 		add(editBtn);
 
 		JButton goBackBtn = new JButton("G\u00E5 tilbage");
-		goBackBtn.setBounds(194, 259, 89, 25);
+		goBackBtn.setBounds(194, 259, 102, 25);
 		add(goBackBtn);
 
 		JButton logoutBtn = new JButton("Log ud");
@@ -41,22 +41,22 @@ public class FindCasePanel extends JPanel {
 
 		searchTextField = new JTextField();
 		searchTextField.setColumns(10);
-		searchTextField.setBounds(10, 234, 273, 22);
+		searchTextField.setBounds(10, 234, 286, 22);
 		add(searchTextField);
 
 		JButton searchBtn = new JButton("S\u00F8g");
-		searchBtn.setBounds(295, 233, 68, 25);
+		searchBtn.setBounds(305, 233, 68, 25);
 		add(searchBtn);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 273, 214);
+		scrollPane.setBounds(10, 10, 286, 214);
 		add(scrollPane);
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(list);
 		
 		JButton viewCaseBtn = new JButton("Se sag");
-		viewCaseBtn.setBounds(295, 259, 97, 25);
+		viewCaseBtn.setBounds(305, 259, 97, 25);
 		add(viewCaseBtn);
 		
 		logoutBtn.addActionListener(new ActionListener() {

@@ -42,7 +42,7 @@ public class CreatePersonPanel extends JPanel {
 		nameTextField.setColumns(10);
 
 		JLabel addressLabel = new JLabel("Addresse");
-		addressLabel.setBounds(50, 91, 56, 16);
+		addressLabel.setBounds(22, 91, 84, 16);
 		add(addressLabel);
 
 		addressTextField = new JTextField();
@@ -51,7 +51,7 @@ public class CreatePersonPanel extends JPanel {
 		addressTextField.setColumns(10);
 
 		JLabel educationLabel = new JLabel("Uddannelse");
-		educationLabel.setBounds(50, 144, 66, 16);
+		educationLabel.setBounds(22, 144, 84, 16);
 		add(educationLabel);
 
 		educationTextField = new JTextField();
@@ -69,7 +69,7 @@ public class CreatePersonPanel extends JPanel {
 		phoneTextField.setColumns(10);
 
 		JLabel cellLabel = new JLabel("Mobil");
-		cellLabel.setBounds(180, 38, 56, 16);
+		cellLabel.setBounds(159, 38, 56, 16);
 		add(cellLabel);
 
 		cellTextField = new JTextField();
@@ -78,7 +78,7 @@ public class CreatePersonPanel extends JPanel {
 		cellTextField.setColumns(10);
 
 		JLabel companyEmailLabel = new JLabel("Firma Email");
-		companyEmailLabel.setBounds(180, 91, 68, 16);
+		companyEmailLabel.setBounds(159, 91, 68, 16);
 		add(companyEmailLabel);
 
 		companyEmailTextField = new JTextField();
@@ -87,7 +87,7 @@ public class CreatePersonPanel extends JPanel {
 		companyEmailTextField.setColumns(10);
 
 		JLabel privateMail = new JLabel("Privat Email");
-		privateMail.setBounds(180, 144, 67, 16);
+		privateMail.setBounds(159, 144, 67, 16);
 		add(privateMail);
 
 		privateMailTextField = new JTextField();
@@ -114,7 +114,7 @@ public class CreatePersonPanel extends JPanel {
 		salaryTextField.setColumns(10);
 
 		JLabel jobLabel = new JLabel("Nuværende Job");
-		jobLabel.setBounds(300, 91, 88, 16);
+		jobLabel.setBounds(300, 91, 103, 16);
 		add(jobLabel);
 
 		jobTextField = new JTextField();

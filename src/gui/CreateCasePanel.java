@@ -42,7 +42,7 @@ public class CreateCasePanel extends JPanel {
 		companyNameTextField.setColumns(10);
 
 		JLabel researcherLabel = new JLabel("Researcher id'er");
-		researcherLabel.setBounds(75, 109, 94, 16);
+		researcherLabel.setBounds(75, 109, 103, 16);
 		add(researcherLabel);
 
 		JLabel candidateLabel = new JLabel("Kandidater id'er");

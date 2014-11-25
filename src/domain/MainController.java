@@ -1,5 +1,7 @@
 package domain;
 
+
+
 import gui.GUI;
 
 import java.sql.Date;
@@ -11,7 +13,6 @@ import data.DALException;
 import data.DataDAO;
 
 public class MainController {
-	private GUI gui = new GUI(); 
 	private int jobPos;
 	private ArrayList<PersonDTO> persons = new ArrayList<PersonDTO>();
 	private ArrayList<CompanyDTO> companies = new ArrayList<CompanyDTO>();
@@ -46,64 +47,68 @@ public class MainController {
 		}
 		return (mainController = new MainController());
 	}
+	
 
 	public void login(String[] loginInfo) {
 		loginInfo[0].trim();
 		employeeId = new Integer(loginInfo[0]);
 
 		try {
-			database.loginExists(loginInfo);
-		} catch (DALException e) {
+			if (database.loginExists(loginInfo) == true) {
+				try {
+					switch (database.PartnerOrResearcher(employeeId)) {
 
-			System.out.println(e.getMessage()); // TODO exception handling
-		} catch (SQLException e) {
-			System.out.println(e.getMessage()); // TODO exception handling
-		}
-
-		try {
-			switch (database.PartnerOrResearcher(employeeId)) {
-
-			case 1:
-				break;
-			case 2:
-				this.jobPos = 1;
-				break;
-			case 3:
-				this.jobPos = 2;
-				break;
+					case 1:
+						break;
+					case 2:
+						this.jobPos = 1;
+						break;
+					case 3:
+						this.jobPos = 2;
+						break;
+					}
+				} catch (DALException e) {
+					System.out.println(e.getMessage()); // TODO exception
+														// handling
+				} catch (SQLException e) {
+					System.out.println(e.getMessage()); // TODO exception
+														// handling
+				}
+				GUI.getInstance().menu(jobPos);
 			}
 		} catch (DALException e) {
+
 			System.out.println(e.getMessage()); // TODO exception handling
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
 
-		gui.menu(jobPos);
+		
 
 	}
 
 	public void menuDistributor(int menuChoice) {
 		switch (menuChoice) {
 		case 0:
-			gui.findPersonMenu(persons);
+			GUI.getInstance().findPersonMenu(persons);
 			break;
 		case 1:
-			gui.createPersonMenu();
+			GUI.getInstance().createPersonMenu();
 			break;
 		case 2:
-			gui.findCaseMenu(cases);
+			GUI.getInstance().findCaseMenu(cases);
 			break;
 		case 3:
-			gui.createCaseMenu();
+			GUI.getInstance().createCaseMenu();
 			break;
 		case 4:
-			gui.findCompanyMenu(companies);
+			GUI.getInstance().findCompanyMenu(companies);
 			break;
 		case 5:
-			gui.createCompanyMenu();
+			GUI.getInstance().createCompanyMenu();
 			break;
 		case 6:
-			gui.login();
+			GUI.getInstance().login();
 			break;
 		}
 
@@ -214,7 +219,7 @@ public class MainController {
 		PersonDTO person;
 		try {
 			person = database.findPerson(id);
-			gui.editPersonMenu(person);
+			GUI.getInstance().editPersonMenu(person);
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		} catch (SQLException e) {
@@ -228,7 +233,7 @@ public class MainController {
 		curCompany = tmpStrings[0].substring(12);
 
 		try {
-			gui.editCompanyMenu(database.findCompany(curCompany));
+			GUI.getInstance().editCompanyMenu(database.findCompany(curCompany));
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
@@ -241,7 +246,7 @@ public class MainController {
 		// not on that given case
 		System.out.println(curCase);
 		try {
-			gui.editCaseMenu(
+			GUI.getInstance().editCaseMenu(
 					new ArrayList<ResearcherDTO>(database
 							.getAllresearcherOnCases(curCase)),
 					new ArrayList<ResearcherDTO>(database
@@ -256,7 +261,7 @@ public class MainController {
 	public void editChosenCaseForController(String curCase) {
 		System.out.println(curCase);
 		try {
-			gui.editCaseMenu(
+			GUI.getInstance().editCaseMenu(
 					new ArrayList<ResearcherDTO>(database
 							.getAllresearcherOnCases(curCase)),
 					new ArrayList<ResearcherDTO>(database
@@ -337,7 +342,7 @@ public class MainController {
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
-		gui.findCompanyMenu(companies);
+		GUI.getInstance().findCompanyMenu(companies);
 	}
 
 	public void findPerson(String searchField) {
@@ -351,7 +356,7 @@ public class MainController {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
 
-		gui.findPersonMenu(persons);
+		GUI.getInstance().findPersonMenu(persons);
 	}
 
 	public void findCase(String searchField) {
@@ -365,7 +370,7 @@ public class MainController {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
 
-		gui.findCaseMenu(singleCaseArray);
+		GUI.getInstance().findCaseMenu(singleCaseArray);
 
 	}
 
@@ -374,7 +379,7 @@ public class MainController {
 	}
 
 	public void goBack(Object currentEmployee) {
-		gui.menu(getCurrentEmployee());
+		GUI.getInstance().menu(getCurrentEmployee());
 
 	}
 
@@ -421,7 +426,7 @@ public class MainController {
 	public void viewSpecificCase(String chosenCase) {
 		// get all the researchers on the case
 		// get all the candidates on the case
-		// pass them on to the gui along with the current case and the partner
+		// pass them on to the GUI.getInstance() along with the current case and the partner
 		// working on the case
 		String[] tmpString = chosenCase.split(",");
 		String ThechosenCase = tmpString[0].substring(11);
@@ -437,12 +442,12 @@ public class MainController {
 			if (employeeId == 1) {
 				EmployeeDTO partner = database.findPartner(tmpCase
 						.getPartnerId());
-				gui.viewCase(tmpCase.getCaseName(), partner.getName(),
+				GUI.getInstance().viewCase(tmpCase.getCaseName(), partner.getName(),
 						researchersOnCase, candidatesOnCase);
 			}
 			if (employeeId == 2) {
 				EmployeeDTO researcher = database.findResearcher(employeeId);
-				gui.viewCase(tmpCase.getCaseName(), researcher.getName(),
+				GUI.getInstance().viewCase(tmpCase.getCaseName(), researcher.getName(),
 						researchersOnCase, candidatesOnCase);
 			}
 

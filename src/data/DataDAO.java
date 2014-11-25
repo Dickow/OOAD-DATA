@@ -450,8 +450,7 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 
 		if (!rs.first()) {
-			throw new DALException("the case" + caseName
-					+ " does not have any candidate");
+			return list; 
 		}
 		while (rs.next()) {
 			list.add(new CandidateDTO(rs.getInt("personId"), rs

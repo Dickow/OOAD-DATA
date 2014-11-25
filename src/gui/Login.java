@@ -40,7 +40,7 @@ public class Login extends JPanel {
 		this.add(brugerIdTextField);
 		
 		JButton loginButton = new JButton("Log ind");
-		loginButton.setBounds(170, 161, 73, 25);
+		loginButton.setBounds(160, 161, 91, 25);
 		loginButton.setAction(action);
 		loginButton.setActionCommand("login");
 		add(loginButton);

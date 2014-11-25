@@ -30,7 +30,7 @@ public class FindPersonPanel extends JPanel {
 		add(editChosenBtn);
 
 		JButton goBackBtn = new JButton("Gå tilbage");
-		goBackBtn.setBounds(196, 262, 89, 25);
+		goBackBtn.setBounds(196, 262, 102, 25);
 		add(goBackBtn);
 
 		JButton logOutBtn = new JButton("Log ud");
@@ -38,16 +38,16 @@ public class FindPersonPanel extends JPanel {
 		add(logOutBtn);
 
 		searchPersonTextField = new JTextField();
-		searchPersonTextField.setBounds(12, 237, 273, 22);
+		searchPersonTextField.setBounds(12, 237, 286, 22);
 		add(searchPersonTextField);
 		searchPersonTextField.setColumns(10);
 
 		JButton searchPersonBtn = new JButton("Søg");
-		searchPersonBtn.setBounds(297, 236, 68, 25);
+		searchPersonBtn.setBounds(304, 236, 68, 25);
 		add(searchPersonBtn);
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(12, 13, 273, 211);
+		list.setBounds(12, 13, 286, 211);
 		add(list);
 
 		editChosenBtn.addActionListener(new ActionListener() {

@@ -31,10 +31,10 @@ public class ViewCasePanel extends JPanel {
 	public ViewCasePanel() {
 		setLayout(null);
 
-		caseNameLabel.setBounds(22, 196, 56, 16);
+		caseNameLabel.setBounds(22, 196, 134, 16);
 		add(caseNameLabel);
 
-		partnerNameLabel.setBounds(207, 196, 56, 16);
+		partnerNameLabel.setBounds(168, 196, 74, 16);
 		add(partnerNameLabel);
 
 		researcherList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -42,15 +42,15 @@ public class ViewCasePanel extends JPanel {
 		add(researcherList);
 
 		JLabel researchersLabel = new JLabel("Researchers");
-		researchersLabel.setBounds(57, 13, 56, 16);
+		researchersLabel.setBounds(57, 13, 71, 16);
 		add(researchersLabel);
 
 		candidatesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		candidatesList.setBounds(207, 43, 183, 141);
+		candidatesList.setBounds(207, 43, 203, 141);
 		add(candidatesList);
 
 		JLabel candidateLabel = new JLabel("Kandidater");
-		candidateLabel.setBounds(261, 13, 56, 16);
+		candidateLabel.setBounds(261, 13, 61, 16);
 		add(candidateLabel);
 
 		JButton logoutBtn = new JButton("Log ud");
@@ -62,8 +62,12 @@ public class ViewCasePanel extends JPanel {
 		add(goBackBtn);
 
 		JButton updateStatusBtn = new JButton("Opdater status");
-		updateStatusBtn.setBounds(293, 192, 97, 31);
+		updateStatusBtn.setBounds(293, 192, 117, 25);
 		add(updateStatusBtn);
+		
+		JButton addCandidateBtn = new JButton("Tilføj kandidat");
+		addCandidateBtn.setBounds(293, 236, 117, 25);
+		add(addCandidateBtn);
 
 		logoutBtn.addActionListener(new ActionListener() {
 
@@ -94,6 +98,14 @@ public class ViewCasePanel extends JPanel {
 
 			}
 		});
+		addCandidateBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	public void clearLists() {
@@ -104,8 +116,8 @@ public class ViewCasePanel extends JPanel {
 	public void fillListsAndLabels(String caseName, String partnerName,
 			ArrayList<ResearcherDTO> researchers,
 			ArrayList<CandidateDTO> candidates) {
-		caseNameLabel.setText(caseName);
-		partnerNameLabel.setText(partnerName);
+		caseNameLabel.setText("Sags navn: " +caseName);
+		partnerNameLabel.setText("Partner navn: " +partnerName);
 
 		for (int i = 0; i < researchers.size(); i++) {
 			researcherListModel.addElement("Researcher ID : "

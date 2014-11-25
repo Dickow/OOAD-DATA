@@ -32,7 +32,7 @@ public class FindCompanyPanel extends JPanel {
 		add(editBtn);
 
 		JButton goBackBtn = new JButton("G\u00E5 tilbage");
-		goBackBtn.setBounds(196, 262, 89, 25);
+		goBackBtn.setBounds(196, 262, 102, 25);
 		add(goBackBtn);
 
 		JButton logoutBtn = new JButton("Log ud");
@@ -41,15 +41,15 @@ public class FindCompanyPanel extends JPanel {
 
 		searchTextField = new JTextField();
 		searchTextField.setColumns(10);
-		searchTextField.setBounds(12, 237, 273, 22);
+		searchTextField.setBounds(12, 237, 286, 22);
 		add(searchTextField);
 
 		JButton searchBtn = new JButton("S\u00F8g");
-		searchBtn.setBounds(297, 236, 68, 25);
+		searchBtn.setBounds(306, 236, 68, 25);
 		add(searchBtn);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 13, 273, 214);
+		scrollPane.setBounds(12, 13, 286, 214);
 		add(scrollPane);
 
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -17,6 +17,7 @@ import domain.CaseDTO;
 import domain.CompanyDTO;
 import domain.PersonDTO;
 import domain.ResearcherDTO;
+
 import javax.swing.ImageIcon;
 
 public class GUI {
@@ -40,6 +41,24 @@ public class GUI {
 	private Component horizontalStrut_1;
 	private BorderLayout layout;
 
+	private static GUI gui;
+
+	// ######################################################################
+	// Private constructor - Singleton
+	// ######################################################################
+	private GUI() {
+
+	}
+
+	// ######################################################################
+	// Connect to single instance of class
+	// ######################################################################
+	public static GUI getInstance() {
+		if (gui != null) {
+			return gui;
+		}
+		return (gui = new GUI());
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -47,8 +66,9 @@ public class GUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
-					window.frame.setVisible(true);
+					GUI.getInstance().initialize();
+					GUI.getInstance().login();
+					GUI.getInstance().frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,13 +76,6 @@ public class GUI {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public GUI() {
-		initialize();
-		login();
-	}
 
 	/**
 	 * Initialize the GUI frame
