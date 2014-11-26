@@ -14,6 +14,7 @@ import javax.swing.ListSelectionModel;
 import domain.CandidateDTO;
 import domain.MainController;
 import domain.ResearcherDTO;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class ViewCasePanel extends JPanel {
@@ -36,18 +37,27 @@ public class ViewCasePanel extends JPanel {
 
 		partnerNameLabel.setBounds(22, 218, 206, 16);
 		add(partnerNameLabel);
+		
+		JScrollPane researcherScrollPane = new JScrollPane();
+		researcherScrollPane.setBounds(12, 42, 183, 141);
+		add(researcherScrollPane);
 
+		researcherScrollPane.setViewportView(researcherList);
 		researcherList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		researcherList.setBounds(12, 42, 183, 141);
-		add(researcherList);
+//		researcherList.setBounds(12, 42, 183, 141);
+//		add(researcherList);
 
 		JLabel researchersLabel = new JLabel("Researchers");
 		researchersLabel.setBounds(57, 13, 99, 16);
 		add(researchersLabel);
+		
+		JScrollPane candidateScrollPane = new JScrollPane();
+		candidateScrollPane.setBounds(207, 43, 203, 141);
+		add(candidateScrollPane);
 
+		candidateScrollPane.setViewportView(candidatesList);
 		candidatesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		candidatesList.setBounds(207, 43, 203, 141);
-		add(candidatesList);
+		
 
 		JLabel candidateLabel = new JLabel("Kandidater");
 		candidateLabel.setBounds(261, 13, 74, 16);
