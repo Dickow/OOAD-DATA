@@ -351,7 +351,7 @@ public class DataDAO implements IDataDAO {
 		return null;
 	}
 
-	public int PartnerOrResearcher(int partnerId) throws DALException,
+	public int PartnerOrResearcher(int employeeId,String password) throws DALException,
 			SQLException {
 		try {
 			Connector.connect();
@@ -360,13 +360,12 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 		ResultSet rs = Connector
-				.doQuery("SELECT * FROM Partner WHERE partnerId = " + partnerId
-						+ ";");
-
+				.doQuery("SELECT * FROM Partner WHERE partnerId = " + employeeId
+						+ " AND password = '" + password + "';");
 		if (!rs.first()) {
 			rs = Connector
-					.doQuery("SELECT * FROM Researcher WHERE researcherId = "
-							+ partnerId + ";");
+					.doQuery("SELECT * FROM researcher WHERE researcherId = "
+							+ employeeId + " AND password = '" + password + "' ;");
 			Connector.closeConnection();
 			return 3;
 			// Vi har en Researcher
@@ -748,7 +747,7 @@ public class DataDAO implements IDataDAO {
 					"Der kunne ikke oprettes forbindelse til databasen");
 		}
 
-		switch (PartnerOrResearcher(Integer.parseInt(loginInfo[0]))) {
+		switch (PartnerOrResearcher(Integer.parseInt(loginInfo[0]),loginInfo[1])) {
 
 		case 1:
 			throw new DALException("Der findes ikke en ansat med indtastede ID");

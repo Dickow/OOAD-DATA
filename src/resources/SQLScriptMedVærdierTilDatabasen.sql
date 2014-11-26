@@ -7,8 +7,9 @@ INSERT INTO person VALUES (17,'Karsten','Lyngby midt 15','CBS','Marketing','2758
 INSERT INTO person VALUES (18,'Per','centrumPark 32','CBS','Marketing','56473829','Per@mail.com','Lars@hotmail.com','75847293','En produktiv gut','1984-08-13',41283);
 INSERT INTO person VALUES (19,'Mathias','Landevejen 48','CBS','Marketing','10928374','Mathiasg@mail.com','Lars@hotmail.com','75847293','En produktiv gut','1984-08-13',39847);
 INSERT INTO person VALUES (20,'Peder','nakskovvej 48','CBS','Marketing','37281964','Peder@mail.com','Lars@hotmail.com','75847293','En produktiv gut','1984-08-13',43000);
-INSERT INTO person VALUES (21,'Mogens','bredvej 24','Engineer','Marketing','54839203','Mogens@mail.com','Mogens@hotmail.com','78674639','God arbejdsgang','1976-09-37',67000);
+INSERT INTO person VALUES (21,'Mogens','bredvej 24','Engineer','Marketing','54839203','Mogens@mail.com','Mogens@hotmail.com','78674639','God arbejdsgang','1976-09-30',67000);
 
+INSERT INTO partner VALUES (1,'Jeppe','Jeppe1234','PARTNER');
 INSERT INTO partner VALUES (2,'Morten','Morten1234','PARTNER');
 INSERT INTO partner VALUES (3,'Nikolaj','Nikolaj1234','PARTNER');
 INSERT INTO partner VALUES (4,'Shaher','Shaher1234','PARTNER');
@@ -50,16 +51,16 @@ INSERT INTO branch VALUES ('Salg','Detail');
 INSERT INTO branch VALUES ('Konsulent','IT');
 INSERT INTO branch VALUES ('IT','Kommunikation');
 INSERT INTO branch VALUES ('IT','Medier');
-INSERT INTO branch VALUES ('IT','Trådløs');
+INSERT INTO branch VALUES ('IT','TrÃ¥dlÃ¸s');
 INSERT INTO branch VALUES ('IT','Hospitaler');
-INSERT INTO branch VALUES ('Stålprodukter','Støbning');
+INSERT INTO branch VALUES ('StÃ¥lprodukter','StÃ¸bning');
 INSERT INTO branch VALUES ('Alkohol','Destillation');
 INSERT INTO branch VALUES ('Handel','IT');
 
-INSERT INTO company VALUES ('Maskinen','Mekaniker','MekanikerStrÃ¦de 107','64738291','Lars svensknÃ¸gle', 'Peter pedal'); 
+INSERT INTO company VALUES ('Maskinen','Mekaniker','MekanikerStrÃ¦de 107','64738291','Lars svensknÃƒÂ¸gle', 'Peter pedal'); 
 INSERT INTO company VALUES ('PC World','IT','ITStrÃ¦de 48','738492839','peter Larsen', 'Morten motherboard'); 
-INSERT INTO company VALUES ('Samsung','IT','ITvej 314','64738291','Birger gløgg', 'Peter pedal'); 
-INSERT INTO company VALUES ('Apple','Salg','æblevej 189','67483964','kalle bunde', 'Pippi Langstrømpe'); 
+INSERT INTO company VALUES ('Samsung','IT','ITvej 314','64738291','Birger glÃ¸gg', 'Peter pedal'); 
+INSERT INTO company VALUES ('Apple','Salg','Ã¦blevej 189','67483964','kalle bunde', 'Pippi LangstrÃ¸mpe'); 
 INSERT INTO company VALUES ('HP','Handel','bubbivej','62392864','Henrik Petersen', 'Helena Patricksen'); 
 INSERT INTO company VALUES ('Google','Elektro','klodsvej','98674563','Mannie Klistersen', 'Jens bredballe'); 
 
@@ -71,8 +72,8 @@ INSERT INTO cases VALUES ('APPLE1', 'Apple',5);
 INSERT INTO cases VALUES ('APPLE2', 'Apple',6);
 INSERT INTO cases VALUES ('HP', 'HP',7);
 INSERT INTO cases VALUES ('GOOGLE1', 'Google',8);
-INSERT INTO cases VALUES ('GOOGLE2', 'Goggle',9);
-INSERT INTO cases VALUES ('GOOGLE3', 'Goggle',10);
+INSERT INTO cases VALUES ('GOOGLE2', 'Google',2);
+INSERT INTO cases VALUES ('GOOGLE3', 'Google',10);
 
 INSERT INTO researcheroncase VALUES (2,'Maskin Sagen');
 INSERT INTO researcheroncase VALUES (3,'Maskin Sagen');
@@ -86,7 +87,7 @@ INSERT INTO researcheroncase VALUES (10,'HP');
 INSERT INTO researcheroncase VALUES (11,'HP');
 INSERT INTO researcheroncase VALUES (12,'GOOGLE1');
 INSERT INTO researcheroncase VALUES (13,'GOOGLE1');
-INSERT INTO researcheroncase VALUES (14,'GOGLE2');
+INSERT INTO researcheroncase VALUES (14,'GOOGLE2');
 INSERT INTO researcheroncase VALUES (15,'GOOGLE3');
 INSERT INTO researcheroncase VALUES (16,'GOOGLE3');
 INSERT INTO researcheroncase VALUES (17,'SAMSUNG');

@@ -54,8 +54,8 @@ public class MainController {
 		try {
 			if (database.loginExists(loginInfo) == true) {
 				try {
-					switch (database.PartnerOrResearcher(employeeId)) {
-
+					switch (database.PartnerOrResearcher(employeeId,loginInfo[1])) {
+					
 					case 1:
 						break;
 					case 2:
