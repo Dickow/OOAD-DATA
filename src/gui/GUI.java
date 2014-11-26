@@ -35,6 +35,7 @@ public class GUI {
 	private EditPersonPanel editPersonPanel = new EditPersonPanel();
 	private EditCaseResearchersPanel editCaseResearchersPanel = new EditCaseResearchersPanel();
 	private ViewCasePanel viewCasePanel = new ViewCasePanel();
+	private AddCandidatePanel addCandidatePanel = new AddCandidatePanel();
 	private Login loginPanel = new Login();
 	private JPanel headPanel;
 	private Component horizontalStrut;
@@ -59,6 +60,7 @@ public class GUI {
 		}
 		return (gui = new GUI());
 	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -76,7 +78,6 @@ public class GUI {
 		});
 	}
 
-
 	/**
 	 * Initialize the GUI frame
 	 */
@@ -92,7 +93,8 @@ public class GUI {
 		frame.getContentPane().add(headPanel, BorderLayout.NORTH);
 
 		JLabel lblOdgersBerndtson = new JLabel("");
-		lblOdgersBerndtson.setIcon(new ImageIcon(GUI.class.getResource("/resources/OdgersBerndtsonLOGO.jpg")));
+		lblOdgersBerndtson.setIcon(new ImageIcon(GUI.class
+				.getResource("/resources/OdgersBerndtsonLOGO.jpg")));
 		lblOdgersBerndtson.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
 				46));
 		headPanel.add(lblOdgersBerndtson);
@@ -158,7 +160,7 @@ public class GUI {
 		frame.getContentPane().add(createPersonPanel);
 		createPersonPanel.setVisible(true);
 	}
-	
+
 	/**
 	 * The menu to create a new company in the database
 	 */
@@ -186,8 +188,10 @@ public class GUI {
 	}
 
 	/**
-	 * The menu to find a person from the database, takes an ArrayList<PersonDTO> as parameter
-	 * to show the found persons from the database
+	 * The menu to find a person from the database, takes an
+	 * ArrayList<PersonDTO> as parameter to show the found persons from the
+	 * database
+	 * 
 	 * @param persons
 	 */
 	public void findPersonMenu(ArrayList<PersonDTO> persons) {
@@ -204,8 +208,10 @@ public class GUI {
 	}
 
 	/**
-	 * The menu to find a company from the database, takes an ArrayList<CompanyDTO> as parameter
-	 * to show the found companies from the database
+	 * The menu to find a company from the database, takes an
+	 * ArrayList<CompanyDTO> as parameter to show the found companies from the
+	 * database
+	 * 
 	 * @param companies
 	 */
 	public void findCompanyMenu(ArrayList<CompanyDTO> companies) {
@@ -221,8 +227,9 @@ public class GUI {
 	}
 
 	/**
-	 * The menu to find a case from the database, takes an ArrayList<CaseDTO> as parameter
-	 * to show the found cases from the database
+	 * The menu to find a case from the database, takes an ArrayList<CaseDTO> as
+	 * parameter to show the found cases from the database
+	 * 
 	 * @param cases
 	 */
 	public void findCaseMenu(ArrayList<CaseDTO> cases) {
@@ -282,8 +289,8 @@ public class GUI {
 			ArrayList<ResearcherDTO> researchersOnCase,
 			ArrayList<CandidateDTO> candidates) {
 		viewCasePanel.clearLists();
-		viewCasePanel.fillListsAndLabels(caseName, partnerName, researchersOnCase,
-				candidates);
+		viewCasePanel.fillListsAndLabels(caseName, partnerName,
+				researchersOnCase, candidates);
 		// remove previous panel
 		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
 		frame.getContentPane().remove(
@@ -295,5 +302,18 @@ public class GUI {
 
 	}
 
+	public void addCandidate(ArrayList<PersonDTO> potentialCandidates) {
+		addCandidatePanel.clearList();
+		addCandidatePanel.fillList(potentialCandidates);
+		// remove previous panel
+		layout.getLayoutComponent(BorderLayout.CENTER).setVisible(false);
+		frame.getContentPane().remove(
+				layout.getLayoutComponent(BorderLayout.CENTER));
+
+		// Add the new panel to the frame
+		frame.getContentPane().add(addCandidatePanel);
+		addCandidatePanel.setVisible(true);
+
+	}
 
 }

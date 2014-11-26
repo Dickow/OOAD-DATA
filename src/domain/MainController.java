@@ -1,7 +1,5 @@
 package domain;
 
-
-
 import gui.GUI;
 
 import java.sql.Date;
@@ -17,6 +15,7 @@ public class MainController {
 	private ArrayList<PersonDTO> persons = new ArrayList<PersonDTO>();
 	private ArrayList<CompanyDTO> companies = new ArrayList<CompanyDTO>();
 	private ArrayList<CaseDTO> cases = new ArrayList<CaseDTO>();
+	private ArrayList<PersonDTO> potentialCandidates = new ArrayList<PersonDTO>();
 
 	// Bad fix to make the code work Should be remade in future iterations
 	private ArrayList<CaseDTO> singleCaseArray = new ArrayList<CaseDTO>();
@@ -47,7 +46,6 @@ public class MainController {
 		}
 		return (mainController = new MainController());
 	}
-	
 
 	public void login(String[] loginInfo) {
 		loginInfo[0].trim();
@@ -82,8 +80,6 @@ public class MainController {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
-
-		
 
 	}
 
@@ -247,8 +243,8 @@ public class MainController {
 		System.out.println(curCase);
 		try {
 			GUI.getInstance().editCaseMenu(
-					new ArrayList<ResearcherDTO>(database
-							.getAllresearcherOnCases(curCase)),
+					new ArrayList<ResearcherDTO>(
+							database.getAllresearcherOnCases(curCase)),
 					new ArrayList<ResearcherDTO>(database
 							.getAllresearcherNotOnCases(curCase)));
 		} catch (DALException e) {
@@ -262,8 +258,8 @@ public class MainController {
 		System.out.println(curCase);
 		try {
 			GUI.getInstance().editCaseMenu(
-					new ArrayList<ResearcherDTO>(database
-							.getAllresearcherOnCases(curCase)),
+					new ArrayList<ResearcherDTO>(
+							database.getAllresearcherOnCases(curCase)),
 					new ArrayList<ResearcherDTO>(database
 							.getAllresearcherNotOnCases(curCase)));
 		} catch (DALException e) {
@@ -327,6 +323,25 @@ public class MainController {
 		}
 
 		MainController.getInstance().editChosenCaseForController(curCase);
+	}
+	
+	public void addCandidateToCaseInDatabase(String chosenCandidate){
+		String[] tmpStrings = chosenCandidate.split(","); 
+		tmpStrings[0].trim(); 
+		int id = new Integer(tmpStrings[0].substring(4));
+		try {
+			PersonDTO person = database.findPerson(id);
+			System.out.println("person id: " + person.getPersonId());
+			System.out.println(curCase);
+			CandidateDTO candidate = new CandidateDTO(person.getPersonId(), curCase, "Potential prospect");
+			System.out.println(candidate.getCandidateId());
+			System.out.println(candidate.getCaseName());
+			database.createCandidate(candidate);
+		} catch (DALException e) {
+			System.out.println(e.getMessage()); // TODO exception handling
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()); // TODO exception handling
+		} 
 	}
 
 	/*
@@ -398,7 +413,7 @@ public class MainController {
 				database.changeCandidateStatus(candi, "Phone interview");
 			}
 			if (candi.getStatus().equals("Phone interview")) {
-				// Update to Personlan Meting
+				// Update to Personal Meting
 				database.changeCandidateStatus(candi, "Personal Meeting");
 			}
 			if (candi.getStatus().equals("Personal Meeting")) {
@@ -420,35 +435,30 @@ public class MainController {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
+		viewSpecificCaseUpdate(curCase);
 
 	}
-
-	public void viewSpecificCase(String chosenCase) {
-		// get all the researchers on the case
-		// get all the candidates on the case
-		// pass them on to the GUI.getInstance() along with the current case and the partner
-		// working on the case
-		String[] tmpString = chosenCase.split(",");
-		String ThechosenCase = tmpString[0].substring(11);
+	
+	private void viewSpecificCaseUpdate(String curCase){
+		// a method to update the candidates' status when a user press update. 
 		try {
 			researchersOnCase = (ArrayList<ResearcherDTO>) database
-					.getAllresearcherOnCases(ThechosenCase);
-			System.out.println("den første går godt");
+					.getAllresearcherOnCases(curCase);
 			candidatesOnCase = (ArrayList<CandidateDTO>) database
-					.findCaseCandidates(ThechosenCase);
-			System.out.println("den anden går godt");
-			CaseDTO tmpCase = database.findCase(ThechosenCase);
-			System.out.println("den tredje går godt");
+					.findCaseCandidates(curCase);
+			CaseDTO tmpCase = database.findCase(curCase);
 			if (employeeId == 1) {
 				EmployeeDTO partner = database.findPartner(tmpCase
 						.getPartnerId());
-				GUI.getInstance().viewCase(tmpCase.getCaseName(), partner.getName(),
-						researchersOnCase, candidatesOnCase);
+				GUI.getInstance().viewCase(tmpCase.getCaseName(),
+						partner.getName(), researchersOnCase, candidatesOnCase);
 			}
+			// later on there might be a specific implementation for a researcher vs a partner
 			if (employeeId == 2) {
 				EmployeeDTO researcher = database.findResearcher(employeeId);
-				GUI.getInstance().viewCase(tmpCase.getCaseName(), researcher.getName(),
-						researchersOnCase, candidatesOnCase);
+				GUI.getInstance().viewCase(tmpCase.getCaseName(),
+						researcher.getName(), researchersOnCase,
+						candidatesOnCase);
 			}
 
 		} catch (DALException e) {
@@ -457,4 +467,66 @@ public class MainController {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
 	}
+
+	public void viewSpecificCase(String chosenCase) {
+		// get all the researchers on the case
+		// get all the candidates on the case
+		// pass them on to the GUI.getInstance() along with the current case and
+		// the partner
+		// working on the case
+		String[] tmpString = chosenCase.split(",");
+		curCase = tmpString[0].substring(11);
+		try {
+			researchersOnCase = (ArrayList<ResearcherDTO>) database
+					.getAllresearcherOnCases(curCase);
+			candidatesOnCase = (ArrayList<CandidateDTO>) database
+					.findCaseCandidates(curCase);
+			CaseDTO tmpCase = database.findCase(curCase);
+			if (employeeId == 1) {
+				EmployeeDTO partner = database.findPartner(tmpCase
+						.getPartnerId());
+				GUI.getInstance().viewCase(tmpCase.getCaseName(),
+						partner.getName(), researchersOnCase, candidatesOnCase);
+			}
+			// later on there might be a specific implementation for a researcher vs a partner
+			if (employeeId == 2) {
+				EmployeeDTO researcher = database.findResearcher(employeeId);
+				GUI.getInstance().viewCase(tmpCase.getCaseName(),
+						researcher.getName(), researchersOnCase,
+						candidatesOnCase);
+			}
+
+		} catch (DALException e) {
+			System.out.println(e.getMessage()); // TODO exception handling
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()); // TODO exception handling
+		}
+	}
+
+	// Filler method to create the new gui window, the window requires an
+	// ArrayList
+	public void addCandidateToCase() {
+		if (!potentialCandidates.isEmpty()) {
+			potentialCandidates.clear();
+		}
+		GUI.getInstance().addCandidate(potentialCandidates);
+
+	}
+
+	public void findAvailableCandidates(String searchField) {
+		potentialCandidates.clear();
+		
+		try {
+			potentialCandidates = (ArrayList<PersonDTO>) database.findPersons(searchField.trim());
+		} catch (DALException e) {
+			System.out.println(e.getMessage()); // TODO Exception handling
+		} catch (SQLException e) {
+			System.out.println(e.getMessage()); // TODO Exception handling
+		}
+		
+		GUI.getInstance().addCandidate(potentialCandidates);
+		
+	}
+	
+	
 }

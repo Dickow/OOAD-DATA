@@ -31,10 +31,10 @@ public class ViewCasePanel extends JPanel {
 	public ViewCasePanel() {
 		setLayout(null);
 
-		caseNameLabel.setBounds(22, 196, 134, 16);
+		caseNameLabel.setBounds(22, 196, 206, 16);
 		add(caseNameLabel);
 
-		partnerNameLabel.setBounds(168, 196, 74, 16);
+		partnerNameLabel.setBounds(22, 218, 206, 16);
 		add(partnerNameLabel);
 
 		researcherList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -42,7 +42,7 @@ public class ViewCasePanel extends JPanel {
 		add(researcherList);
 
 		JLabel researchersLabel = new JLabel("Researchers");
-		researchersLabel.setBounds(57, 13, 71, 16);
+		researchersLabel.setBounds(57, 13, 99, 16);
 		add(researchersLabel);
 
 		candidatesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -50,7 +50,7 @@ public class ViewCasePanel extends JPanel {
 		add(candidatesList);
 
 		JLabel candidateLabel = new JLabel("Kandidater");
-		candidateLabel.setBounds(261, 13, 61, 16);
+		candidateLabel.setBounds(261, 13, 74, 16);
 		add(candidateLabel);
 
 		JButton logoutBtn = new JButton("Log ud");
@@ -102,7 +102,7 @@ public class ViewCasePanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				MainController.getInstance().addCandidateToCase();
 				
 			}
 		});

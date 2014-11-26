@@ -435,7 +435,7 @@ public class DataDAO implements IDataDAO {
 	@Override
 	public List<CandidateDTO> findCaseCandidates(String caseName)
 			throws DALException, SQLException {
-
+		System.out.println(caseName);
 		try {
 			Connector.connect();
 		} catch (Exception e1) {
@@ -449,9 +449,6 @@ public class DataDAO implements IDataDAO {
 						+ caseName + "';");
 		Connector.closeConnection();
 
-		if (!rs.first()) {
-			return list; 
-		}
 		while (rs.next()) {
 			list.add(new CandidateDTO(rs.getInt("personId"), rs
 					.getString("caseName"), rs.getString("status")));
