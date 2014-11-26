@@ -20,6 +20,7 @@ public class FindCasePanel extends JPanel {
 	private JTextField searchTextField;
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 	private JList<String> list = new JList<String>(listModel);
+	private JButton editBtn = new JButton("Rediger");
 
 	/**
 	 * Create the panel.
@@ -27,7 +28,7 @@ public class FindCasePanel extends JPanel {
 	public FindCasePanel() {
 		setLayout(null);
 
-		JButton editBtn = new JButton("Rediger");
+		
 		editBtn.setBounds(10, 259, 83, 25);
 		add(editBtn);
 
@@ -112,6 +113,7 @@ public class FindCasePanel extends JPanel {
 	}
 
 	public void fillList(ArrayList<CaseDTO> personList) {
+		editBtn.setVisible(true);
 		// Fill the list with new arguments
 		if (!personList.isEmpty()) {
 			for (int i = 0; i < personList.size(); i++) {
@@ -121,6 +123,9 @@ public class FindCasePanel extends JPanel {
 			}
 		}
 
+	}
+	public void hideEditBtn(){
+		editBtn.setVisible(false);
 	}
 
 }

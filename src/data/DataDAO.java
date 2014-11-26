@@ -811,4 +811,27 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 
 	}
+
+	public boolean worksOnCase(int employeeId) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		
+		ResultSet rs = Connector.doQuery("SELECT * FROM partner NATURAL JOIN cases WHERE partnerId = "+ employeeId+";"); 
+		try {
+			if(!rs.first()){
+				return false; 
+				}
+			rs = Connector.doQuery("SELECT * FROM researcheroncase NATURAL JOIN cases WHERE researcherId = " + employeeId+ "; "); 
+			if(!rs.first()){
+				return false; 
+			}
+		} catch (SQLException e) {
+			
+		}
+		return true;
+	}
 }

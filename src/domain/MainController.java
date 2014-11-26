@@ -54,8 +54,9 @@ public class MainController {
 		try {
 			if (database.loginExists(loginInfo) == true) {
 				try {
-					switch (database.PartnerOrResearcher(employeeId,loginInfo[1])) {
-					
+					switch (database.PartnerOrResearcher(employeeId,
+							loginInfo[1])) {
+
 					case 1:
 						break;
 					case 2:
@@ -236,6 +237,21 @@ public class MainController {
 	}
 
 	public void editChosenCase(String chosenCase) {
+		boolean worksOnCase = true; 
+		// if the employee does not have the rights to work on the case show a
+		// message and do not grant access.
+		try {
+			worksOnCase = database.worksOnCase(employeeId);
+		} catch (DALException e1) {
+			System.out.println(e1.getMessage()); // TODO exception handling
+		}
+
+		if (!worksOnCase) {
+			GUI.getInstance().showMessage(
+					"Du har ikke tilladelse til denne sag");
+			return; 
+		}
+		
 		String[] tmpStrings = chosenCase.split(",");
 		curCase = tmpStrings[0].substring(11);
 		// first get all the researchers on a given case and all the researchers
@@ -324,16 +340,17 @@ public class MainController {
 
 		MainController.getInstance().editChosenCaseForController(curCase);
 	}
-	
-	public void addCandidateToCaseInDatabase(String chosenCandidate){
-		String[] tmpStrings = chosenCandidate.split(","); 
-		tmpStrings[0].trim(); 
+
+	public void addCandidateToCaseInDatabase(String chosenCandidate) {
+		String[] tmpStrings = chosenCandidate.split(",");
+		tmpStrings[0].trim();
 		int id = new Integer(tmpStrings[0].substring(4));
 		try {
 			PersonDTO person = database.findPerson(id);
 			System.out.println("person id: " + person.getPersonId());
 			System.out.println(curCase);
-			CandidateDTO candidate = new CandidateDTO(person.getPersonId(), curCase, "Potential prospect");
+			CandidateDTO candidate = new CandidateDTO(person.getPersonId(),
+					curCase, "Potential prospect");
 			System.out.println(candidate.getCandidateId());
 			System.out.println(candidate.getCaseName());
 			database.createCandidate(candidate);
@@ -341,7 +358,8 @@ public class MainController {
 			System.out.println(e.getMessage()); // TODO exception handling
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
-		} 
+		}
+		GUI.getInstance().showMessage("Den valgte kandidat er blevet tilføjet");
 	}
 
 	/*
@@ -438,9 +456,9 @@ public class MainController {
 		viewSpecificCaseUpdate(curCase);
 
 	}
-	
-	private void viewSpecificCaseUpdate(String curCase){
-		// a method to update the candidates' status when a user press update. 
+
+	private void viewSpecificCaseUpdate(String curCase) {
+		// a method to update the candidates' status when a user press update.
 		try {
 			researchersOnCase = (ArrayList<ResearcherDTO>) database
 					.getAllresearcherOnCases(curCase);
@@ -453,7 +471,8 @@ public class MainController {
 				GUI.getInstance().viewCase(tmpCase.getCaseName(),
 						partner.getName(), researchersOnCase, candidatesOnCase);
 			}
-			// later on there might be a specific implementation for a researcher vs a partner
+			// later on there might be a specific implementation for a
+			// researcher vs a partner
 			if (employeeId == 2) {
 				EmployeeDTO researcher = database.findResearcher(employeeId);
 				GUI.getInstance().viewCase(tmpCase.getCaseName(),
@@ -469,6 +488,21 @@ public class MainController {
 	}
 
 	public void viewSpecificCase(String chosenCase) {
+		boolean worksOnCase = true; 
+		// if the employee does not have the rights to work on the case show a
+		// message and do not grant access.
+		try {
+			worksOnCase = database.worksOnCase(employeeId);
+		} catch (DALException e1) {
+			System.out.println(e1.getMessage()); // TODO exception handling
+		}
+
+		if (!worksOnCase) {
+			GUI.getInstance().showMessage(
+					"Du har ikke tilladelse til denne sag");
+			return; 
+		}
+
 		// get all the researchers on the case
 		// get all the candidates on the case
 		// pass them on to the GUI.getInstance() along with the current case and
@@ -488,7 +522,8 @@ public class MainController {
 				GUI.getInstance().viewCase(tmpCase.getCaseName(),
 						partner.getName(), researchersOnCase, candidatesOnCase);
 			}
-			// later on there might be a specific implementation for a researcher vs a partner
+			// later on there might be a specific implementation for a
+			// researcher vs a partner
 			if (employeeId == 2) {
 				EmployeeDTO researcher = database.findResearcher(employeeId);
 				GUI.getInstance().viewCase(tmpCase.getCaseName(),
@@ -515,18 +550,22 @@ public class MainController {
 
 	public void findAvailableCandidates(String searchField) {
 		potentialCandidates.clear();
-		
+
 		try {
-			potentialCandidates = (ArrayList<PersonDTO>) database.findPersons(searchField.trim());
+			potentialCandidates = (ArrayList<PersonDTO>) database
+					.findPersons(searchField.trim());
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO Exception handling
 		} catch (SQLException e) {
 			System.out.println(e.getMessage()); // TODO Exception handling
 		}
-		
+
 		GUI.getInstance().addCandidate(potentialCandidates);
-		
+
 	}
-	
-	
+
+	public ArrayList<CaseDTO> getCases() {
+		return cases;
+	}
+
 }

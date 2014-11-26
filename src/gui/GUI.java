@@ -10,11 +10,13 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import domain.CandidateDTO;
 import domain.CaseDTO;
 import domain.CompanyDTO;
+import domain.MainController;
 import domain.PersonDTO;
 import domain.ResearcherDTO;
 
@@ -241,6 +243,9 @@ public class GUI {
 				layout.getLayoutComponent(BorderLayout.CENTER));
 		// add the panel to the frame
 		frame.getContentPane().add(findCasePanel);
+		if(MainController.getInstance().getCurrentEmployee()==2){
+			findCasePanel.hideEditBtn();
+		}
 		findCasePanel.setVisible(true);
 	}
 
@@ -315,5 +320,11 @@ public class GUI {
 		addCandidatePanel.setVisible(true);
 
 	}
-
+	
+	public void showMessage(String message){
+		JOptionPane.showMessageDialog(GUI.getInstance().getFrame(), message);
+	}
+	private JFrame getFrame(){
+		return frame; 
+	}
 }
