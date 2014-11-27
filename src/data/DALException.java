@@ -8,11 +8,11 @@ import java.sql.SQLException;
 public class DALException extends Exception {
 	private static final long serialVersionUID = 1L;
 
-	public DALException(String s) {
+	DALException(String s) {
 		super(s);
 	}
 
-	public DALException(SQLException s) {
+	DALException(SQLException s) {
 		super(s);
 	}
 }

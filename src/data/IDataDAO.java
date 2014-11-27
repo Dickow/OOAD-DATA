@@ -3,36 +3,23 @@ package data;
 import java.sql.SQLException;
 import java.util.List;
 
-import domain.BranchDTO;
 import domain.CandidateDTO;
 import domain.CaseDTO;
 import domain.CompanyDTO;
-import domain.ContactPersonDTO;
-import domain.EmployeeDTO;
 import domain.PersonDTO;
-import domain.PersonPjLaDTO;
 import domain.ResearcherDTO;
-import domain.ResearcherOnCaseDTO;
 
-public interface IDataDAO {
+
+interface IDataDAO {
 
 	// PersonPjLa
 
-	public List<PersonPjLaDTO> findPersonPjLa(int id) throws DALException,
-			SQLException;
-
-	public void createPersonPjLa(PersonPjLaDTO personpjlaDTO)
-			throws DALException;
 
 	// Company
 
 	public void createCompany(CompanyDTO company) throws DALException;
 
-	public void updateCompany(CompanyDTO company) throws DALException;
-
 	public CompanyDTO findCompany(String companyName) throws DALException;
-
-	public List<CompanyDTO> findCompanies(BranchDTO branch) throws DALException;
 
 	// Person
 
@@ -46,10 +33,6 @@ public interface IDataDAO {
 	public void updatePerson(PersonDTO person) throws DALException;
 
 	public void createPerson(PersonDTO person) throws DALException;
-
-	// Employee
-
-	public void updateEmployee(EmployeeDTO employee) throws DALException;
 
 	// Candidate
 
@@ -65,8 +48,6 @@ public interface IDataDAO {
 
 	public CaseDTO findCase(String caseName) throws DALException, SQLException;
 
-	public void updateCase(CaseDTO Case) throws DALException;
-
 	public void createCase(CaseDTO name) throws DALException;
 
 	public List<ResearcherDTO> getAllresearcherOnCases(String caseName)
@@ -77,17 +58,6 @@ public interface IDataDAO {
 
 	public void addResearcherToCase(int rID, String caseName) throws DALException;
 
-	// Contact
-
-	public void createContact(ContactPersonDTO contact) throws DALException;
-
-	public void updateContact(ContactPersonDTO contact) throws DALException;
-
-	public ContactPersonDTO findContact(int contactId, String caseName)
-			throws DALException, SQLException;
-
-	public List<ContactPersonDTO> findContacts(String caseName)
-			throws DALException, SQLException;
 
 	// login
 

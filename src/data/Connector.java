@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Connector {
+class Connector {
 
 	/**
 	 * To connect to a MySQL-server
@@ -22,7 +22,7 @@ public class Connector {
 	 * @throws InstantiationException
 	 * @throws SQLException
 	 */
-	public static Connection connectToDatabase(String url, String username,
+	private static Connection connectToDatabase(String url, String username,
 			String password) throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		// call the driver class' no argument constructor
@@ -43,7 +43,7 @@ public class Connector {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public static void connect() throws InstantiationException,
+	static void connect() throws InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException {
 		conn = connectToDatabase("jdbc:mysql://" + Constant.server + ":"
 				+ Constant.port + "/" + Constant.database, Constant.username,
@@ -59,7 +59,7 @@ public class Connector {
 	 * @return
 	 * @throws DALException
 	 */
-	public static ResultSet doQuery(String cmd) throws DALException {
+	static ResultSet doQuery(String cmd) throws DALException {
 		try {
 			return stm.executeQuery(cmd);
 		} catch (SQLException e) {
@@ -75,7 +75,7 @@ public class Connector {
 	 * @return
 	 * @throws DALException
 	 */
-	public static int doUpdate(String cmd) throws DALException {
+	static int doUpdate(String cmd) throws DALException {
 		try {
 			return stm.executeUpdate(cmd);
 		} catch (SQLException e) {
@@ -86,7 +86,7 @@ public class Connector {
 	/**
 	 * Close connection to data base
 	 */
-	public static void closeConnection() {
+	static void closeConnection() {
 		try {
 			conn.close();
 		} catch (SQLException e) {

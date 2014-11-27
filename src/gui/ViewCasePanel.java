@@ -72,11 +72,11 @@ public class ViewCasePanel extends JPanel {
 		add(goBackBtn);
 
 		JButton updateStatusBtn = new JButton("Opdater status");
-		updateStatusBtn.setBounds(293, 192, 117, 25);
+		updateStatusBtn.setBounds(279, 192, 131, 25);
 		add(updateStatusBtn);
 		
 		JButton addCandidateBtn = new JButton("Tilføj kandidat");
-		addCandidateBtn.setBounds(293, 236, 117, 25);
+		addCandidateBtn.setBounds(279, 236, 131, 25);
 		add(addCandidateBtn);
 
 		logoutBtn.addActionListener(new ActionListener() {

@@ -36,7 +36,7 @@ public class EditCompanyPanel extends JPanel {
 		add(companyNameTextField);
 
 		JLabel mainCodeLabel = new JLabel("Hovedkode");
-		mainCodeLabel.setBounds(242, 35, 62, 16);
+		mainCodeLabel.setBounds(242, 35, 80, 16);
 		add(mainCodeLabel);
 
 		mainCodeTextField = new JTextField();
