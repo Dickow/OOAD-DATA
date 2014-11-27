@@ -150,16 +150,17 @@ public class MainController {
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
+		GUI.getInstance().showMessage("Personen " + person.getName()+ " blev oprettet");
 	}
 
 	public void createCompany(CompanyDTO company) {
 		// send the company to the database layer
-		System.out.println("created the " + company.getCompanyName());
 		try {
 			database.createCompany(company);
 		} catch (DALException e) {
 			System.out.println(e.getMessage()); // TODO exception handling
 		}
+		GUI.getInstance().showMessage("Firmaet" + company.getCompanyName() + " er blevet oprettet");
 	}
 
 	public void createCase(CaseDTO casetmp, String researchers,
@@ -208,6 +209,7 @@ public class MainController {
 				System.out.println(e.getMessage()); // TODO exception handling
 			}
 		}
+		GUI.getInstance().showMessage("sagen: " + casetmp.getCaseName() + " blev oprettet");
 	}
 
 	/*

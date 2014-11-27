@@ -47,19 +47,19 @@ public class EditCaseResearchersPanel extends JPanel {
 		add(removeResearcherBtn);
 
 		JButton logoutBtn = new JButton("Log ud");
-		logoutBtn.setBounds(12, 250, 71, 25);
+		logoutBtn.setBounds(12, 250, 89, 25);
 		add(logoutBtn);
 
 		JButton goBackBtn = new JButton("Gå tilbage");
-		goBackBtn.setBounds(349, 250, 89, 25);
+		goBackBtn.setBounds(334, 250, 104, 25);
 		add(goBackBtn);
 
 		JLabel researchersOnCaseLabel = new JLabel("Researchers på sagen");
-		researchersOnCaseLabel.setBounds(44, 11, 127, 16);
+		researchersOnCaseLabel.setBounds(44, 11, 141, 16);
 		add(researchersOnCaseLabel);
 
 		JLabel researchersAvailable = new JLabel("Tilgængelige Researchers");
-		researchersAvailable.setBounds(260, 11, 148, 16);
+		researchersAvailable.setBounds(260, 11, 164, 16);
 		add(researchersAvailable);
 
 		JScrollPane scrollPane_1 = new JScrollPane();

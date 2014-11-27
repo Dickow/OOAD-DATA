@@ -200,6 +200,19 @@ public class DataDAO implements IDataDAO {
 
 	}
 
+	// method only used in the test environment
+	public void deletePerson(int personId) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+		Connector.doUpdate("DELETE FROM person WHERE personId = " + personId
+				+ ";");
+		Connector.closeConnection();
+	}
+
 	public ResearcherDTO findResearcher(int researcherId) throws DALException {
 		try {
 			Connector.connect();
@@ -372,6 +385,18 @@ public class DataDAO implements IDataDAO {
 		Connector.closeConnection();
 	}
 
+	public void deleteCandidate(int candidateId, String caseName)
+			throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e) {
+			throw new DALException("Kan ikke oprette forbindelse til databasen");
+		}
+
+		Connector.doUpdate("DELETE FROM candidate WHERE personId = "
+				+ candidateId + " AND caseName = '" + caseName + "';");
+	}
+
 	// Ændring af Case TODO
 
 	@Override
@@ -409,6 +434,20 @@ public class DataDAO implements IDataDAO {
 				+ " );");
 		Connector.closeConnection();
 
+	}
+
+	// method only used in the test environment
+	public void deleteCase(CaseDTO caseForRemoval) throws DALException {
+		try {
+			Connector.connect();
+		} catch (Exception e1) {
+			throw new DALException(
+					"Der kunne ikke oprettes forbindelse til databasen");
+		}
+
+		Connector.doUpdate("DELETE FROM cases WHERE caseName = '"
+				+ caseForRemoval.getCaseName() + "' AND companyName = '"
+				+ caseForRemoval.getCompanyName() + "';");
 	}
 
 	// Ændring af Researcher TODO
