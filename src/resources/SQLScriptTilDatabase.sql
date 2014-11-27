@@ -19,7 +19,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `odgersberndtson` DEFAULT CHARACTER SET utf8 ;
 USE `odgersberndtson` ;
-
+-- En simpel kontrol af om skemaet for vores databaser er oprettet, her bruger vi utf8. Derefter vælger vi at den også skal tages i brug.
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`branch`
 -- -----------------------------------------------------
@@ -32,6 +32,12 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`branch` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- For at være sikker på at kunne få den rigtige tabel har vi sørget for at den allerførst "dropper", f.eks. i dette tilfælde
+-- "branch" hvis den allerede eksistere. Dette gøres ved opretningen af alle væres tabeller.
+-- I denne tabel har vi to værdier, "mainCode" og "subCode". Dette er brugt til firmaer til at forklare om hvilken
+-- branche de arbejder med, f.eks. IT, og subCode er forklarende om hvad indenfor IT de arbejder med.
+-- Begge er primære nøgler og må ikke være lig NULL.
+-- Vi bruger InnoDB da den følger den databasetype vi har lært om.
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`company`
@@ -55,6 +61,11 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`company` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Denne del bruges til at oprette tabellen over firmaer. Den indeholder seks forskellige værdier, der allesammen ikke må være lig NULL. 
+-- Vi har valgt at den primære nøgle skal være firmaets navn, da samme firma ikke skulle optræde flere gange i vores database.
+-- Vi bruger et indeks fra "branch", da dette findes hurtigere. Dette har dog den negative effekt at det tager længere tid at opdatere,
+-- men da det ikke er en værdi der skal opdateres særlig meget er det helt fint. 
+-- Vi har en cascade funktion for at søge for, når vi ændre i denne bliver det også ændret i branch.
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`partner`
@@ -69,6 +80,11 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`partner` (
   PRIMARY KEY (`partnerId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+-- Her oprettes tabellen for partner. Den primære nøgle er det ID der tildeles partneren, med andre ord "partnerId". 
+-- Vi tænkte at vi godt kunne komme ud i en situation hvor der var ansat to personer med samme navn.
+-- Derfor kunne navnet ikke være den primære nøgle. 
+-- I tabellen partner har vi fire forskellige værdier.
 
 
 -- -----------------------------------------------------
@@ -96,6 +112,10 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`cases` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Dette er for at oprette tabellen for cases. Vi har tre værdier, to VARCHARS og en Int. 
+-- Vores primære nøgle er navnet på sagen. Både "companyName" og "partnerId" er foreign keys fra to andre tabeller.
+-- I denne har vi ligeledes at hvis de opdateres, skal de også opdateres i deres egen tabel.
+-- Derimod hvis man sletter dem, vil der ikke ske noget.
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`person`
@@ -119,6 +139,9 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`person` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Her oprettes tabellen for en person. Denne er en meget simpel tabel der ikke bruger andre tabeller, med derimod bliver brugt af andre.
+-- Den indeholder en masse værdier for personer, heri tolv forskellige. 
+-- Vi valgte at den skulle have en primær nøgle der blot var et ID, eftersom at der findes flere personer med samme navn.
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`candidate`
@@ -144,6 +167,8 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`candidate` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Her oprettes tabellen for candidate. Den har tre forskellige værdier, hvor personId og CaseName er primære nøgler
+-- Udover dette bruger vi også personId og CaseName som foreigns keys. 
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`contactperson`
@@ -168,6 +193,9 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`contactperson` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Dette er for at oprette tabellen for contactpersoner. Denne tabel har 6 forskellige værdier, hvor contactId er den primære nøgle.
+-- Den bruger så indeks for case, heri caseName. Dette er fordi contactPerson sidder på en bestemt sag, hvor der kan være flere contactpersoner.
+
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`personpjla`
@@ -187,6 +215,9 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`personpjla` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Dette er en tabel for tidligere jobs. Denne skulle bruges til at natural joine med person, for at kunne se alle de jobs
+-- en person havde haft tidligere. Han har tre forskellige værdier. Vi bruger ikke nogen primær nøgle.
+-- Der er brugt en foreign key fra person, netop personId. Dette er fordi vi denne tabel som en lang liste over tidligere jobs.
 
 -- -----------------------------------------------------
 -- Table `odgersberndtson`.`researcher`
@@ -201,6 +232,9 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`researcher` (
   PRIMARY KEY (`researcherId`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+-- Her oprettes tabellen for researcher. Der er fire forskellige værdier. Ligesom i partner har vi et id (researcherId), som
+-- primær nøgle. Dette er af samme grund.
 
 
 -- -----------------------------------------------------
@@ -227,6 +261,8 @@ CREATE TABLE IF NOT EXISTS `odgersberndtson`.`researcheroncase` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- Her oprettes en tabel ved navnet researcheroncase. Denne har ikke rigtigt sine egne værdier, men bruger to foreign keys.
+-- Dette er for at kunne samle alle de reseachers der er på en sag, da det er muligt at have flere. 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
