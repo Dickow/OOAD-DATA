@@ -93,7 +93,7 @@ public class DataDAO implements IDataDAO {
 		if (!rs.first()) {
 			throw new DALException("There is no persons in the database");
 		}
-		System.out.println("jeg når ned til lige inden retur");
+		System.out.println("jeg nï¿½r ned til lige inden retur");
 		return new PersonDTO(rs.getString("name"), rs.getString("address"),
 				rs.getString("education"), rs.getString("currentJob"),
 				rs.getString("personPhone"), rs.getString("companyMail"),
@@ -278,20 +278,22 @@ public class DataDAO implements IDataDAO {
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM Partner WHERE partnerId = "
 						+ employeeId + " AND password = '" + password + "';");
+		Connector.closeConnection();
+
 		if (!rs.first()) {
 			rs = Connector
 					.doQuery("SELECT * FROM researcher WHERE researcherId = "
 							+ employeeId + " AND password = '" + password
 							+ "' ;");
 			Connector.closeConnection();
+			if (!rs.first()) {
+				return 1;
+				// Vi har intet
+			}
 			return 3;
 			// Vi har en Researcher
 		}
-		if (!rs.first()) {
-			return 1;
-			// Her er ingen af delene
-		}
-		Connector.closeConnection();
+
 		return 2;
 		// Vi fÃ¥r en researcher
 	}
@@ -549,7 +551,7 @@ public class DataDAO implements IDataDAO {
 							+ "';");
 			try {
 				if (!rs.first()) {
-					return false; 
+					return false;
 				}
 			} catch (SQLException e1) {
 				return false;
@@ -570,6 +572,7 @@ public class DataDAO implements IDataDAO {
 			} catch (SQLException e) {
 				return false;
 			}
-		}return true; 
+		}
+		return true;
 	}
 }
