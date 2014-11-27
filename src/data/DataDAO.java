@@ -278,9 +278,9 @@ public class DataDAO implements IDataDAO {
 		ResultSet rs = Connector
 				.doQuery("SELECT * FROM Partner WHERE partnerId = "
 						+ employeeId + " AND password = '" + password + "';");
-		Connector.closeConnection();
 
 		if (!rs.first()) {
+
 			rs = Connector
 					.doQuery("SELECT * FROM researcher WHERE researcherId = "
 							+ employeeId + " AND password = '" + password
@@ -293,9 +293,9 @@ public class DataDAO implements IDataDAO {
 			return 3;
 			// Vi har en Researcher
 		}
-
+		Connector.closeConnection();
 		return 2;
-		// Vi får en researcher
+		// Vi får en Partner
 	}
 
 	// Ændring af Candidate TODO
